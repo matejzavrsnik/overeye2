@@ -41,6 +41,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# additional include directories
+include_directories(3rdparty/mzlib/include)
+
 # Projects in this solution
 add_subdirectory(library)
 add_subdirectory(tests)

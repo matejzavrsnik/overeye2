@@ -1,0 +1,35 @@
+# IDE Directories and Files
+.vs
+nbproject/private
+nbproject/project.properties
+.idea
+
+# Build Directories and Files
+/*build/*
+/*out/*
+cmake-build-debug-coverage/*
+cmake-build-debug/*
+cmake-build-release/*
+.dep.inc
+
+# Temporary Files
+*.swp
+*.dia~
+*.kate-swp
+
+# Compiled Object Files
+*.o
+*.obj
+
+# Compiled Dynamic Libraries
+*.so
+*.dll
+
+# Compiled Static Libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app

@@ -1,5 +1,7 @@
 #include "../include/library/header.h"
 
+#include "dialog.h"
+
 #include <tools/time_operations.h>
 
 #include <QApplication>
@@ -18,8 +20,8 @@ double sum(double a, double b)
 int run_main(int argc, char ** argv)
 {
    QApplication app (argc, argv);
-   QPushButton button ("Hello world !");
-   button.show();
+   dialog dlg;
+   dlg.show();
    return app.exec();
 }
 

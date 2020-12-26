@@ -9,12 +9,21 @@ project(library
    LANGUAGES CXX
 )
 
-# Add these files to this binary
-file(GLOB IncludeHeaderFiles include/*.h)
-file(GLOB InternalHeaderFiles src/*.h)
-file(GLOB SourceFiles src/*.cpp)
+find_package(Qt5 COMPONENTS Widgets)
 
-set(SOURCES ${IncludeHeaderFiles} ${InternalHeaderFiles} ${SourceFiles})
+# Turn on automatic invocation of the MOC, UIC & RCC
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# Add these files to this binary
+set(SOURCES
+   # externally visible
+   src/implementation.cpp ./include/library/header.h
+   # internally visible
+   ./src/internal.cpp ./src/internal.h
+   # QT dialogs
+   ./src/dialog.cpp ./src/dialog.h ./src/dialog.ui)
 
 # The result
 add_library(library ${SOURCES})
@@ -33,7 +42,7 @@ target_include_directories(library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # as system packages rather than conan packages and linked to library this way.
 if(BUILDING_ON_OPENSUSE)
    target_link_libraries(library
-      PRIVATE QT5 # installed on the system
+      PRIVATE QT5::Widgets # installed on the system
    )
 else()
    target_link_libraries(library 

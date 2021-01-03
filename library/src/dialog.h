@@ -8,7 +8,7 @@
 #include <QDialog>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class dialog; }
+namespace Ui { class main_dialog; }
 QT_END_NAMESPACE
 
 class dialog : public QDialog
@@ -21,7 +21,8 @@ public:
    ~dialog () override;
 
 private:
-   Ui::dialog* ui;
+
+   Ui::main_dialog* ui;
 };
 
 #endif //OPROJECT_OVEREYE_DIALOG_H

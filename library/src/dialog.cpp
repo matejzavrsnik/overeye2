@@ -9,9 +9,10 @@
 
 dialog::dialog (QWidget* parent) :
    QDialog(parent),
-   ui(new Ui::dialog)
+   ui(new Ui::main_dialog)
 {
    ui->setupUi(this);
+
 }
 
 dialog::~dialog ()

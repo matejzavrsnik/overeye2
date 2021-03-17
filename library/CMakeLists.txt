@@ -35,17 +35,6 @@ set_project_warnings(library)
 target_include_directories(library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Link this library to others
-
-# I had trouble importing conan packages for SDL2, QT, and SFML because they
-# required libgl1-mesa-dev package to be installed, which isn't a package on
-# my openSUSE 15.1 so I was unable to install it. Instead I installed these
-# as system packages rather than conan packages and linked to library this way.
-if(BUILDING_ON_OPENSUSE)
-   target_link_libraries(library
-      PRIVATE QT5::Widgets # installed on the system
-   )
-else()
-   target_link_libraries(library 
-      PRIVATE CONAN_PKG::qt # defined in root CMakeLists.txt
-   )
-endif()
+target_link_libraries(library
+   PRIVATE CONAN_PKG::qt # defined in root CMakeLists.txt
+)

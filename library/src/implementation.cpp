@@ -2,8 +2,6 @@
 
 #include "dialog.h"
 
-#include <tools/time_operations.h>
-
 #include <QApplication>
 #include <QPushButton>
 #include <QVBoxLayout>

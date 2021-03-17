@@ -15,9 +15,6 @@ include(cmake/conan.cmake)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Settings I might want to change
-set(BUILDING_ON_OPENSUSE OFF CACHE BOOL "Building on openSUSE is slightly different")
-
 # Set up Conan dependencies
 # To find packages:
 #    - https://bintray.com/bincrafters/public-conan
@@ -26,14 +23,8 @@ set(CONAN_EXTRA_REQUIRES "")
 set(CONAN_EXTRA_OPTIONS "")
 set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} 
    gtest/1.10.0
+   qt/5.15.2@bincrafters/stable
    )
-# Only import conan packages for the following libraries if on Windows or Debian, while linking against
-# system installed packages on openSUSE.
-if(NOT BUILDING_ON_OPENSUSE)
-   set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES}
-       qt/5.15.2@bincrafters/stable
-)
-endif()
 run_conan()
 
 # Set output directory of all projects to be somewhere sensible

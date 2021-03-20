@@ -12,7 +12,6 @@ dialog::dialog (QWidget* parent) :
    ui(new Ui::main_dialog)
 {
    ui->setupUi(this);
-
 }
 
 dialog::~dialog ()

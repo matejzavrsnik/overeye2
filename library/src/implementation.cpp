@@ -26,6 +26,14 @@ int run_main(int argc, char ** argv)
    dialog dlg;
    dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet("background-color: rgb(46, 52, 54);");
+
+   auto webEngineView = new QWebEngineView(&dlg);
+   webEngineView->setObjectName(QString::fromUtf8("webEngineView"));
+   webEngineView->setGeometry(QRect(200, 200, 291, 231));
+   webEngineView->setAutoFillBackground(false);
+   webEngineView->setHtml("Hello");
+   webEngineView->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
+
    dlg.show();
 
    return app.exec();

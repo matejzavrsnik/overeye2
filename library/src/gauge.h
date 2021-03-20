@@ -20,6 +20,8 @@ public:
 
    ~gauge () override;
 
+   void set_content(std::wstring_view content);
+
 private:
    Ui::gauge* ui;
 };

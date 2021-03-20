@@ -12,11 +12,16 @@ gauge::gauge (QWidget* parent) :
    ui(new Ui::gauge)
 {
    ui->setupUi(this);
-   ui->display->setHtml("Hello");
-   ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 }
 
 gauge::~gauge ()
 {
    delete ui;
+}
+
+void gauge::set_content(std::wstring_view content)
+{
+   // inefficient but how else to do it?
+   ui->display->setHtml(QString::fromStdWString(std::wstring(content)));
+   ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 }

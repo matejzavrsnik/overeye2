@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QToolBar>
 #include <QMenuBar>
+#include <QWebEngineView>
 
 #include "internal.h"
 

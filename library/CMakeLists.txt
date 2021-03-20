@@ -9,7 +9,9 @@ project(library
    LANGUAGES CXX
 )
 
-find_package(Qt5 COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets WebEngineWidgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS WebEngineWidgets REQUIRED)
 
 # Turn on automatic invocation of the MOC, UIC & RCC
 set(CMAKE_AUTOMOC ON)
@@ -36,5 +38,6 @@ target_include_directories(library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Link this library to others
 target_link_libraries(library
-   PRIVATE CONAN_PKG::qt # defined in root CMakeLists.txt
+        PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+        PRIVATE Qt${QT_VERSION_MAJOR}::WebEngineWidgets
 )

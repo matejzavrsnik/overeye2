@@ -37,7 +37,7 @@ int run_main(int argc, char ** argv)
 
    gauge g1;
    g1.setObjectName(QString::fromUtf8("gauge2"));
-   g1.set_content(L"World");
+   g1.set_content(L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>");
    grid->addWidget(&g1, 0, 1);
 
    gauge g2;
@@ -46,7 +46,6 @@ int run_main(int argc, char ** argv)
    auto monkey = L'U0001F412';
    g2.set_content(L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>");
    grid->addWidget(&g2, 1, 1);
-
 
    dlg.show();
 

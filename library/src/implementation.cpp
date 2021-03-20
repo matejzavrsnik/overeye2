@@ -30,6 +30,7 @@ int run_main(int argc, char ** argv)
 
    auto grid = dlg.grid();
 
+
    gauge g;
    g.setObjectName(QString::fromUtf8("gauge"));
    g.set_content(L"Hello");

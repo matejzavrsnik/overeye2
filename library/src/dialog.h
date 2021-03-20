@@ -6,6 +6,7 @@
 #define OPROJECT_OVEREYE_DIALOG_H
 
 #include <QDialog>
+#include <QGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class main_dialog; }
@@ -17,6 +18,8 @@ class dialog : public QDialog
 
 public:
    explicit dialog (QWidget* parent = nullptr);
+
+   QGridLayout* grid();
 
    ~dialog () override;
 

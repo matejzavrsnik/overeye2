@@ -18,3 +18,8 @@ dialog::~dialog ()
 {
    delete ui;
 }
+
+QGridLayout* dialog::grid()
+{
+   return ui->gridLayout;
+}

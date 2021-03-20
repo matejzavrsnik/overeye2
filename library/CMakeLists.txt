@@ -25,7 +25,8 @@ set(SOURCES
    # internally visible
    ./src/internal.cpp ./src/internal.h
    # QT dialogs
-   ./src/dialog.cpp ./src/dialog.h ./src/dialog.ui)
+   ./src/dialog.cpp ./src/dialog.h ./src/dialog.ui
+   src/gauge.cpp src/gauge.h src/gauge.ui)
 
 # The result
 add_library(library ${SOURCES})

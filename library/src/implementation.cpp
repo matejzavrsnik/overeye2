@@ -1,6 +1,7 @@
 #include "../include/library/header.h"
 
 #include "dialog.h"
+#include "gauge.h"
 
 #include <QApplication>
 #include <QPushButton>
@@ -29,22 +30,21 @@ int run_main(int argc, char ** argv)
 
    auto grid = dlg.grid();
 
-   auto webEngineView = new QWebEngineView();
-   webEngineView->setObjectName(QString::fromUtf8("webEngineView"));
-   webEngineView->setGeometry(QRect(200, 200, 291, 231));
-   webEngineView->setAutoFillBackground(false);
-   webEngineView->setHtml("Hello");
-   webEngineView->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
+   gauge g;
+   g.setObjectName(QString::fromUtf8("gauge"));
+   g.setGeometry(QRect(200, 200, 291, 231));
+   grid->addWidget(&g, 0, 0);
 
-   auto webEngineView2 = new QWebEngineView();
-   webEngineView2->setObjectName(QString::fromUtf8("webEngineView2"));
-   webEngineView2->setGeometry(QRect(200, 200, 291, 231));
-   webEngineView2->setAutoFillBackground(false);
-   webEngineView2->setHtml("Hello");
-   webEngineView2->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
+   gauge g1;
+   g1.setObjectName(QString::fromUtf8("gauge2"));
+   g1.setGeometry(QRect(200, 200, 291, 231));
+   grid->addWidget(&g1, 0, 1);
 
-   grid->addWidget(webEngineView, 0, 0);
-   grid->addWidget(webEngineView2, 1, 1);
+   gauge g2;
+   g2.setObjectName(QString::fromUtf8("gauge2"));
+   g2.setGeometry(QRect(200, 200, 291, 231));
+   grid->addWidget(&g2, 1, 1);
+
 
    dlg.show();
 

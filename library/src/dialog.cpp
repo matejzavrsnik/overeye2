@@ -21,5 +21,5 @@ dialog::~dialog ()
 
 QGridLayout* dialog::grid()
 {
-   return ui->gridLayout;
+   return ui->grid;
 }

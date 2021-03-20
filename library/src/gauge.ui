@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QWebEngineView" name="webEngineView">
+    <widget class="QWebEngineView" name="display">
      <property name="url">
       <url>
        <string>about:blank</string>
@@ -24,9 +24,9 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="controls">
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="spacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -39,7 +39,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="configure">
        <property name="maximumSize">
         <size>
          <width>30</width>
@@ -47,20 +47,7 @@
         </size>
        </property>
        <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
+        <string>⚙</string>
        </property>
       </widget>
      </item>

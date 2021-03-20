@@ -25,7 +25,7 @@ int run_main(int argc, char ** argv)
    QApplication app (argc, argv);
 
    dialog dlg;
-   dlg.setWindowState(Qt::WindowFullScreen);
+   //dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet("background-color: rgb(46, 52, 54);");
 
    auto grid = dlg.grid();

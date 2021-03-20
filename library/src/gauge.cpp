@@ -12,8 +12,8 @@ gauge::gauge (QWidget* parent) :
    ui(new Ui::gauge)
 {
    ui->setupUi(this);
-   ui->webEngineView->setHtml("Hello");
-   ui->webEngineView->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
+   ui->display->setHtml("Hello");
+   ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 }
 
 gauge::~gauge ()

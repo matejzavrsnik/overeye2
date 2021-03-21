@@ -10,6 +10,9 @@
 #include <QMenuBar>
 #include <QWebEngineView>
 
+#include <tools/converters.h>
+#include <string/replace.h>
+
 #include "internal.h"
 
 namespace library
@@ -20,6 +23,9 @@ double sum(double a, double b)
    return internal::sum_implementation(a, b);
 }
 
+const std::wstring_view g_style_placeholder = L"{style}";
+const std::wstring_view g_content_placeholder = L"{content}";
+
 class gauge_manager
 {
 
@@ -27,53 +33,77 @@ private:
 
    std::vector<std::unique_ptr<gauge>> m_gauges;
    QGridLayout* m_grid;
+   std::wstring_view m_style;
+   const std::wstring m_page_template;
 
 public:
 
-   gauge_manager(QGridLayout* grid) : m_grid(grid) {};
+   gauge_manager(QGridLayout* grid, std::wstring_view style) :
+      m_grid(grid),
+      m_style(style),
+      m_page_template(
+         std::wstring(L"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>")
+         + std::wstring(g_style_placeholder)
+         + std::wstring(L"</style></head><body>")
+         + std::wstring(g_content_placeholder)
+         + std::wstring(L"</body></html>")
+      )
+   {
+   };
 
    void add(std::wstring_view content, int row, int col)
    {
       auto g = std::make_unique<gauge>();
       g->setObjectName(QString::fromStdString("gauge" + std::to_string(g->unique.id())));
-      g->set_content(content);
+
+      std::wstring page = m_page_template;
+      mzlib::string_replace(page, g_style_placeholder, m_style);
+      mzlib::string_replace(page, g_content_placeholder, content);
+      g->set_content(page);
+
       m_grid->addWidget(g.get(), row, col);
       m_gauges.push_back(std::move(g));
    }
 
 };
 
+struct gauge_configuration
+{
+   int row;
+   int col;
+   std::wstring_view content;
+};
+
+struct settings
+{
+   std::wstring_view dialog_stylesheet;
+   std::wstring_view gauge_stylesheet;
+   std::vector<gauge_configuration> gauge_configurations;
+};
+
+
 int run_main(int argc, char ** argv)
 {
    QApplication app (argc, argv);
 
+   settings set;
+   set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
+   set.gauge_stylesheet = L"body { background-color: rgb(50, 56, 58) }";
+   set.gauge_configurations = {
+      {0, 0, L"Hello"},
+      {0, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
+      {1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
+      {2, 2, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
+   };
+
    dialog dlg;
    //dlg.setWindowState(Qt::WindowFullScreen);
-   dlg.setStyleSheet("background-color: rgb(46, 52, 54);");
+   dlg.setStyleSheet(mzlib::convert<QString>(set.dialog_stylesheet));
 
-   auto grid = dlg.grid();
+   gauge_manager gm(dlg.grid(), set.gauge_stylesheet);
 
-   gauge_manager gm(grid);
-   gm.add(L"Hello", 0, 0);
-   gm.add(L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>", 0, 1);
-   gm.add(L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>", 1, 1);
-
-   //gauge g;
-   //g.setObjectName(QString::fromUtf8("gauge"));
-   //g.set_content(L"Hello");
-   //grid->addWidget(&g, 0, 0);
-
-   //gauge g1;
-   //g1.setObjectName(QString::fromUtf8("gauge2"));
-   //g1.set_content(L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>");
-   //grid->addWidget(&g1, 0, 1);
-
-   //gauge g2;
-   //g2.setObjectName(QString::fromUtf8("gauge2"));
-   //auto banana = L'\U0001f34c';
-   //auto monkey = L'U0001F412';
-   //g2.set_content(L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>");
-   //grid->addWidget(&g2, 1, 1);
+   for(auto& gc : set.gauge_configurations)
+      gm.add(gc.content, gc.row, gc.col);
 
    dlg.show();
 

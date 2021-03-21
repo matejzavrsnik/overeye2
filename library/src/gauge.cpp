@@ -6,6 +6,7 @@
 
 #include "gauge.h"
 #include "ui_gauge.h"
+#include <tools/converters.h>
 
 gauge::gauge (QWidget* parent) :
    QWidget(parent),
@@ -22,6 +23,6 @@ gauge::~gauge ()
 void gauge::set_content(std::wstring_view content)
 {
    // inefficient but how else to do it?
-   ui->display->setHtml(QString::fromStdWString(std::wstring(content)));
+   ui->display->setHtml(mzlib::convert<QString>(content));
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 }

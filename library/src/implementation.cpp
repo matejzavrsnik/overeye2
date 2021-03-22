@@ -1,19 +1,15 @@
 #include "../include/library/header.h"
 
+#include "internal.h"
 #include "dialog.h"
-#include "gauge.h"
-
-#include <QApplication>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QToolBar>
-#include <QMenuBar>
-#include <QWebEngineView>
+#include "gauge_manager.h"
+#include "gauge_types.h"
+#include "gauge_factory.h"
+#include "settings.h"
 
 #include <tools/converters.h>
-#include <string/replace.h>
 
-#include "internal.h"
+#include <QApplication>
 
 namespace library
 {
@@ -23,168 +19,6 @@ double sum(double a, double b)
    return internal::sum_implementation(a, b);
 }
 
-const std::wstring_view g_style_placeholder = L"{style}";
-const std::wstring_view g_content_placeholder = L"{content}";
-
-// generic web gauge
-class gauge_web : public gauge
-{
-
-private:
-
-   std::wstring_view m_style;
-   std::wstring m_page_template;
-   std::wstring m_page_content;
-   std::wstring m_last_rendered_page;
-
-public:
-
-   gauge_web(std::wstring_view style, std::wstring_view content) :
-      m_style(style),
-      m_page_template(
-         std::wstring(L"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>")
-         + std::wstring(g_style_placeholder)
-         + std::wstring(L"</style></head><body>")
-         + std::wstring(g_content_placeholder)
-         + std::wstring(L"</body></html>")),
-      m_page_content(content)
-   {
-      setObjectName(QString::fromStdString("gauge" + std::to_string(unique.id())));
-   }
-
-   void display() override
-   {
-      m_page_template = render_template(m_page_template, m_page_content);
-      m_last_rendered_page = render(m_page_template);
-      set_content(m_last_rendered_page);
-   }
-
-protected:
-
-   // customisation point for additional rendering by derived classes
-   virtual std::wstring render(std::wstring page_template)
-   {
-      return page_template;
-   }
-
-private:
-
-   // render basic html to be used with anything
-   // can't be done in dtor because we might want to change stylesheet after control is created
-   std::wstring render_template(std::wstring page_template, std::wstring_view content)
-   {
-      mzlib::string_replace(page_template, g_style_placeholder, m_style);
-      mzlib::string_replace(page_template, g_content_placeholder, content);
-      return page_template;
-   }
-
-};
-
-
-// basically a constant html string, but written here to make class more to the point
-std::wstring_view twitter_embedded_html()
-{
-   static const std::wstring_view html =
-LR"(
-<a class="twitter-timeline"
-   href="https://twitter.com/{twitter_handle}"
-   data-width="400"
-   data-height="1200"
-   data-chrome="nofooter noborders transparent noscrollbar"
-   data-theme="dark">
-Tweets by TwitterDev
-</a>
-<script async
-        src="https://platform.twitter.com/widgets.js"
-        charset="utf-8">
-</script>
-)";
-
-   return html;
-}
-//L"NASAPersevere"
-class gauge_twitter : public gauge_web
-{
-
-private:
-
-   std::wstring_view m_twitter_handle;
-
-public:
-
-   gauge_twitter(std::wstring_view style, std::wstring_view twitter_handle) :
-      gauge_web(style,twitter_embedded_html()),
-      m_twitter_handle(twitter_handle)
-   {
-   }
-
-protected:
-
-   // customisation point for additional rendering by derived classes
-   virtual std::wstring render(std::wstring page_template) override
-   {
-      mzlib::string_replace(page_template, std::wstring_view(L"{twitter_handle}"), m_twitter_handle);
-      return page_template;
-   }
-};
-
-class gauge_manager
-{
-
-private:
-
-   std::vector<std::unique_ptr<gauge>> m_gauges;
-   QGridLayout* m_grid;
-
-public:
-
-   gauge_manager(QGridLayout* grid) :
-      m_grid(grid)
-   {
-   };
-
-   void add(std::unique_ptr<gauge> gauge, int row, int col, int row_span = 1, int col_span = 1)
-   {
-      m_grid->addWidget(gauge.get(), row, col, row_span, col_span);
-      m_gauges.push_back(std::move(gauge));
-   }
-
-};
-
-enum class gauge_type
-{
-   generic,
-   twitter
-};
-
-struct gauge_configuration
-{
-   gauge_type type;
-   int row;
-   int col;
-   int row_span;
-   int col_span;
-   std::wstring_view content;
-};
-
-struct settings
-{
-   std::wstring_view dialog_stylesheet;
-   std::wstring_view gauge_stylesheet;
-   std::vector<gauge_configuration> gauge_configurations;
-};
-
-std::unique_ptr<gauge> gauge_factory(const gauge_configuration& gc, const settings& set)
-{
-   switch(gc.type)
-   {
-      case gauge_type::generic:
-         return std::make_unique<gauge_web>(set.gauge_stylesheet, gc.content);
-      case gauge_type::twitter:
-         return std::make_unique<gauge_twitter>(set.gauge_stylesheet, gc.content);
-   }
-   return nullptr; // should never happen (tm)
-}
 
 int run_main(int argc, char ** argv)
 {

@@ -24,9 +24,12 @@ set(SOURCES
    src/implementation.cpp ./include/library/header.h
    # internally visible
    ./src/internal.cpp ./src/internal.h
+   src/gauge_web.cpp src/gauge_web.h
+   src/gauge_twitter.cpp src/gauge_twitter.h
    # QT dialogs
    ./src/dialog.cpp ./src/dialog.h ./src/dialog.ui
-   src/gauge.cpp src/gauge.h src/gauge.ui)
+   src/gauge.cpp src/gauge.h src/gauge.ui
+   src/gauge_manager.cpp src/gauge_manager.h src/gauge_configuration.h src/gauge_factory.cpp src/gauge_factory.h src/settings.h)
 
 # The result
 add_library(library ${SOURCES})

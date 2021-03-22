@@ -18,6 +18,8 @@ public:
 
    ~gauge () override;
 
+   virtual void display() = 0;
+
 protected:
 
    mzlib::unique unique;

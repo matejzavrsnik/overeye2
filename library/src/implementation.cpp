@@ -26,13 +26,16 @@ double sum(double a, double b)
 const std::wstring_view g_style_placeholder = L"{style}";
 const std::wstring_view g_content_placeholder = L"{content}";
 
+// generic web gauge
 class gauge_web : public gauge
 {
 
 private:
 
    std::wstring_view m_style;
-   const std::wstring m_page_template;
+   std::wstring m_page_template;
+   std::wstring m_page_content;
+   std::wstring m_last_rendered_page;
 
 public:
 
@@ -43,14 +46,85 @@ public:
          + std::wstring(g_style_placeholder)
          + std::wstring(L"</style></head><body>")
          + std::wstring(g_content_placeholder)
-         + std::wstring(L"</body></html>")
-      )
+         + std::wstring(L"</body></html>")),
+      m_page_content(content)
    {
       setObjectName(QString::fromStdString("gauge" + std::to_string(unique.id())));
-      std::wstring page = m_page_template;
-      mzlib::string_replace(page, g_style_placeholder, m_style);
-      mzlib::string_replace(page, g_content_placeholder, content);
-      set_content(page);
+   }
+
+   void display() override
+   {
+      m_page_template = render_template(m_page_template, m_page_content);
+      m_last_rendered_page = render(m_page_template);
+      set_content(m_last_rendered_page);
+   }
+
+protected:
+
+   // customisation point for additional rendering by derived classes
+   virtual std::wstring render(std::wstring page_template)
+   {
+      return page_template;
+   }
+
+private:
+
+   // render basic html to be used with anything
+   // can't be done in dtor because we might want to change stylesheet after control is created
+   std::wstring render_template(std::wstring page_template, std::wstring_view content)
+   {
+      mzlib::string_replace(page_template, g_style_placeholder, m_style);
+      mzlib::string_replace(page_template, g_content_placeholder, content);
+      return page_template;
+   }
+
+};
+
+
+// basically a constant html string, but written here to make class more to the point
+std::wstring_view twitter_embedded_html()
+{
+   static const std::wstring_view html =
+LR"(
+<a class="twitter-timeline"
+   href="https://twitter.com/{twitter_handle}"
+   data-width="400"
+   data-height="1200"
+   data-chrome="nofooter noborders transparent noscrollbar"
+   data-theme="dark">
+Tweets by TwitterDev
+</a>
+<script async
+        src="https://platform.twitter.com/widgets.js"
+        charset="utf-8">
+</script>
+)";
+
+   return html;
+}
+//L"NASAPersevere"
+class gauge_twitter : public gauge_web
+{
+
+private:
+
+   std::wstring_view m_twitter_handle;
+
+public:
+
+   gauge_twitter(std::wstring_view style, std::wstring_view twitter_handle) :
+      gauge_web(style,twitter_embedded_html()),
+      m_twitter_handle(twitter_handle)
+   {
+   }
+
+protected:
+
+   // customisation point for additional rendering by derived classes
+   virtual std::wstring render(std::wstring page_template) override
+   {
+      mzlib::string_replace(page_template, std::wstring_view(L"{twitter_handle}"), m_twitter_handle);
+      return page_template;
    }
 };
 
@@ -77,8 +151,15 @@ public:
 
 };
 
+enum class gauge_type
+{
+   generic,
+   twitter
+};
+
 struct gauge_configuration
 {
+   gauge_type type;
    int row;
    int col;
    int row_span;
@@ -93,6 +174,17 @@ struct settings
    std::vector<gauge_configuration> gauge_configurations;
 };
 
+std::unique_ptr<gauge> gauge_factory(const gauge_configuration& gc, const settings& set)
+{
+   switch(gc.type)
+   {
+      case gauge_type::generic:
+         return std::make_unique<gauge_web>(set.gauge_stylesheet, gc.content);
+      case gauge_type::twitter:
+         return std::make_unique<gauge_twitter>(set.gauge_stylesheet, gc.content);
+   }
+   return nullptr; // should never happen (tm)
+}
 
 int run_main(int argc, char ** argv)
 {
@@ -102,10 +194,11 @@ int run_main(int argc, char ** argv)
    set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
    set.gauge_stylesheet = L"body { color: yellow; background-color: rgb(50, 56, 58) }";
    set.gauge_configurations = {
-      {0, 0, 1, 1, L"Hello"},
-      {0, 1, 1, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
-      {0, 2, 2, 1, L"<a class=\"twitter-timeline\" href=\"https://twitter.com/NASAPersevere\" data-width=\"400\" data-height=\"1200\" data-chrome=\"nofooter noborders transparent noscrollbar\" data-theme=\"dark\">Tweets by TwitterDev</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script> "},
-      {1, 1, 1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
+      {gauge_type::generic, 0, 0, 1, 1, L"Hello"},
+      {gauge_type::generic, 0, 1, 1, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
+      //L"<a class=\"twitter-timeline\" href=\"https://twitter.com/NASAPersevere\" data-width=\"400\" data-height=\"1200\" data-chrome=\"nofooter noborders transparent noscrollbar\" data-theme=\"dark\">Tweets by TwitterDev</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script> "},
+      {gauge_type::twitter, 0, 2, 2, 1, L"NASAPersevere"},
+      {gauge_type::generic, 1, 1, 1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
    };
 
    dialog dlg;
@@ -116,8 +209,13 @@ int run_main(int argc, char ** argv)
 
    for(auto& gc : set.gauge_configurations)
    {
-      auto g = std::make_unique<gauge_web>(set.gauge_stylesheet, gc.content);
-      gm.add(std::move(g), gc.row, gc.col, gc.row_span, gc.col_span);
+      auto g = gauge_factory(gc, set);
+      if(g)
+      {
+         g->display();
+         gm.add(std::move(g), gc.row, gc.col, gc.row_span, gc.col_span);
+
+      }
    }
 
    dlg.show();

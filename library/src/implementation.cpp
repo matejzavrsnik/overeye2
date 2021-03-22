@@ -26,20 +26,17 @@ double sum(double a, double b)
 const std::wstring_view g_style_placeholder = L"{style}";
 const std::wstring_view g_content_placeholder = L"{content}";
 
-class gauge_manager
+class gauge_web : public gauge
 {
 
 private:
 
-   std::vector<std::unique_ptr<gauge>> m_gauges;
-   QGridLayout* m_grid;
    std::wstring_view m_style;
    const std::wstring m_page_template;
 
 public:
 
-   gauge_manager(QGridLayout* grid, std::wstring_view style) :
-      m_grid(grid),
+   gauge_web(std::wstring_view style, std::wstring_view content) :
       m_style(style),
       m_page_template(
          std::wstring(L"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>")
@@ -49,20 +46,33 @@ public:
          + std::wstring(L"</body></html>")
       )
    {
-   };
-
-   void add(std::wstring_view content, int row, int col, int row_span = 1, int col_span = 1)
-   {
-      auto g = std::make_unique<gauge>();
-      g->setObjectName(QString::fromStdString("gauge" + std::to_string(g->unique.id())));
-
+      setObjectName(QString::fromStdString("gauge" + std::to_string(unique.id())));
       std::wstring page = m_page_template;
       mzlib::string_replace(page, g_style_placeholder, m_style);
       mzlib::string_replace(page, g_content_placeholder, content);
-      g->set_content(page);
+      set_content(page);
+   }
+};
 
-      m_grid->addWidget(g.get(), row, col, row_span, col_span);
-      m_gauges.push_back(std::move(g));
+class gauge_manager
+{
+
+private:
+
+   std::vector<std::unique_ptr<gauge>> m_gauges;
+   QGridLayout* m_grid;
+
+public:
+
+   gauge_manager(QGridLayout* grid) :
+      m_grid(grid)
+   {
+   };
+
+   void add(std::unique_ptr<gauge> gauge, int row, int col, int row_span = 1, int col_span = 1)
+   {
+      m_grid->addWidget(gauge.get(), row, col, row_span, col_span);
+      m_gauges.push_back(std::move(gauge));
    }
 
 };
@@ -102,10 +112,13 @@ int run_main(int argc, char ** argv)
    dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(mzlib::convert<QString>(set.dialog_stylesheet));
 
-   gauge_manager gm(dlg.grid(), set.gauge_stylesheet);
+   gauge_manager gm(dlg.grid());
 
    for(auto& gc : set.gauge_configurations)
-      gm.add(gc.content, gc.row, gc.col, gc.row_span, gc.col_span);
+   {
+      auto g = std::make_unique<gauge_web>(set.gauge_stylesheet, gc.content);
+      gm.add(std::move(g), gc.row, gc.col, gc.row_span, gc.col_span);
+   }
 
    dlg.show();
 

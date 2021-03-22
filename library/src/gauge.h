@@ -14,16 +14,20 @@ class gauge : public QWidget
 
 public:
 
-   mzlib::unique unique;
-
    explicit gauge (QWidget* parent = nullptr);
 
    ~gauge () override;
 
+protected:
+
+   mzlib::unique unique;
+
    void set_content(std::wstring_view content);
 
 private:
+
    Ui::gauge* ui;
+
 };
 
 #endif //OPROJECT_OVEREYE_GAUGE_H

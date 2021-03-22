@@ -51,7 +51,7 @@ public:
    {
    };
 
-   void add(std::wstring_view content, int row, int col)
+   void add(std::wstring_view content, int row, int col, int row_span = 1, int col_span = 1)
    {
       auto g = std::make_unique<gauge>();
       g->setObjectName(QString::fromStdString("gauge" + std::to_string(g->unique.id())));
@@ -61,7 +61,7 @@ public:
       mzlib::string_replace(page, g_content_placeholder, content);
       g->set_content(page);
 
-      m_grid->addWidget(g.get(), row, col);
+      m_grid->addWidget(g.get(), row, col, row_span, col_span);
       m_gauges.push_back(std::move(g));
    }
 
@@ -71,6 +71,8 @@ struct gauge_configuration
 {
    int row;
    int col;
+   int row_span;
+   int col_span;
    std::wstring_view content;
 };
 
@@ -88,22 +90,22 @@ int run_main(int argc, char ** argv)
 
    settings set;
    set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
-   set.gauge_stylesheet = L"body { background-color: rgb(50, 56, 58) }";
+   set.gauge_stylesheet = L"body { color: yellow; background-color: rgb(50, 56, 58) }";
    set.gauge_configurations = {
-      {0, 0, L"Hello"},
-      {0, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
-      {1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
-      {2, 2, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
+      {0, 0, 1, 1, L"Hello"},
+      {0, 1, 1, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
+      {0, 2, 2, 1, L"<a class=\"twitter-timeline\" href=\"https://twitter.com/NASAPersevere\" data-width=\"400\" data-height=\"1200\" data-chrome=\"nofooter noborders transparent noscrollbar\" data-theme=\"dark\">Tweets by TwitterDev</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script> "},
+      {1, 1, 1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
    };
 
    dialog dlg;
-   //dlg.setWindowState(Qt::WindowFullScreen);
+   dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(mzlib::convert<QString>(set.dialog_stylesheet));
 
    gauge_manager gm(dlg.grid(), set.gauge_stylesheet);
 
    for(auto& gc : set.gauge_configurations)
-      gm.add(gc.content, gc.row, gc.col);
+      gm.add(gc.content, gc.row, gc.col, gc.row_span, gc.col_span);
 
    dlg.show();
 

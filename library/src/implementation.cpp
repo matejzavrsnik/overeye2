@@ -1,10 +1,10 @@
 #include "../include/library/header.h"
 
 #include "internal.h"
-#include "dialog.h"
-#include "gauge_manager.h"
-#include "gauge_types.h"
-#include "gauge_factory.h"
+#include "qt/dialog.h"
+#include "gauge/manager.h"
+#include "gauge/types.h"
+#include "gauge/factory.h"
 #include "settings.h"
 
 #include <tools/converters.h>
@@ -28,22 +28,21 @@ int run_main(int argc, char ** argv)
    set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
    set.gauge_stylesheet = L"body { color: yellow; background-color: rgb(50, 56, 58) }";
    set.gauge_configurations = {
-      {gauge_type::generic, 0, 0, 1, 1, L"Hello"},
-      {gauge_type::generic, 0, 1, 1, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
-      //L"<a class=\"twitter-timeline\" href=\"https://twitter.com/NASAPersevere\" data-width=\"400\" data-height=\"1200\" data-chrome=\"nofooter noborders transparent noscrollbar\" data-theme=\"dark\">Tweets by TwitterDev</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script> "},
-      {gauge_type::twitter, 0, 2, 2, 1, L"NASAPersevere"},
-      {gauge_type::generic, 1, 1, 1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
+      {gauges::type::generic, 0, 0, 1, 1, L"Hello"},
+      {gauges::type::generic, 0, 1, 1, 1, L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"},
+      {gauges::type::twitter, 0, 2, 2, 1, L"NASAPersevere"},
+      {gauges::type::generic, 1, 1, 1, 1, L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"},
    };
 
    dialog dlg;
    dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(mzlib::convert<QString>(set.dialog_stylesheet));
 
-   gauge_manager gm(dlg.grid());
+   gauges::manager gm(dlg.grid());
 
    for(auto& gc : set.gauge_configurations)
    {
-      auto g = gauge_factory(gc, set);
+      auto g = gauges::gauge_factory(gc, set);
       if(g)
       {
          g->display();

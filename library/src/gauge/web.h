@@ -2,17 +2,17 @@
 // Created by matej on 22/03/2021.
 //
 
-#ifndef OPROJECT_OVEREYE_GAUGE_WEB_H
-#define OPROJECT_OVEREYE_GAUGE_WEB_H
+#ifndef OPROJECT_OVEREYE_WEB_H
+#define OPROJECT_OVEREYE_WEB_H
 
-#include "gauge.h"
+#include "../qt/gauge.h"
 #include <string>
 
-namespace library
+namespace gauges
 {
 
 // generic web gauge
-class gauge_web : public gauge
+class web : public gauge
 {
 
 private:
@@ -24,7 +24,7 @@ private:
 
 public:
 
-   gauge_web (
+   web (
       std::wstring_view style,
       std::wstring_view content
    );
@@ -52,4 +52,4 @@ private:
 
 }
 
-#endif //OPROJECT_OVEREYE_GAUGE_WEB_H
+#endif //OPROJECT_OVEREYE_WEB_H

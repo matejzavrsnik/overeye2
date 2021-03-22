@@ -3,10 +3,10 @@
 //
 
 
-#include "gauge_web.h"
+#include "web.h"
 #include <string/replace.h>
 
-namespace library
+namespace gauges
 {
 
 const std::wstring_view g_style_placeholder = L"{style}";
@@ -15,7 +15,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
 
 
 
-   gauge_web::gauge_web (
+   web::web (
       std::wstring_view style,
       std::wstring_view content
    ) :
@@ -31,7 +31,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
    }
 
    void
-   gauge_web::display ()
+   web::display ()
    {
       m_page_template = render_template(m_page_template, m_page_content);
       m_last_rendered_page = render(m_page_template);
@@ -41,7 +41,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
 
    // customisation point for additional rendering by derived classes
    std::wstring
-   gauge_web::render (std::wstring page_template)
+   web::render (std::wstring page_template)
    {
       return page_template;
    }
@@ -50,7 +50,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
    // render basic html to be used with anything
    // can't be done in dtor because we might want to change stylesheet after control is created
    std::wstring
-   gauge_web::render_template (
+   web::render_template (
       std::wstring page_template,
       std::wstring_view content
    )

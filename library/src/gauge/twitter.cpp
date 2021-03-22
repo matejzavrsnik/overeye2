@@ -1,9 +1,9 @@
 
 
-#include "gauge_twitter.h"
+#include "twitter.h"
 #include <string/replace.h>
 
-namespace library
+namespace gauges
 {
 
 // basically a constant html string, but written here to make class more to the point
@@ -28,17 +28,17 @@ Tweets by TwitterDev
    return html;
 };
 
-   gauge_twitter::gauge_twitter (
+   twitter::twitter (
       std::wstring_view style,
       std::wstring_view twitter_handle
    ) :
-      gauge_web(style, twitter_embedded_html()),
+      web(style, twitter_embedded_html()),
       m_twitter_handle(twitter_handle)
    {
    };
 
    std::wstring
-   gauge_twitter::render (std::wstring page_template)
+   twitter::render (std::wstring page_template)
    {
       mzlib::string_replace(page_template, std::wstring_view(L"{twitter_handle}"), m_twitter_handle);
       return page_template;

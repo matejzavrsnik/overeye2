@@ -2,22 +2,22 @@
 // Created by matej on 22/03/2021.
 //
 
-#ifndef OPROJECT_OVEREYE_GAUGE_MANAGER_H
-#define OPROJECT_OVEREYE_GAUGE_MANAGER_H
+#ifndef OPROJECT_OVEREYE_MANAGER_H
+#define OPROJECT_OVEREYE_MANAGER_H
 
-#include "gauge.h"
+#include "../qt/gauge.h"
 
 #include <vector>
 #include <memory>
 
 class QGridLayout;
 
-namespace library
+namespace gauges
 {
 
 
 
-class gauge_manager
+class manager
 {
 
 private:
@@ -27,7 +27,7 @@ private:
 
 public:
 
-   gauge_manager (QGridLayout* grid);
+   manager (QGridLayout* grid);
 
    void
    add (
@@ -42,4 +42,4 @@ public:
 
 }
 
-#endif //OPROJECT_OVEREYE_GAUGE_MANAGER_H
+#endif //OPROJECT_OVEREYE_MANAGER_H

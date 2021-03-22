@@ -2,15 +2,15 @@
 // Created by matej on 22/03/2021.
 //
 
-#ifndef OPROJECT_OVEREYE_GAUGE_TWITTER_H
-#define OPROJECT_OVEREYE_GAUGE_TWITTER_H
+#ifndef OPROJECT_OVEREYE_TWITTER_H
+#define OPROJECT_OVEREYE_TWITTER_H
 
-#include "gauge_web.h"
+#include "web.h"
 
-namespace library
+namespace gauges
 {
 
-class gauge_twitter : public library::gauge_web
+class twitter : public web
 {
 
 private:
@@ -19,7 +19,7 @@ private:
 
 public:
 
-   gauge_twitter (
+   twitter (
       std::wstring_view style,
       std::wstring_view twitter_handle
    );
@@ -35,4 +35,4 @@ protected:
 
 }
 
-#endif //OPROJECT_OVEREYE_GAUGE_TWITTER_H
+#endif //OPROJECT_OVEREYE_TWITTER_H

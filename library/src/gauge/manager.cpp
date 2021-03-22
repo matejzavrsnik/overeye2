@@ -2,20 +2,20 @@
 // Created by matej on 22/03/2021.
 //
 
-#include "gauge_manager.h"
+#include "manager.h"
 
 #include <QGridLayout>
 
-namespace library
+namespace gauges
 {
 
-   gauge_manager::gauge_manager (QGridLayout* grid) :
+   manager::manager (QGridLayout* grid) :
       m_grid(grid)
    {
    };
 
    void
-   gauge_manager::add (
+   manager::add (
       std::unique_ptr <gauge> gauge,
       int row,
       int col,

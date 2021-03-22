@@ -5,7 +5,7 @@
 #ifndef OPROJECT_OVEREYE_SETTINGS_H
 #define OPROJECT_OVEREYE_SETTINGS_H
 
-#include "gauge_configuration.h"
+#include "gauge/configuration.h"
 
 #include <string_view>
 #include <vector>
@@ -17,7 +17,7 @@ struct settings
 {
    std::wstring_view dialog_stylesheet;
    std::wstring_view gauge_stylesheet;
-   std::vector <gauge_configuration> gauge_configurations;
+   std::vector <gauges::configuration> gauge_configurations;
 };
 
 }

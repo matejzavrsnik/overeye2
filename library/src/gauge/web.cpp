@@ -27,7 +27,6 @@ const std::wstring_view g_content_placeholder = L"{content}";
       ),
       m_page_content(content)
    {
-      setObjectName(QString::fromStdString("gauge" + std::to_string(unique.id())));
    }
 
    void
@@ -35,7 +34,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
    {
       m_page_template = render_template(m_page_template, m_page_content);
       m_last_rendered_page = render(m_page_template);
-      set_content(m_last_rendered_page);
+      set_html(m_last_rendered_page);
    }
 
 

@@ -5,7 +5,7 @@
 #ifndef OPROJECT_OVEREYE_WEB_H
 #define OPROJECT_OVEREYE_WEB_H
 
-#include "../qt/gauge.h"
+#include "gauge.h"
 #include <string>
 
 namespace gauges

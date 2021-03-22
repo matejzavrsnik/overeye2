@@ -3,7 +3,7 @@
 //
 
 #include "manager.h"
-
+#include "gauge.h"
 #include <QGridLayout>
 
 namespace gauges
@@ -23,7 +23,7 @@ namespace gauges
       int col_span = 1
    )
    {
-      m_grid->addWidget(gauge.get(), row, col, row_span, col_span);
+      m_grid->addWidget(gauge->get_qt_object(), row, col, row_span, col_span);
       m_gauges.push_back(std::move(gauge));
    };
 

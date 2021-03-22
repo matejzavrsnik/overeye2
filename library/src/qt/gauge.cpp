@@ -16,9 +16,14 @@ gauge::gauge (QWidget* parent) :
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 }
 
-void gauge::set_content(std::wstring_view content)
+void gauge::setHtml(std::wstring_view html)
 {
-   ui->display->setHtml(mzlib::convert<QString>(content));
+   ui->display->setHtml(mzlib::convert<QString>(html));
+}
+
+void gauge::setObjectName(std::string object_name)
+{
+   ui->display->setObjectName(QString::fromStdString(object_name));
 }
 
 gauge::~gauge ()

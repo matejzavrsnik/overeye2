@@ -5,8 +5,6 @@
 #ifndef OPROJECT_OVEREYE_MANAGER_H
 #define OPROJECT_OVEREYE_MANAGER_H
 
-#include "../qt/gauge.h"
-
 #include <vector>
 #include <memory>
 
@@ -15,7 +13,7 @@ class QGridLayout;
 namespace gauges
 {
 
-
+class gauge;
 
 class manager
 {

@@ -5,14 +5,14 @@
 #ifndef OPROJECT_OVEREYE_WEB_H
 #define OPROJECT_OVEREYE_WEB_H
 
-#include "gauge.h"
+#include "base.h"
 #include <string>
 
 namespace gauges
 {
 
-// generic web gauge
-class web : public gauge
+// generic web base
+class web : public base
 {
 
 private:

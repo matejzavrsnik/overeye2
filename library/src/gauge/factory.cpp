@@ -15,7 +15,7 @@
 namespace gauges
 {
 
-std::unique_ptr <gauge>
+std::unique_ptr <base>
 gauge_factory (
    const configuration& gc,
    const library::settings& set

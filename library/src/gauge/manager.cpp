@@ -3,7 +3,7 @@
 //
 
 #include "manager.h"
-#include "gauge.h"
+#include "base.h"
 #include <QGridLayout>
 
 namespace gauges
@@ -16,14 +16,14 @@ namespace gauges
 
    void
    manager::add (
-      std::unique_ptr <gauge> gauge,
+      std::unique_ptr <base> gauge,
       int row,
       int col,
       int row_span = 1,
       int col_span = 1
    )
    {
-      m_grid->addWidget(gauge->get_qt_object(), row, col, row_span, col_span);
+      m_grid->addWidget(gauge->qt(), row, col, row_span, col_span);
       m_gauges.push_back(std::move(gauge));
    };
 

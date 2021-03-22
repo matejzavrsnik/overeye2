@@ -5,7 +5,7 @@
 #ifndef OPROJECT_OVEREYE_FACTORY_H
 #define OPROJECT_OVEREYE_FACTORY_H
 
-#include "gauge.h"
+#include "base.h"
 #include <memory>
 
 namespace library
@@ -18,7 +18,7 @@ namespace gauges
 
 struct configuration;
 
-std::unique_ptr <gauge>
+std::unique_ptr <base>
 gauge_factory (
    const configuration& gc,
    const library::settings& set

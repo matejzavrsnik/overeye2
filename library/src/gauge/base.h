@@ -11,17 +11,17 @@ namespace gauges
 
 // base class for all gauges
 // goal is to maintain as little references to qt as possible
-class gauge
+class base
 {
 public:
 
-   explicit gauge (QWidget* parent = nullptr);
+   explicit base (QWidget* parent = nullptr);
 
    virtual void
    display () = 0;
 
    ::gauge*
-   get_qt_object();
+   qt();
 
 protected:
 

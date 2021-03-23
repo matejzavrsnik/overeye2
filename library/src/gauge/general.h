@@ -6,6 +6,7 @@
 #define OPROJECT_OVEREYE_GENERAL_H
 
 #include "base.h"
+#include "configuration.h"
 #include <string>
 
 namespace gauges
@@ -20,14 +21,14 @@ private:
 
    std::wstring_view m_style;
    std::wstring m_page_template;
-   std::wstring m_page_content;
+   parameters m_page_parameters;
    std::wstring m_last_rendered_page;
 
 public:
 
    general (
       std::wstring_view style,
-      std::wstring_view content
+      parameters parameters
    );
 
    void
@@ -46,7 +47,7 @@ private:
    std::wstring
    render_template (
       std::wstring page_template,
-      std::wstring_view content
+      parameters parameters
    );
 
 };

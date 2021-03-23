@@ -15,13 +15,13 @@ class twitter : public general
 
 private:
 
-   std::wstring_view m_twitter_handle;
+   parameters m_twitter_parameters;
 
 public:
 
    twitter (
       std::wstring_view style,
-      std::wstring_view twitter_handle
+      parameters parameters
    );
 
 protected:

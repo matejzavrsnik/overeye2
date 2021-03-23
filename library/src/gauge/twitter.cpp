@@ -7,10 +7,10 @@ namespace gauges
 {
 
 // basically a constant html string, but written here to make class more to the point
-std::wstring_view
+std::wstring
 twitter_embedded_html ()
 {
-   static const std::wstring_view html = LR"(
+   static const std::wstring html = LR"(
 <a class="twitter-timeline"
    href="https://twitter.com/{twitter_handle}"
    data-width="400"
@@ -30,17 +30,18 @@ Tweets by TwitterDev
 
    twitter::twitter (
       std::wstring_view style,
-      std::wstring_view twitter_handle
+      parameters params
    ) :
-      general(style, twitter_embedded_html()),
-      m_twitter_handle(twitter_handle)
+      general(style, {{L"{content}", twitter_embedded_html()}}),
+      m_twitter_parameters(params)
    {
    };
 
    std::wstring
    twitter::render (std::wstring page_template)
    {
-      mzlib::string_replace(page_template, std::wstring_view(L"{twitter_handle}"), m_twitter_handle);
+      for(const auto& parameter : m_twitter_parameters)
+         mzlib::string_replace(page_template, parameter.first, parameter.second);
       return page_template;
    };
 

@@ -11,6 +11,8 @@
 namespace gauges
 {
 
+using parameters = std::map<std::wstring, std::wstring>;
+
 struct configuration
 {
    gauges::type type;
@@ -18,7 +20,7 @@ struct configuration
    int col;
    int row_span;
    int col_span;
-   std::wstring_view content;
+   gauges::parameters parameters;
 };
 
 }

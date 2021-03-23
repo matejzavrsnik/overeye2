@@ -32,7 +32,7 @@ Tweets by TwitterDev
       std::wstring_view style,
       std::wstring_view twitter_handle
    ) :
-      web(style, twitter_embedded_html()),
+      general(style, twitter_embedded_html()),
       m_twitter_handle(twitter_handle)
    {
    };

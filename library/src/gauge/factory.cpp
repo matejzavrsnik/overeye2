@@ -5,7 +5,7 @@
 #include "factory.h"
 
 #include "types.h"
-#include "web.h"
+#include "general.h"
 #include "twitter.h"
 #include "configuration.h"
 #include "../settings.h"
@@ -24,7 +24,7 @@ gauge_factory (
    switch (gc.type)
    {
    case gauges::type::generic:
-      return std::make_unique<gauges::web>(set.gauge_stylesheet, gc.content);
+      return std::make_unique<gauges::general>(set.gauge_stylesheet, gc.content);
    case gauges::type::twitter:
       return std::make_unique<gauges::twitter>(set.gauge_stylesheet, gc.content);
    }

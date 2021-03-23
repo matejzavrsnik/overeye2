@@ -3,7 +3,7 @@
 //
 
 
-#include "web.h"
+#include "general.h"
 #include <string/replace.h>
 
 namespace gauges
@@ -15,7 +15,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
 
 
 
-   web::web (
+   general::general (
       std::wstring_view style,
       std::wstring_view content
    ) :
@@ -30,7 +30,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
    }
 
    void
-   web::display ()
+   general::display ()
    {
       m_page_template = render_template(m_page_template, m_page_content);
       m_last_rendered_page = render(m_page_template);
@@ -40,7 +40,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
 
    // customisation point for additional rendering by derived classes
    std::wstring
-   web::render (std::wstring page_template)
+   general::render (std::wstring page_template)
    {
       return page_template;
    }
@@ -49,7 +49,7 @@ const std::wstring_view g_content_placeholder = L"{content}";
    // render basic html to be used with anything
    // can't be done in dtor because we might want to change stylesheet after control is created
    std::wstring
-   web::render_template (
+   general::render_template (
       std::wstring page_template,
       std::wstring_view content
    )

@@ -2,8 +2,8 @@
 // Created by matej on 22/03/2021.
 //
 
-#ifndef OPROJECT_OVEREYE_WEB_H
-#define OPROJECT_OVEREYE_WEB_H
+#ifndef OPROJECT_OVEREYE_GENERAL_H
+#define OPROJECT_OVEREYE_GENERAL_H
 
 #include "base.h"
 #include <string>
@@ -11,8 +11,9 @@
 namespace gauges
 {
 
-// generic web base
-class web : public base
+// general gauge
+// usable on its own, but intended for further specialisation
+class general : public base
 {
 
 private:
@@ -24,7 +25,7 @@ private:
 
 public:
 
-   web (
+   general (
       std::wstring_view style,
       std::wstring_view content
    );
@@ -52,4 +53,4 @@ private:
 
 }
 
-#endif //OPROJECT_OVEREYE_WEB_H
+#endif //OPROJECT_OVEREYE_GENERAL_H

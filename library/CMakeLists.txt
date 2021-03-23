@@ -24,7 +24,7 @@ set(SOURCES
    src/implementation.cpp ./include/library/header.h
    # internally visible
    ./src/internal.cpp ./src/internal.h
-   src/gauge/web.cpp src/gauge/web.h
+   src/gauge/general.cpp src/gauge/general.h
    src/gauge/twitter.cpp src/gauge/twitter.h
    # QT dialogs
    src/qt/dialog.cpp src/qt/dialog.h src/qt/dialog.ui

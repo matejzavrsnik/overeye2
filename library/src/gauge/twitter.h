@@ -5,12 +5,12 @@
 #ifndef OPROJECT_OVEREYE_TWITTER_H
 #define OPROJECT_OVEREYE_TWITTER_H
 
-#include "web.h"
+#include "general.h"
 
 namespace gauges
 {
 
-class twitter : public web
+class twitter : public general
 {
 
 private:

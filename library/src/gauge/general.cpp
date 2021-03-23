@@ -33,10 +33,10 @@ namespace gauges
       :
       m_page_template(tags::genesis())
    {
-      set_parameter(tags::genesis(), html());
-      set_parameter(tags::style(), style);
+      set_parameter(tags::genesis(), html(), false);
+      set_parameter(tags::style(), style, false);
       for(const auto& page_parameter : page_parameters)
-         set_parameter(page_parameter.tag, page_parameter.replacement);
+         set_parameter(page_parameter.tag, page_parameter.replacement, true);
    }
 
    void
@@ -58,7 +58,7 @@ namespace gauges
       return page;
    }
 
-   void general::set_parameter(const std::wstring& tag, const std::wstring& value)
+   void general::set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting)
    {
       auto existing_parameter = std::find_if(
          m_page_parameters.begin(), m_page_parameters.end(),
@@ -66,9 +66,16 @@ namespace gauges
             return p.tag == tag;
          });
       if(existing_parameter != m_page_parameters.end())
+      {
          existing_parameter->replacement = value;
+         existing_parameter->user_setting = user_setting;
+      }
       else
-         m_page_parameters.push_back({tag, value});
+      {
+         m_page_parameters.push_back({tag, value, user_setting});
+      }
+
+      m_info->parameters = m_page_parameters; // copy for now, good enough
    }
 
    const parameters& general::get_parameters()

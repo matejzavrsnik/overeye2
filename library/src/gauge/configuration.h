@@ -6,18 +6,11 @@
 #define OPROJECT_OVEREYE_CONFIGURATION_H
 
 #include "types.h"
+#include "parameters.h"
 #include <string_view>
 
 namespace gauges
 {
-
-struct parameter
-{
-   std::wstring tag;
-   std::wstring replacement;
-};
-
-using parameters = std::vector<parameter>;
 
 struct configuration
 {

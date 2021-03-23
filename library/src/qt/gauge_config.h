@@ -1,11 +1,14 @@
 #ifndef GAUGE_CONFIG_H
 #define GAUGE_CONFIG_H
 
+#include "../gauge/information.h"
 #include <QDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class gauge_config; }
 QT_END_NAMESPACE
+
+
 
 class gauge_config : public QDialog
 {
@@ -15,8 +18,13 @@ public:
     explicit gauge_config(QWidget *parent = nullptr);
     ~gauge_config() override;
 
+    void populate(std::shared_ptr<gauges::information> info);
+
 private:
+
     Ui::gauge_config *ui;
+    std::shared_ptr<gauges::information> m_info;
+
 };
 
 #endif // GAUGE_CONFIG_H

@@ -34,6 +34,7 @@ void
 gauge::handleConfigPress ()
 {
    gauge_config config(this->parentWidget());
+   config.populate(m_info);
    config.exec();
 }
 

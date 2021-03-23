@@ -32,10 +32,11 @@ namespace gauges
       std::wstring style,
       const parameters& page_parameters
    ) :
-      general(style, {{general::tags::content(), html()}})
+      general(style, {})
    {
+      set_parameter(general::tags::content(), html(), false);
       for(const auto& page_parameter : page_parameters)
-         set_parameter(page_parameter.tag, page_parameter.replacement);
+         set_parameter(page_parameter.tag, page_parameter.replacement, true);
    };
 
    const std::wstring& twitter::tags::handle()

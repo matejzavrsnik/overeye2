@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../qt/gauge.h"
+#include "information.h"
 
 namespace gauges
 {
@@ -25,7 +26,8 @@ public:
 
 protected:
 
-   mzlib::unique unique;
+   mzlib::unique m_unique;
+   std::shared_ptr<information> m_info;
 
    void
    set_html (std::wstring_view html);

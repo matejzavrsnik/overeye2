@@ -9,9 +9,12 @@ namespace gauges
 {
 
 base::base (QWidget* parent) :
+   m_info(std::make_shared<information>()),
    m_qt_gauge(std::make_unique<::gauge>(parent))
 {
-   m_qt_gauge->setObjectName(std::string("base") + std::to_string(unique.id()));
+   m_info->id = m_unique.id();
+   m_qt_gauge->m_info = m_info;
+   m_qt_gauge->setObjectName(std::string("gauge") + std::to_string(m_unique.id()));
 }
 
 ::gauge* base::qt()

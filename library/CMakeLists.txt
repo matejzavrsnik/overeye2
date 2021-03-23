@@ -29,7 +29,8 @@ set(SOURCES
    # QT dialogs
    src/qt/dialog.cpp src/qt/dialog.h src/qt/dialog.ui
    src/qt/gauge.cpp src/qt/gauge.h src/qt/gauge.ui
-   src/gauge/manager.cpp src/gauge/manager.h src/gauge/configuration.h src/gauge/factory.cpp src/gauge/factory.h src/settings.h src/gauge/base.h src/gauge/base.cpp)
+   src/gauge/manager.cpp src/gauge/manager.h src/gauge/configuration.h src/gauge/factory.cpp src/gauge/factory.h src/settings.h src/gauge/base.h src/gauge/base.cpp
+   src/qt/gauge_config.cpp src/qt/gauge_config.h src/qt/gauge_config.ui)
 
 # The result
 add_library(library ${SOURCES})

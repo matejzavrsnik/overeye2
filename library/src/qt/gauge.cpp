@@ -6,6 +6,8 @@
 
 #include "gauge.h"
 #include "ui_gauge.h"
+#include "gauge_config.h"
+
 #include <tools/converters.h>
 
 gauge::gauge (QWidget* parent) :
@@ -14,6 +16,8 @@ gauge::gauge (QWidget* parent) :
 {
    ui->setupUi(this);
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
+
+   connect(ui->configure, &QPushButton::released, this, &gauge::handleConfigPress);
 }
 
 void gauge::setHtml(std::wstring_view html)
@@ -26,8 +30,17 @@ void gauge::setObjectName(std::string object_name)
    ui->display->setObjectName(QString::fromStdString(object_name));
 }
 
+void
+gauge::handleConfigPress ()
+{
+   gauge_config config(this->parentWidget());
+   config.exec();
+}
+
 gauge::~gauge ()
 {
    delete ui;
 }
+
+
 

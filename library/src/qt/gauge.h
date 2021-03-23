@@ -24,6 +24,10 @@ public:
    void setHtml(std::wstring_view html);
    void setObjectName(std::string object_name);
 
+private slots:
+
+   void handleConfigPress();
+
 private:
 
    Ui::gauge* ui;

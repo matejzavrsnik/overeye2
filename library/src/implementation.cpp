@@ -41,7 +41,7 @@ int run_main(int argc, char ** argv)
    };
 
    dialog dlg;
-   dlg.setWindowState(Qt::WindowFullScreen);
+   //dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
 
    gauges::manager gm(dlg.grid());

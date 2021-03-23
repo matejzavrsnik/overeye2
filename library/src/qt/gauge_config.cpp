@@ -22,6 +22,10 @@ void gauge_config::populate(std::shared_ptr<gauges::information> info)
    m_info = info;
    // populate the form
    ui->config_table->setColumnCount(2);
+   ui->config_table->horizontalHeader()->setStretchLastSection(true);
+   ui->config_table->alternatingRowColors();
+   ui->config_table->verticalHeader()->hide();
+   ui->config_table->horizontalHeader()->hide();
    int row = 0;
    for(const auto& parameter : m_info->parameters)
    {
@@ -36,5 +40,6 @@ void gauge_config::populate(std::shared_ptr<gauges::information> info)
          ++row;
       }
    }
+   ui->config_table->resizeColumnToContents(0);
 
 }

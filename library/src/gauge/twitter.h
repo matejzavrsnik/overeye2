@@ -13,22 +13,22 @@ namespace gauges
 class twitter : public general
 {
 
-private:
-
-   parameters m_twitter_parameters;
-
 public:
 
    twitter (
-      std::wstring_view style,
-      parameters parameters
-   );
+      std::wstring style,
+      const parameters& page_parameters);
 
-protected:
+   class tags
+   {
+      friend class twitter;
 
-   // customisation point for additional rendering by derived classes
-   virtual std::wstring
-   render (std::wstring page_template) override;
+   public:
+
+      const static std::wstring& handle();
+
+   };
+
 };
 
 

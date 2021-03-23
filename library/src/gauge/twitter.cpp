@@ -1,50 +1,48 @@
-
-
 #include "twitter.h"
-#include <string/replace.h>
+
+namespace
+{
+
+   const std::wstring&
+   html ()
+   {
+      static const std::wstring html = LR"(
+   <a class="twitter-timeline"
+      href="https://twitter.com/{twitter_handle}"
+      data-width="400"
+      data-height="1200"
+      data-chrome="nofooter noborders transparent noscrollbar"
+      data-theme="dark">
+   Tweets by TwitterDev
+   </a>
+   <script async
+           src="https://platform.twitter.com/widgets.js"
+           charset="utf-8">
+   </script>
+   )";
+      return html;
+   }
+
+}
 
 namespace gauges
 {
 
-// basically a constant html string, but written here to make class more to the point
-std::wstring
-twitter_embedded_html ()
-{
-   static const std::wstring html = LR"(
-<a class="twitter-timeline"
-   href="https://twitter.com/{twitter_handle}"
-   data-width="400"
-   data-height="1200"
-   data-chrome="nofooter noborders transparent noscrollbar"
-   data-theme="dark">
-Tweets by TwitterDev
-</a>
-<script async
-        src="https://platform.twitter.com/widgets.js"
-        charset="utf-8">
-</script>
-)";
-
-   return html;
-};
-
    twitter::twitter (
-      std::wstring_view style,
-      parameters params
+      std::wstring style,
+      const parameters& page_parameters
    ) :
-      general(style, {{L"{content}", twitter_embedded_html()}}),
-      m_twitter_parameters(params)
+      general(style, {{general::tags::content(), html()}})
    {
+      for(const auto& page_parameter : page_parameters)
+         set_parameter(page_parameter.tag, page_parameter.replacement);
    };
 
-   std::wstring
-   twitter::render (std::wstring page_template)
+   const std::wstring& twitter::tags::handle()
    {
-      for(const auto& parameter : m_twitter_parameters)
-         mzlib::string_replace(page_template, parameter.first, parameter.second);
-      return page_template;
-   };
-
+      static const std::wstring tag{L"{twitter_handle}"};
+      return tag;
+   }
 
 }
 

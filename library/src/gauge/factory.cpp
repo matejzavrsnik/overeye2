@@ -23,7 +23,7 @@ gauge_factory (
 {
    switch (gc.type)
    {
-   case gauges::type::generic:
+   case gauges::type::general:
       return std::make_unique<gauges::general>(set.gauge_stylesheet, gc.parameters);
    case gauges::type::twitter:
       return std::make_unique<gauges::twitter>(set.gauge_stylesheet, gc.parameters);

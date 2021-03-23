@@ -15,8 +15,8 @@ namespace library
 
 struct settings
 {
-   std::wstring_view dialog_stylesheet;
-   std::wstring_view gauge_stylesheet;
+   std::wstring dialog_stylesheet;
+   std::wstring gauge_stylesheet;
    std::vector <gauges::configuration> gauge_configurations;
 };
 

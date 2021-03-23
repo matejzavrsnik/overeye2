@@ -19,36 +19,44 @@ class general : public base
 
 private:
 
-   std::wstring_view m_style;
-   std::wstring m_page_template;
-   parameters m_page_parameters;
+   const std::wstring m_page_template;
    std::wstring m_last_rendered_page;
+   parameters m_page_parameters;
 
 public:
 
    general (
-      std::wstring_view style,
-      parameters parameters
-   );
+      std::wstring style,
+      const parameters& page_parameters
+      );
 
    void
    display () override;
 
 protected:
 
-   // customisation point for additional rendering by derived classes
-   virtual std::wstring
-   render (std::wstring page_template);
-
-private:
-
-   // render basic html to be used with anything
-   // can't be done in dtor because we might want to change stylesheet after control is created
    std::wstring
-   render_template (
-      std::wstring page_template,
-      parameters parameters
-   );
+   render (const std::wstring& page_template, const parameters& page_parameters);
+
+   void set_parameter(const std::wstring& tag, const std::wstring& value);
+
+   const parameters& get_parameters();
+
+public:
+
+   class tags
+   {
+      friend class general;
+   private:
+
+      const static std::wstring& genesis();
+
+   public:
+
+      const static std::wstring& style();
+      const static std::wstring& content();
+
+   };
 
 };
 

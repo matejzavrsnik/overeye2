@@ -11,7 +11,13 @@
 namespace gauges
 {
 
-using parameters = std::map<std::wstring, std::wstring>;
+struct parameter
+{
+   std::wstring tag;
+   std::wstring replacement;
+};
+
+using parameters = std::vector<parameter>;
 
 struct configuration
 {

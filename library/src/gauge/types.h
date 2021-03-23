@@ -10,7 +10,7 @@ namespace gauges
 
 enum class type
 {
-   generic, twitter
+   general, twitter
 };
 
 }

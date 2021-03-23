@@ -8,10 +8,7 @@
 #include "base.h"
 #include <memory>
 
-namespace library
-{
-struct settings;
-}
+namespace library { struct settings; }
 
 namespace gauges
 {

@@ -38,7 +38,7 @@ protected:
    std::wstring
    render (const std::wstring& page_template, const parameters& page_parameters);
 
-   void set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting);
+   void set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name);
 
    const parameters& get_parameters();
 

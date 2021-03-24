@@ -34,9 +34,10 @@ namespace gauges
    ) :
       general(style, {})
    {
-      set_parameter(general::tags::content(), html(), false);
+      // twitter gauge will control the {content} tag, so it's setting it to not be a user setting
+      set_parameter(general::tags::content(), html(), false, general::tags::content());
       for(const auto& page_parameter : page_parameters)
-         set_parameter(page_parameter.tag, page_parameter.replacement, true);
+         set_parameter(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_friendly_name());
    };
 
    const std::wstring& twitter::tags::handle()

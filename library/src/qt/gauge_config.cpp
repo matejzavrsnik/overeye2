@@ -29,12 +29,12 @@ void gauge_config::populate(std::shared_ptr<gauges::information> info)
    int row = 0;
    for(const auto& parameter : m_info->parameters)
    {
-      if(parameter.user_setting)
+      if(parameter.is_user_setting())
       {
          ui->config_table->insertRow(row);
-         auto item_tag = std::make_unique<QTableWidgetItem>(QString::fromStdWString(parameter.tag));
+         auto item_tag = std::make_unique<QTableWidgetItem>(QString::fromStdWString(parameter.get_friendly_name()));
          item_tag->setFlags(item_tag->flags() ^ Qt::ItemIsEditable);
-         auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdWString(parameter.replacement));
+         auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdWString(parameter.get_value()));
          ui->config_table->setItem(row, 0, item_tag.release());
          ui->config_table->setItem(row, 1, item_value.release());
          ++row;

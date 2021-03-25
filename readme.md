@@ -73,7 +73,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 ## Folder structure
 
 - overeye - a wrapper that compiles code into executable
-- library - most of the code. It'd in form of a library so that tests can be written.
+- library - most of the code. It's in form of a library so that tests can be written.
   - include - header files meant to be included in executable
   - src - sources
     - utils - standalone utilities, waiting room to get into mzlib
@@ -95,6 +95,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 ## 3rdparty stuff used
 
 - QT5
+- gtest
 
 ## 3rdparty source preference
 

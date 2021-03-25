@@ -6,6 +6,7 @@
 #define OPROJECT_OVEREYE_INFORMATION_H
 
 #include "parameters.h"
+#include "base.h"
 
 namespace gauges
 {
@@ -13,7 +14,7 @@ namespace gauges
 struct information
 {
    int id;
-   gauges::parameters parameters;
+   gauges::cparameters parameters;
 };
 
 }

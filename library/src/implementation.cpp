@@ -42,6 +42,7 @@ int run_main(int argc, char ** argv)
          {gauges::general::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>", true, L"Content"}}},
    };
 
+   //todo: rename dialog to screen
    dialog dlg;
    //dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));

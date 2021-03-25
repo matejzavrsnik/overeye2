@@ -20,6 +20,11 @@ public:
 
     void populate(std::shared_ptr<gauges::information> info);
 
+private slots:
+
+   void handleClosePress();
+   void handleApplyPress();
+
 private:
 
     Ui::gauge_config *ui;

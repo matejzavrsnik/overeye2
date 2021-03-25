@@ -29,14 +29,14 @@ namespace gauges
 
    general::general (
       std::wstring style,
-      const parameters& page_parameters)
+      const cparameters& page_parameters)
       :
       m_page_template(tags::genesis())
    {
       set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
       set_parameter(tags::style(), style, false, tags::style());
       for(const auto& page_parameter : page_parameters)
-         set_parameter(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_friendly_name());
+         set_parameter(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
    }
 
    void
@@ -50,7 +50,7 @@ namespace gauges
 
    // customisation point for additional rendering by derived classes
    std::wstring
-   general::render (const std::wstring& page_template, const parameters& page_parameters)
+   general::render (const std::wstring& page_template, const cparameters& page_parameters)
    {
       std::wstring page = page_template;
       for(const auto& parameter : page_parameters)
@@ -60,28 +60,25 @@ namespace gauges
 
    void general::set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name)
    {
-      auto existing_parameter = std::find_if(
-         m_page_parameters.begin(), m_page_parameters.end(),
-         [&tag](const parameter& p) {
-            return p.get_tag() == tag;
-         });
-      if(existing_parameter != m_page_parameters.end())
-      {
-         existing_parameter->set_value(value);
-         existing_parameter->set_user_setting(user_setting);
-      }
-      else
-      {
-         parameter parameter{tag, value, user_setting, friendly_name};
-         m_page_parameters.push_back(parameter);
-      }
+      //auto existing_parameter = std::find_if(
+      //   m_page_parameters.begin(), m_page_parameters.end(),
+      //   [&tag](const parameter& p) {
+      //      return p.get_tag() == tag;
+      //   });
+      //if(existing_parameter != m_page_parameters.end())
+      //{
+      //   existing_parameter->set_value(value);
+      //   existing_parameter->set_user_setting(user_setting);
+      //}
+      //else
+      //{
+      //   parameter parameter{tag, value, user_setting, friendly_name};
+      //   m_page_parameters.push_back(parameter);
+      //}
+      //m_info->parameters = m_page_parameters; // copy for now, good enough
 
-      m_info->parameters = m_page_parameters; // copy for now, good enough
-   }
-
-   const parameters& general::get_parameters()
-   {
-      return m_page_parameters;
+      m_page_parameters.set(tag, value, user_setting, friendly_name);
+      m_info->parameters.set(tag, value, user_setting, friendly_name);
    }
 
    const std::wstring& general::tags::genesis()

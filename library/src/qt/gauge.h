@@ -1,7 +1,6 @@
 #ifndef OPROJECT_OVEREYE_GAUGE_H
 #define OPROJECT_OVEREYE_GAUGE_H
 
-#include "../gauge/information.h"
 #include <abstract/unique.h>
 #include <QWidget>
 
@@ -9,7 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class gauge; }
 QT_END_NAMESPACE
 
-
+namespace gauges { struct information; }
 
 // custom qt widget for base
 // goal is to contain qt as much as possible inside this class and not leak it out too much

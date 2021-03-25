@@ -14,7 +14,7 @@
       m_tag(tag),
       m_value(value),
       m_user_setting(user_setting),
-      m_friendly_name(friendly_name) {}
+      m_name(friendly_name) {}
 
    const std::wstring&
    gauges::parameter::get_tag () const
@@ -45,9 +45,15 @@
    }
 
 const std::wstring&
-gauges::parameter::get_friendly_name () const
+gauges::parameter::get_name () const
 {
-   return m_friendly_name;
+   return m_name;
+}
+
+void
+gauges::parameter::set_name (const std::wstring& name)
+{
+   m_name = name;
 }
 
 

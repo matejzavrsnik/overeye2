@@ -19,7 +19,7 @@ struct configuration
    int col;
    int row_span;
    int col_span;
-   gauges::parameters parameters;
+   gauges::cparameters parameters;
 };
 
 }

@@ -21,13 +21,13 @@ private:
 
    const std::wstring m_page_template;
    std::wstring m_last_rendered_page;
-   parameters m_page_parameters;
+   cparameters m_page_parameters;
 
 public:
 
    general (
       std::wstring style,
-      const parameters& page_parameters
+      const cparameters& page_parameters
       );
 
    void
@@ -36,11 +36,9 @@ public:
 protected:
 
    std::wstring
-   render (const std::wstring& page_template, const parameters& page_parameters);
+   render (const std::wstring& page_template, const cparameters& page_parameters);
 
    void set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name);
-
-   const parameters& get_parameters();
 
 public:
 

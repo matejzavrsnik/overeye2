@@ -35,6 +35,7 @@ protected:
 
    mzlib::unique m_unique;
    std::shared_ptr<information> m_info;
+   cparameters m_page_parameters;
 
    void
    set_html (std::wstring_view html);
@@ -43,6 +44,7 @@ private:
 
    std::unique_ptr<::gauge> m_qt_gauge;
 
+   void update_settings(const gauges::information&);
 
 
 };

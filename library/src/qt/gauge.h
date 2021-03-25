@@ -3,6 +3,7 @@
 
 #include <abstract/unique.h>
 #include <QWidget>
+#include <sigslot/signal.hpp>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class gauge; }
@@ -27,6 +28,7 @@ public:
    void setObjectName(std::string object_name);
 
    std::shared_ptr<gauges::information> m_info;
+   sigslot::signal<const gauges::information&> new_settings;
 
 private slots:
 

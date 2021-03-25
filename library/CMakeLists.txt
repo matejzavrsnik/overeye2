@@ -43,6 +43,7 @@ target_include_directories(library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Link this library to others
 target_link_libraries(library
-        PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-        PRIVATE Qt${QT_VERSION_MAJOR}::WebEngineWidgets
+   PRIVATE Qt${QT_VERSION_MAJOR}::Widgets # installed on system
+   PRIVATE Qt${QT_VERSION_MAJOR}::WebEngineWidgets # installed on system
+   CONAN_PKG::sigslot # defined in root CMakeLists.txt
 )

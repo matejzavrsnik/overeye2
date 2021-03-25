@@ -21,7 +21,7 @@ private:
 
    const std::wstring m_page_template;
    std::wstring m_last_rendered_page;
-   cparameters m_page_parameters;
+
 
 public:
 

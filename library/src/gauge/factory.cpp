@@ -28,7 +28,7 @@ gauge_factory (
       visual->new_settings.connect(&gauges::webport::receive_new_settings, logical.get());
       logical->content_ready.connect(&gui::webport::setHtml, visual.get());
 
-      return std::make_optional<representation>({std::move(unique), std::move(logical), std::move(visual)});
+      return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }
    case gauges::type::twitter:
    {
@@ -39,7 +39,7 @@ gauge_factory (
       visual->new_settings.connect(&gauges::twitter::receive_new_settings, logical.get());
       logical->content_ready.connect(&gui::webport::setHtml, visual.get());
 
-      return std::make_optional<representation>({std::move(unique), std::move(logical), std::move(visual)});
+      return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }
    }
    return std::nullopt; // should never happen (tm)

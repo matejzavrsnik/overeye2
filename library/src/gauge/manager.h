@@ -1,6 +1,7 @@
 #pragma once
 
 #include "factory.h"
+#include "configuration.h"
 #include <vector>
 #include <memory>
 
@@ -25,11 +26,7 @@ public:
 
    void
    add (
-      representation gauge,
-      int row,
-      int col,
-      int row_span,
-      int col_span
+      representation gauge
    );
 
 };

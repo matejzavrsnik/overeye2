@@ -62,7 +62,7 @@ run_main (
       )
    {
       if (auto g = gauges::gauge_factory(gc, set))
-         gm.add(std::move(g.value()), gc.row, gc.col, gc.row_span, gc.col_span);
+         gm.add(std::move(g.value()));
    }
 
    screen.show();

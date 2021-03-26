@@ -17,7 +17,7 @@ public:
 
    twitter (
       std::wstring style,
-      const cparameters& page_parameters);
+      const parameters& page_parameters);
 
    class tags
    {

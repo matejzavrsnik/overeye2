@@ -54,7 +54,7 @@ public:
 
 };
 
-class cparameters
+class parameters
 {
    std::vector<parameter> m_parameters;
 
@@ -89,11 +89,11 @@ class cparameters
 
 public:
 
-   cparameters()
+   parameters()
    {
    }
 
-   cparameters(
+   parameters(
       const std::initializer_list<parameter>& params
       )
    {

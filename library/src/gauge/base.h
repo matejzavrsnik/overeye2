@@ -33,7 +33,7 @@ public:
 protected:
 
    mzlib::unique m_unique;
-   cparameters m_page_parameters;
+   parameters m_page_parameters;
 
    void
    set_html (std::wstring_view html);
@@ -42,7 +42,7 @@ private:
 
    std::unique_ptr<::gauge> m_qt_gauge;
 
-   void update_settings(const gauges::cparameters& parameters);
+   void update_settings(const gauges::parameters& parameters);
 
 
 };

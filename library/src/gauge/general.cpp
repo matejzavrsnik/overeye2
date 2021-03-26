@@ -29,7 +29,7 @@ namespace gauges
 
    general::general (
       std::wstring style,
-      const cparameters& page_parameters)
+      const parameters& page_parameters)
       :
       m_page_template(tags::genesis())
    {
@@ -49,7 +49,7 @@ namespace gauges
 
    // customisation point for additional rendering by derived classes
    std::wstring
-   general::render (const std::wstring& page_template, const cparameters& page_parameters)
+   general::render (const std::wstring& page_template, const parameters& page_parameters)
    {
       std::wstring page = page_template;
       for(const auto& parameter : page_parameters)

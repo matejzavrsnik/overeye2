@@ -27,7 +27,7 @@ public:
 
    general (
       std::wstring style,
-      const cparameters& page_parameters
+      const parameters& page_parameters
       );
 
    void
@@ -36,7 +36,7 @@ public:
 protected:
 
    std::wstring
-   render (const std::wstring& page_template, const cparameters& page_parameters);
+   render (const std::wstring& page_template, const parameters& page_parameters);
 
    void set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name);
 

@@ -9,7 +9,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class gauge; }
 QT_END_NAMESPACE
 
-namespace gauges { class cparameters; }
+namespace gauges { class parameters; }
 
 // custom qt widget for base
 // goal is to contain qt as much as possible inside this class and not leak it out too much
@@ -20,14 +20,14 @@ class gauge : public QWidget
 
 public:
 
-   explicit gauge (const gauges::cparameters& parameters, QWidget* parent = nullptr);
+   explicit gauge (const gauges::parameters& parameters, QWidget* parent = nullptr);
 
    ~gauge () override;
 
    void setHtml(std::wstring_view html);
    void setObjectName(std::string object_name);
 
-   sigslot::signal<const gauges::cparameters&> new_settings;
+   sigslot::signal<const gauges::parameters&> new_settings;
 
 private slots:
 
@@ -36,7 +36,7 @@ private slots:
 private:
 
    Ui::gauge* ui;
-   const gauges::cparameters& m_parameters;
+   const gauges::parameters& m_parameters;
 
 };
 

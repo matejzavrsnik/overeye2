@@ -4,7 +4,7 @@
 #include <QMessageBox>
 
 
-gauge_config::gauge_config(const gauges::cparameters& parameters, QWidget *parent) :
+gauge_config::gauge_config(const gauges::parameters& parameters, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gauge_config)
 {
@@ -21,7 +21,7 @@ gauge_config::~gauge_config()
     delete ui;
 }
 
-void gauge_config::populate_grid(const gauges::cparameters& parameters)
+void gauge_config::populate_grid(const gauges::parameters& parameters)
 {
    // populate the form
    ui->config_table->setColumnCount(2);
@@ -59,7 +59,7 @@ gauge_config::handleClosePress ()
 void
 gauge_config::handleApplyPress ()
 {
-   gauges::cparameters new_parameters;
+   gauges::parameters new_parameters;
    for (int row = 0; row < ui->config_table->rowCount(); ++row)
    {
       const auto& valueItem = ui->config_table->item(row, 1);

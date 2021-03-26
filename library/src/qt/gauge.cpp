@@ -10,7 +10,7 @@
 
 #include <tools/converters.h>
 
-gauge::gauge (const gauges::cparameters& parameters, QWidget* parent) :
+gauge::gauge (const gauges::parameters& parameters, QWidget* parent) :
    QWidget(parent),
    m_parameters(parameters),
    ui(new Ui::gauge)

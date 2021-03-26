@@ -28,7 +28,7 @@ void base::set_html(std::wstring_view html)
    m_qt_gauge->setHtml(html);
 }
 
-void base::update_settings(const gauges::cparameters& parameters)
+void base::update_settings(const gauges::parameters& parameters)
 {
    for(const auto& i : parameters)
    {

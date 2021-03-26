@@ -1,7 +1,7 @@
 #ifndef GAUGE_CONFIG_H
 #define GAUGE_CONFIG_H
 
-#include "../gauge/configuration.h"
+#include "../gauge/parameters.h"
 #include <sigslot/signal.hpp>
 #include <QDialog>
 
@@ -16,11 +16,11 @@ class gauge_config : public QDialog
     Q_OBJECT
 
 public:
-    explicit gauge_config(const gauges::cparameters& parameters, QWidget *parent = nullptr);
+    explicit gauge_config(const gauges::parameters& parameters, QWidget *parent = nullptr);
     ~gauge_config() override;
 
 
-   sigslot::signal<const gauges::cparameters&> new_settings;
+   sigslot::signal<const gauges::parameters&> new_settings;
 
 private slots:
 
@@ -30,7 +30,7 @@ private slots:
 private:
 
    Ui::gauge_config *ui;
-   void populate_grid(const gauges::cparameters& parameters);
+   void populate_grid(const gauges::parameters& parameters);
 
 };
 

@@ -4,7 +4,7 @@
 
 #include <tools/converters.h>
 
-webport::webport (
+gui::webport::webport (
    const gauges::parameters& parameters,
    QWidget* parent
 ) :
@@ -20,19 +20,19 @@ webport::webport (
 }
 
 void
-webport::setHtml (std::wstring_view html)
+gui::webport::setHtml (std::wstring_view html)
 {
    ui->display->setHtml(mzlib::convert<QString>(html));
 }
 
 void
-webport::setObjectName (const std::string& object_name)
+gui::webport::setObjectName (const std::string& object_name)
 {
    ui->display->setObjectName(QString::fromStdString(object_name));
 }
 
 void
-webport::handleConfigPress ()
+gui::webport::handleConfigPress ()
 {
    gauge_config config(m_parameters, this->parentWidget());
 
@@ -42,7 +42,7 @@ webport::handleConfigPress ()
    config.exec();
 }
 
-webport::~webport ()
+gui::webport::~webport ()
 {
    delete ui;
 }

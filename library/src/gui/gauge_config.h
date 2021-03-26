@@ -8,6 +8,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class gauge_config; }
 QT_END_NAMESPACE
 
+namespace gui
+{
 
 class gauge_config : public QDialog
 {
@@ -40,3 +42,5 @@ private:
    populate_grid (const gauges::parameters& parameters);
 
 };
+
+}

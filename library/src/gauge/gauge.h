@@ -17,7 +17,7 @@ public:
    virtual void
    display () = 0;
 
-   virtual ::webport*
+   virtual gui::webport*
    graphical_representation() = 0;
 
 protected:

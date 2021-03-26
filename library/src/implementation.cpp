@@ -50,11 +50,11 @@ run_main (
    };
 
    //todo: rename screen to screen
-   screen dlg;
+   gui::screen screen;
    //dlg.setWindowState(Qt::WindowFullScreen);
-   dlg.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
+   screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
 
-   gauges::manager gm(dlg.grid());
+   gauges::manager gm(screen.grid());
 
    for (
       auto& gc : set.gauge_configurations
@@ -69,7 +69,7 @@ run_main (
       }
    }
 
-   dlg.show();
+   screen.show();
 
    return QApplication::exec();
 }

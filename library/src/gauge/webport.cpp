@@ -27,7 +27,7 @@ webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
-   m_qt_gauge(std::make_unique<::webport>(m_parameters)),
+   m_qt_gauge(std::make_unique<gui::webport>(m_parameters)),
    m_page_template(tags::genesis())
 {
    // todo: create outside and leave logic completely free of representation?
@@ -69,7 +69,7 @@ webport::render (
    return page;
 }
 
-::webport*
+gui::webport*
 webport::graphical_representation()
 {
    return m_qt_gauge.get();

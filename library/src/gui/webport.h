@@ -10,6 +10,9 @@ QT_END_NAMESPACE
 
 namespace gauges { class parameters; }
 
+namespace gui
+{
+
 // custom gui widget for base
 // goal is to contain gui as much as possible inside this class and not leak it out too much
 // added functionality should be just to access gui stuff, not for project needs
@@ -45,3 +48,5 @@ private:
    const gauges::parameters& m_parameters;
 
 };
+
+}

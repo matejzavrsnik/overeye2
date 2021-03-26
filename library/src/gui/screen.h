@@ -7,6 +7,9 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class main_dialog; }
 QT_END_NAMESPACE
 
+namespace gui
+{
+
 class screen : public QDialog
 {
 Q_OBJECT
@@ -23,3 +26,5 @@ private:
 
    Ui::main_dialog* ui;
 };
+
+}

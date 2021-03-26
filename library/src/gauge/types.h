@@ -1,6 +1,6 @@
 #pragma once
 
-namespace gauges
+namespace gauge
 {
 
 enum class type

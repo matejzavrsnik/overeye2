@@ -6,7 +6,7 @@
 #include "representation.h"
 #include "../settings.h"
 
-namespace gauges
+namespace gauge
 {
 
 std::optional<representation>
@@ -18,25 +18,25 @@ gauge_factory (
    mzlib::unique unique;
    switch (gc.type)
    {
-   case gauges::type::webport:
+   case gauge::type::webport:
    {
 
-      auto logical = std::make_unique<gauges::webport>(set.gauge_stylesheet, gc.parameters);
+      auto logical = std::make_unique<gauge::webport>(set.gauge_stylesheet, gc.parameters);
       auto visual = std::make_unique<gui::webport>(gc.parameters);
       visual->setObjectName(std::string("webport") + std::to_string(unique.id()));
 
-      visual->new_settings.connect(&gauges::webport::receive_new_settings, logical.get());
+      visual->new_settings.connect(&gauge::webport::receive_new_settings, logical.get());
       logical->content_ready.connect(&gui::webport::setHtml, visual.get());
 
       return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }
-   case gauges::type::twitter:
+   case gauge::type::twitter:
    {
-      auto logical = std::make_unique<gauges::twitter>(set.gauge_stylesheet, gc.parameters);
+      auto logical = std::make_unique<gauge::twitter>(set.gauge_stylesheet, gc.parameters);
       auto visual = std::make_unique<gui::webport>(gc.parameters);
       visual->setObjectName(std::string("twitter") + std::to_string(unique.id()));
 
-      visual->new_settings.connect(&gauges::twitter::receive_new_settings, logical.get());
+      visual->new_settings.connect(&gauge::twitter::receive_new_settings, logical.get());
       logical->content_ready.connect(&gui::webport::setHtml, visual.get());
 
       return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);

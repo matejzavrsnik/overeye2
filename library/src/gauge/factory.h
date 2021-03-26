@@ -1,11 +1,11 @@
 #pragma once
 
-#include "gauge.h"
+#include "interface.h"
 #include <memory>
 
 namespace library { struct settings; }
 
-namespace gauges
+namespace gauge
 {
 
 struct configuration;

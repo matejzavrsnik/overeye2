@@ -3,7 +3,7 @@
 #include <QMessageBox>
 
 gui::gauge_config::gauge_config (
-   const gauges::parameters& parameters,
+   const gauge::parameters& parameters,
    QWidget* parent
 ) :
    QDialog(parent),
@@ -23,7 +23,7 @@ gui::gauge_config::~gauge_config ()
 }
 
 void
-gui::gauge_config::populate_grid (const gauges::parameters& parameters)
+gui::gauge_config::populate_grid (const gauge::parameters& parameters)
 {
    // populate the form
    ui->config_table->setColumnCount(2);
@@ -63,7 +63,7 @@ gui::gauge_config::handleClosePress ()
 void
 gui::gauge_config::handleApplyPress ()
 {
-   gauges::parameters new_parameters;
+   gauge::parameters new_parameters;
    for (
       int row = 0; row < ui->config_table->rowCount(); ++row
       )

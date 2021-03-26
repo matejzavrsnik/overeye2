@@ -4,7 +4,7 @@
 #include <vector>
 #include <optional>
 
-namespace gauges
+namespace gauge
 {
 
 class parameter
@@ -105,7 +105,7 @@ public:
    }
 
    // sets tag value if exists, adds if it doesn't
-   // two params are optional because two audiences: gauges setting these for themselves and user settings
+   // two params are optional because two audiences: gauge setting these for themselves and user settings
    // perhaps an opportunity for refactor?
    void
    set (

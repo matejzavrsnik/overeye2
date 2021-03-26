@@ -20,7 +20,7 @@ html ()
 }
 }
 
-namespace gauges
+namespace gauge
 {
 
 webport::webport (
@@ -62,7 +62,7 @@ webport::render (
 }
 
 void
-webport::receive_new_settings (const gauges::parameters& parameters)
+webport::receive_new_settings (const gauge::parameters& parameters)
 {
    for (
       const auto& i : parameters

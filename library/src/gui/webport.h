@@ -8,7 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
 QT_END_NAMESPACE
 
-namespace gauges { class parameters; }
+namespace gauge { class parameters; }
 
 namespace gui
 {
@@ -23,7 +23,7 @@ Q_OBJECT
 public:
 
    explicit webport (
-      const gauges::parameters& parameters,
+      const gauge::parameters& parameters,
       QWidget* parent = nullptr
    );
 
@@ -35,7 +35,7 @@ public:
    void
    setObjectName (const std::string& object_name);
 
-   sigslot::signal<const gauges::parameters&> new_settings;
+   sigslot::signal<const gauge::parameters&> new_settings;
 
 private slots:
 
@@ -45,7 +45,7 @@ private slots:
 private:
 
    Ui::webport* ui;
-   const gauges::parameters& m_parameters;
+   const gauge::parameters& m_parameters;
 
 };
 

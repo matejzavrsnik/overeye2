@@ -5,17 +5,17 @@
 
 class QWidget;
 
-namespace gauges
+namespace gauge
 {
 
-class gauge;
+class interface;
 
 struct representation
 {
    mzlib::unique unique;
-   std::unique_ptr <gauges::gauge> logical;
+   std::unique_ptr <gauge::interface> logical;
    std::unique_ptr <QWidget> visual;
-   gauges::location location;
+   gauge::location location;
 };
 
 }

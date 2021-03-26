@@ -5,14 +5,14 @@
 #include "parameters.h"
 #include <string_view>
 
-namespace gauges
+namespace gauge
 {
 
 struct configuration
 {
-   gauges::type type = gauges::type::webport;
-   gauges::location location;
-   gauges::parameters parameters;
+   gauge::type type = gauge::type::webport;
+   gauge::location location;
+   gauge::parameters parameters;
 };
 
 }

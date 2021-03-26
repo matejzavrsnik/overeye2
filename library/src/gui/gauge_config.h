@@ -17,14 +17,14 @@ Q_OBJECT
 
 public:
    explicit gauge_config (
-      const gauges::parameters& parameters,
+      const gauge::parameters& parameters,
       QWidget* parent = nullptr
    );
 
    ~gauge_config () override;
 
 
-   sigslot::signal<const gauges::parameters&> new_settings;
+   sigslot::signal<const gauge::parameters&> new_settings;
 
 private slots:
 
@@ -39,7 +39,7 @@ private:
    Ui::gauge_config* ui;
 
    void
-   populate_grid (const gauges::parameters& parameters);
+   populate_grid (const gauge::parameters& parameters);
 
 };
 

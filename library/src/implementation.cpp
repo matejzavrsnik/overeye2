@@ -29,23 +29,23 @@ run_main (
       //todo: don't like the fact that it needs to be set from outside of webport which parameters are user setting and
       // which are not. That should be known to webport, from outside only values for tags should come, not definitions
       {
-         gauges::type::webport, 0, 0, 1, 1, {
-                                               {gauges::webport::tags::content(), L"Hello",                                                                                                                                                                                    true, L"Content"}
+         gauge::type::webport, 0, 0, 1, 1, {
+                                               {gauge::webport::tags::content(), L"Hello",                                                                                                                                                                                    true, L"Content"}
                                             }
       },
       {
-         gauges::type::webport, 0, 1, 1, 1, {
-                                               {gauges::webport::tags::content(), L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>", true, L"Content"}
+         gauge::type::webport, 0, 1, 1, 1, {
+                                               {gauge::webport::tags::content(), L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>", true, L"Content"}
                                             }
       },
       {
-         gauges::type::twitter, 0, 2, 2, 1, {
-                                               {gauges::twitter::tags::handle(),  L"NASAPersevere", true,                                                                                                                                                                            L"Twitter handle"}
+         gauge::type::twitter, 0, 2, 2, 1, {
+                                               {gauge::twitter::tags::handle(),  L"NASAPersevere",                                                                                                                                                                            true, L"Twitter handle"}
                                             }
       },
       {
-         gauges::type::webport, 1, 1, 1, 1, {
-                                               {gauges::webport::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>",                                                                                                                                             true, L"Content"}
+         gauge::type::webport, 1, 1, 1, 1, {
+                                               {gauge::webport::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>",                                                                                                                                             true, L"Content"}
                                             }
       },
    };
@@ -55,13 +55,13 @@ run_main (
    //dlg.setWindowState(Qt::WindowFullScreen);
    screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
 
-   gauges::manager gm(screen.grid());
+   gauge::manager gm(screen.grid());
 
    for (
       auto& gc : set.gauge_configurations
       )
    {
-      if (auto g = gauges::gauge_factory(gc, set))
+      if (auto g = gauge::gauge_factory(gc, set))
          gm.add(std::move(g.value()));
    }
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "gauge.h"
+#include "interface.h"
 #include "configuration.h"
 #include <string>
 
-namespace gauges
+namespace gauge
 {
 
 // webport gauge
 // usable on its own, but also intended for further specialisation
-class webport : public gauge
+class webport : public interface
 {
 
 public:
@@ -25,7 +25,7 @@ public:
    display () override;
 
    void
-   receive_new_settings (const gauges::parameters& parameters);
+   receive_new_settings (const gauge::parameters& parameters);
 
 protected:
 

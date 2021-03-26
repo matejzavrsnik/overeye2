@@ -2,7 +2,7 @@
 
 #include "webport.h"
 
-namespace gauges
+namespace gauge
 {
 
 class twitter : public webport

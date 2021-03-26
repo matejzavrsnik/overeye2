@@ -12,7 +12,7 @@ struct settings
 {
    std::wstring dialog_stylesheet;
    std::wstring gauge_stylesheet;
-   std::vector<gauges::configuration> gauge_configurations;
+   std::vector<gauge::configuration> gauge_configurations;
 };
 
 }

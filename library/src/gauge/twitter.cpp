@@ -25,7 +25,7 @@ html ()
 
 }
 
-namespace gauges
+namespace gauge
 {
 
 twitter::twitter (

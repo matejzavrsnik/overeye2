@@ -7,7 +7,7 @@
 
 class QGridLayout;
 
-namespace gauges
+namespace gauge
 {
 
 class representation;

@@ -2,7 +2,7 @@
 #include "representation.h"
 #include <QGridLayout>
 
-namespace gauges
+namespace gauge
 {
 
 manager::manager (QGridLayout* grid) :

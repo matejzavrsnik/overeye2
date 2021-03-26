@@ -5,7 +5,7 @@
 #include <tools/converters.h>
 
 gui::webport::webport (
-   const gauges::parameters& parameters,
+   const gauge::parameters& parameters,
    QWidget* parent
 ) :
    QWidget(parent),

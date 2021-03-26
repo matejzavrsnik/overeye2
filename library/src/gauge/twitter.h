@@ -1,9 +1,4 @@
-//
-// Created by matej on 22/03/2021.
-//
-
-#ifndef OPROJECT_OVEREYE_TWITTER_H
-#define OPROJECT_OVEREYE_TWITTER_H
+#pragma once
 
 #include "general.h"
 
@@ -16,8 +11,9 @@ class twitter : public general
 public:
 
    twitter (
-      std::wstring style,
-      const parameters& page_parameters);
+      const std::wstring& style,
+      const parameters& page_parameters
+   );
 
    class tags
    {
@@ -25,14 +21,12 @@ public:
 
    public:
 
-      const static std::wstring& handle();
+      const static std::wstring&
+      handle ();
 
    };
 
 };
 
 
-
 }
-
-#endif //OPROJECT_OVEREYE_TWITTER_H

@@ -1,9 +1,4 @@
-//
-// Created by matej on 22/03/2021.
-//
-
-#ifndef OPROJECT_OVEREYE_CONFIGURATION_H
-#define OPROJECT_OVEREYE_CONFIGURATION_H
+#pragma once
 
 #include "types.h"
 #include "parameters.h"
@@ -14,14 +9,12 @@ namespace gauges
 
 struct configuration
 {
-   gauges::type type;
-   int row;
-   int col;
-   int row_span;
-   int col_span;
+   gauges::type type = gauges::type::general;
+   int row{};
+   int col{};
+   int row_span{};
+   int col_span{};
    gauges::parameters parameters;
 };
 
 }
-
-#endif //OPROJECT_OVEREYE_CONFIGURATION_H

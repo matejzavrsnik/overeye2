@@ -1,5 +1,4 @@
-#ifndef GAUGE_CONFIG_H
-#define GAUGE_CONFIG_H
+#pragma once
 
 #include "../gauge/parameters.h"
 #include <sigslot/signal.hpp>
@@ -10,28 +9,34 @@ namespace Ui { class gauge_config; }
 QT_END_NAMESPACE
 
 
-
 class gauge_config : public QDialog
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit gauge_config(const gauges::parameters& parameters, QWidget *parent = nullptr);
-    ~gauge_config() override;
+   explicit gauge_config (
+      const gauges::parameters& parameters,
+      QWidget* parent = nullptr
+   );
+
+   ~gauge_config () override;
 
 
    sigslot::signal<const gauges::parameters&> new_settings;
 
 private slots:
 
-   void handleClosePress();
-   void handleApplyPress();
+   void
+   handleClosePress ();
+
+   void
+   handleApplyPress ();
 
 private:
 
-   Ui::gauge_config *ui;
-   void populate_grid(const gauges::parameters& parameters);
+   Ui::gauge_config* ui;
+
+   void
+   populate_grid (const gauges::parameters& parameters);
 
 };
-
-#endif // GAUGE_CONFIG_H

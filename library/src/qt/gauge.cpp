@@ -1,16 +1,13 @@
-//
-// Created by matej on 20/03/2021.
-//
-
-// You may need to build the project (run Qt uic code generator) to get "ui_gauge.h" resolved
-
 #include "gauge.h"
 #include "ui_gauge.h"
 #include "gauge_config.h"
 
 #include <tools/converters.h>
 
-gauge::gauge (const gauges::parameters& parameters, QWidget* parent) :
+gauge::gauge (
+   const gauges::parameters& parameters,
+   QWidget* parent
+) :
    QWidget(parent),
    m_parameters(parameters),
    ui(new Ui::gauge)
@@ -22,12 +19,14 @@ gauge::gauge (const gauges::parameters& parameters, QWidget* parent) :
 
 }
 
-void gauge::setHtml(std::wstring_view html)
+void
+gauge::setHtml (std::wstring_view html)
 {
    ui->display->setHtml(mzlib::convert<QString>(html));
 }
 
-void gauge::setObjectName(std::string object_name)
+void
+gauge::setObjectName (const std::string& object_name)
 {
    ui->display->setObjectName(QString::fromStdString(object_name));
 }
@@ -47,6 +46,3 @@ gauge::~gauge ()
 {
    delete ui;
 }
-
-
-

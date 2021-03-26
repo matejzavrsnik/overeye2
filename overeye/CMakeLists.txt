@@ -10,10 +10,7 @@ project(executable
 )
 
 # Add these files to this binary
-file(GLOB HeaderFiles *.h)
-file(GLOB SourceFiles *.cpp)
-
-set(SOURCES ${HeaderFiles} ${SourceFiles})
+set(SOURCES main.cpp)
 
 # The result
 add_executable(overeye ${SOURCES})

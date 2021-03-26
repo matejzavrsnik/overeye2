@@ -1,9 +1,4 @@
-//
-// Created by matej on 22/03/2021.
-//
-
-#ifndef OPROJECT_OVEREYE_TYPES_H
-#define OPROJECT_OVEREYE_TYPES_H
+#pragma once
 
 namespace gauges
 {
@@ -14,5 +9,3 @@ enum class type
 };
 
 }
-
-#endif //OPROJECT_OVEREYE_TYPES_H

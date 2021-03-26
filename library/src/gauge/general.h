@@ -1,9 +1,4 @@
-//
-// Created by matej on 22/03/2021.
-//
-
-#ifndef OPROJECT_OVEREYE_GENERAL_H
-#define OPROJECT_OVEREYE_GENERAL_H
+#pragma once
 
 #include "base.h"
 #include "configuration.h"
@@ -26,38 +21,50 @@ private:
 public:
 
    general (
-      std::wstring style,
+      const std::wstring& style,
       const parameters& page_parameters
-      );
+   );
 
    void
    display () override;
 
 protected:
 
-   std::wstring
-   render (const std::wstring& page_template, const parameters& page_parameters);
+   static std::wstring
+   render (
+      const std::wstring& page_template,
+      const parameters& page_parameters
+   );
 
-   void set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name);
+   void
+   set_parameter (
+      const std::wstring& tag,
+      const std::wstring& value,
+      bool user_setting,
+      const std::wstring& friendly_name
+   );
 
 public:
 
    class tags
    {
       friend class general;
+
    private:
 
-      const static std::wstring& genesis();
+      const static std::wstring&
+      genesis ();
 
    public:
 
-      const static std::wstring& style();
-      const static std::wstring& content();
+      const static std::wstring&
+      style ();
+
+      const static std::wstring&
+      content ();
 
    };
 
 };
 
 }
-
-#endif //OPROJECT_OVEREYE_GENERAL_H

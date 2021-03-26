@@ -1,7 +1,3 @@
-//
-// Created by matej on 22/03/2021.
-//
-
 #pragma once
 
 #include "../qt/gauge.h"
@@ -9,8 +5,6 @@
 
 namespace gauges
 {
-
-class information;
 
 // base class for all gauges
 // gauges::base is sort of a sibling of qt::gauge
@@ -22,18 +16,18 @@ class base
 {
 public:
 
-   explicit base (QWidget* parent = nullptr);
-
    virtual void
    display () = 0;
 
    ::gauge*
-   qt();
+   qt ();
 
 protected:
 
+   explicit base ();
+
    mzlib::unique m_unique;
-   parameters m_page_parameters;
+   parameters m_parameters;
 
    void
    set_html (std::wstring_view html);
@@ -42,7 +36,8 @@ private:
 
    std::unique_ptr<::gauge> m_qt_gauge;
 
-   void update_settings(const gauges::parameters& parameters);
+   void
+   update_settings (const gauges::parameters& parameters);
 
 
 };

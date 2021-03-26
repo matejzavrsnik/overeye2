@@ -1,9 +1,4 @@
-//
-// Created by matej on 22/03/2021.
-//
-
-#ifndef OPROJECT_OVEREYE_FACTORY_H
-#define OPROJECT_OVEREYE_FACTORY_H
+#pragma once
 
 #include "base.h"
 #include <memory>
@@ -15,12 +10,10 @@ namespace gauges
 
 struct configuration;
 
-std::unique_ptr <base>
+std::unique_ptr<base>
 gauge_factory (
    const configuration& gc,
    const library::settings& set
 );
 
 }
-
-#endif //OPROJECT_OVEREYE_FACTORY_H

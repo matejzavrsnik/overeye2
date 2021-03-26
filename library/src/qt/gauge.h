@@ -1,5 +1,4 @@
-#ifndef OPROJECT_OVEREYE_GAUGE_H
-#define OPROJECT_OVEREYE_GAUGE_H
+#pragma once
 
 #include <abstract/unique.h>
 #include <sigslot/signal.hpp>
@@ -16,22 +15,29 @@ namespace gauges { class parameters; }
 // added functionality should be just to access qt stuff, not for project needs
 class gauge : public QWidget
 {
-   Q_OBJECT
+Q_OBJECT
 
 public:
 
-   explicit gauge (const gauges::parameters& parameters, QWidget* parent = nullptr);
+   explicit gauge (
+      const gauges::parameters& parameters,
+      QWidget* parent = nullptr
+   );
 
    ~gauge () override;
 
-   void setHtml(std::wstring_view html);
-   void setObjectName(std::string object_name);
+   void
+   setHtml (std::wstring_view html);
+
+   void
+   setObjectName (const std::string& object_name);
 
    sigslot::signal<const gauges::parameters&> new_settings;
 
 private slots:
 
-   void handleConfigPress();
+   void
+   handleConfigPress ();
 
 private:
 
@@ -39,5 +45,3 @@ private:
    const gauges::parameters& m_parameters;
 
 };
-
-#endif //OPROJECT_OVEREYE_GAUGE_H

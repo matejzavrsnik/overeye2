@@ -1,9 +1,4 @@
-//
-// Created by matej on 26/12/2020.
-//
-
-#ifndef OPROJECT_OVEREYE_DIALOG_H
-#define OPROJECT_OVEREYE_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QGridLayout>
@@ -14,12 +9,13 @@ QT_END_NAMESPACE
 
 class dialog : public QDialog
 {
-   Q_OBJECT
+Q_OBJECT
 
 public:
    explicit dialog (QWidget* parent = nullptr);
 
-   QGridLayout* grid();
+   QGridLayout*
+   grid ();
 
    ~dialog () override;
 
@@ -27,5 +23,3 @@ private:
 
    Ui::main_dialog* ui;
 };
-
-#endif //OPROJECT_OVEREYE_DIALOG_H

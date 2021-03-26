@@ -35,12 +35,12 @@ twitter::twitter (
    webport(style, {})
 {
    // twitter webport will control the {content} tag, so it's setting it to not be a user setting
-   set_parameter(webport::tags::content(), html(), false, webport::tags::content());
+   m_parameters.set(webport::tags::content(), html(), false);
    for (
       const auto& page_parameter : page_parameters
       )
    {
-      set_parameter(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
+      m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
    }
 }
 

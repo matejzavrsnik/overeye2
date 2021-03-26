@@ -26,23 +26,22 @@ namespace gauges
 webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
-) :
-   m_page_template(tags::genesis())
+)
 {
-   set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
-   set_parameter(tags::style(), style, false, tags::style());
+   m_parameters.set(tags::genesis(), html(), false);
+   m_parameters.set(tags::style(), style, false);
    for (
       const auto& page_parameter : page_parameters
       )
    {
-      set_parameter(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
+      m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
    }
 }
 
 void
 webport::display ()
 {
-   auto rendered_content = render(m_page_template, m_parameters);
+   auto rendered_content = render(tags::genesis(), m_parameters);
    content_ready(rendered_content);
 }
 
@@ -72,17 +71,6 @@ webport::receive_new_settings (const gauges::parameters& parameters)
       m_parameters.set(i.get_tag(), i.get_value());
    }
    display();
-}
-
-void
-webport::set_parameter (
-   const std::wstring& tag,
-   const std::wstring& value,
-   bool user_setting,
-   const std::wstring& friendly_name
-)
-{
-   m_parameters.set(tag, value, user_setting, friendly_name);
 }
 
 const std::wstring&

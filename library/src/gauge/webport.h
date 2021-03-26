@@ -12,10 +12,6 @@ namespace gauges
 class webport : public gauge
 {
 
-private:
-
-   const std::wstring m_page_template;
-
 public:
 
    webport (
@@ -39,14 +35,6 @@ protected:
    render (
       const std::wstring& page_template,
       const parameters& page_parameters
-   );
-
-   void
-   set_parameter (
-      const std::wstring& tag,
-      const std::wstring& value,
-      bool user_setting,
-      const std::wstring& friendly_name
    );
 
 public:

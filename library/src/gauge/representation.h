@@ -11,6 +11,7 @@ class gauge;
 
 struct representation
 {
+   mzlib::unique unique;
    std::unique_ptr <gauges::gauge> logical;
    std::unique_ptr <QWidget> visual;
 };

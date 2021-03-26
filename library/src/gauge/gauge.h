@@ -17,8 +17,6 @@ public:
    virtual void
    display () = 0;
 
-   mzlib::unique m_unique; // todo: make private
-
 protected:
 
    explicit gauge () = default;

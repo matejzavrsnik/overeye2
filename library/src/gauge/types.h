@@ -5,7 +5,7 @@ namespace gauges
 
 enum class type
 {
-   general, twitter
+   webport, twitter
 };
 
 }

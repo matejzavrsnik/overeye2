@@ -32,10 +32,10 @@ twitter::twitter (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
-   general(style, {})
+   webport(style, {})
 {
    // twitter gauge will control the {content} tag, so it's setting it to not be a user setting
-   set_parameter(general::tags::content(), html(), false, general::tags::content());
+   set_parameter(webport::tags::content(), html(), false, webport::tags::content());
    for (
       const auto& page_parameter : page_parameters
       )

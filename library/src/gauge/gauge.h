@@ -8,7 +8,7 @@ namespace gauges
 
 // base class for all gauges
 // audience: an interface for gauge for the rest of the logic + what's common, ie unique member.
-// Q: Why is "general" not base class? A: Not all gauges will be web based.
+// Q: Why is "webport" not base class? A: Not all gauges will be web based.
 class gauge
 {
 

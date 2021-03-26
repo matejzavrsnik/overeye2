@@ -5,7 +5,7 @@
 #include "gauge/types.h"
 #include "gauge/factory.h"
 #include "settings.h"
-#include "gauge/general.h"
+#include "gauge/webport.h"
 #include "gauge/twitter.h"
 
 #include <QApplication>
@@ -28,13 +28,13 @@ run_main (
       //todo: don't like the fact that it needs to be set from outside of gauge which parameters are user setting and
       // which are not. That should be known to gauge, from outside only values for tags should come, not definitions
       {
-         gauges::type::general, 0, 0, 1, 1, {
-                                               {gauges::general::tags::content(), L"Hello", true,                                                                                                                                                                                    L"Content"}
+         gauges::type::webport, 0, 0, 1, 1, {
+                                               {gauges::webport::tags::content(), L"Hello",                                                                                                                                                                                    true, L"Content"}
                                             }
       },
       {
-         gauges::type::general, 0, 1, 1, 1, {
-                                               {gauges::general::tags::content(), L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>", true, L"Content"}
+         gauges::type::webport, 0, 1, 1, 1, {
+                                               {gauges::webport::tags::content(), L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>", true, L"Content"}
                                             }
       },
       {
@@ -43,8 +43,8 @@ run_main (
                                             }
       },
       {
-         gauges::type::general, 1, 1, 1, 1, {
-                                               {gauges::general::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>", true,                                                                                                                                             L"Content"}
+         gauges::type::webport, 1, 1, 1, 1, {
+                                               {gauges::webport::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>",                                                                                                                                             true, L"Content"}
                                             }
       },
    };

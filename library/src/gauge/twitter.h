@@ -1,11 +1,11 @@
 #pragma once
 
-#include "general.h"
+#include "webport.h"
 
 namespace gauges
 {
 
-class twitter : public general
+class twitter : public webport
 {
 
 public:

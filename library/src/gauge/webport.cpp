@@ -1,4 +1,4 @@
-#include "general.h"
+#include "webport.h"
 #include <string/replace.h>
 
 namespace
@@ -23,7 +23,7 @@ html ()
 namespace gauges
 {
 
-general::general (
+webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
@@ -32,7 +32,7 @@ general::general (
 {
    // todo: create outside and leave logic completely free of representation?
    m_qt_gauge->setObjectName(std::string("gauge") + std::to_string(m_unique.id()));
-   m_qt_gauge->new_settings.connect(&general::update_settings, this);
+   m_qt_gauge->new_settings.connect(&webport::update_settings, this);
 
    set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
    set_parameter(tags::style(), style, false, tags::style());
@@ -45,7 +45,7 @@ general::general (
 }
 
 void
-general::display ()
+webport::display ()
 {
    m_last_rendered_page = render(m_page_template, m_parameters);
    set_html(m_last_rendered_page);
@@ -54,7 +54,7 @@ general::display ()
 
 // customisation point for additional rendering by derived classes
 std::wstring
-general::render (
+webport::render (
    const std::wstring& page_template,
    const parameters& page_parameters
 )
@@ -70,19 +70,19 @@ general::render (
 }
 
 ::gauge*
-general::graphical_representation()
+webport::graphical_representation()
 {
    return m_qt_gauge.get();
 }
 
 void
-general::set_html (std::wstring_view html)
+webport::set_html (std::wstring_view html)
 {
    m_qt_gauge->setHtml(html);
 }
 
 void
-general::update_settings (const gauges::parameters& parameters)
+webport::update_settings (const gauges::parameters& parameters)
 {
    for (
       const auto& i : parameters
@@ -94,7 +94,7 @@ general::update_settings (const gauges::parameters& parameters)
 }
 
 void
-general::set_parameter (
+webport::set_parameter (
    const std::wstring& tag,
    const std::wstring& value,
    bool user_setting,
@@ -105,7 +105,7 @@ general::set_parameter (
 }
 
 const std::wstring&
-general::tags::genesis ()
+webport::tags::genesis ()
 {
    static const std::wstring tag{L"{page_template}"};
    return tag;
@@ -113,14 +113,14 @@ general::tags::genesis ()
 
 
 const std::wstring&
-general::tags::style ()
+webport::tags::style ()
 {
    static const std::wstring tag{L"{style}"};
    return tag;
 }
 
 const std::wstring&
-general::tags::content ()
+webport::tags::content ()
 {
    static const std::wstring tag{L"{content}"};
    return tag;

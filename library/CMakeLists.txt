@@ -23,7 +23,7 @@ set (SOURCES
    # externally visible
    src/implementation.cpp ./include/library/header.h
    # internally visible
-   src/gauge/general.cpp src/gauge/general.h
+   src/gauge/webport.cpp src/gauge/webport.h
    src/gauge/twitter.cpp src/gauge/twitter.h
    # QT dialogs
    src/qt/dialog.cpp src/qt/dialog.h src/qt/dialog.ui

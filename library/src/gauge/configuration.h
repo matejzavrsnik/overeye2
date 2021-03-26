@@ -9,7 +9,7 @@ namespace gauges
 
 struct configuration
 {
-   gauges::type type = gauges::type::general;
+   gauges::type type = gauges::type::webport;
    int row{};
    int col{};
    int row_span{};

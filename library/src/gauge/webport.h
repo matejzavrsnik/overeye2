@@ -7,9 +7,9 @@
 namespace gauges
 {
 
-// general gauge
+// webport gauge
 // usable on its own, but intended for further specialisation
-class general : public gauge
+class webport : public gauge
 {
 
 private:
@@ -26,7 +26,7 @@ private:
 
 public:
 
-   general (
+   webport (
       const std::wstring& style,
       const parameters& page_parameters
    );
@@ -59,7 +59,7 @@ public:
 
    class tags
    {
-      friend class general;
+      friend class webport;
 
    private:
 

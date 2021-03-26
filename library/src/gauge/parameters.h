@@ -14,10 +14,10 @@ public:
 
    //todo: I have configuration, information, and parameters. Need better names
    parameter (
-      std::wstring  tag,
-      std::wstring  value,
+      std::wstring tag,
+      std::wstring value,
       bool user_setting,
-      std::wstring  friendly_name
+      std::wstring friendly_name
    );
 
    [[nodiscard]] const std::wstring&
@@ -44,7 +44,9 @@ private:
    std::wstring m_value;
    bool m_user_setting;
    std::wstring m_name;
+
 public:
+
    void
    set_name (const std::wstring& name);
 
@@ -89,16 +91,13 @@ class parameters
 
 public:
 
-   parameters ()
-   = default;
+   parameters () = default;
 
    parameters (
       const std::initializer_list<parameter>& params
    )
    {
-      for (
-         const auto& param : params
-         )
+      for (const auto& param : params)
       {
          m_parameters.push_back(param);
       }
@@ -118,8 +117,14 @@ public:
       parameter& param = find_or_add(tag);
 
       param.set_value(value);
-      if (user_setting) param.set_user_setting(*user_setting);
-      if (name) param.set_name(*name);
+      if (user_setting)
+      {
+         param.set_user_setting(*user_setting);
+      }
+      if (name)
+      {
+         param.set_name(*name);
+      }
    }
 
    //todo: leaking implementation detail

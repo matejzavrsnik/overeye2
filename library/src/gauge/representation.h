@@ -13,8 +13,8 @@ class interface;
 struct representation
 {
    mzlib::unique unique;
-   std::unique_ptr <gauge::interface> logical;
-   std::unique_ptr <QWidget> visual;
+   std::unique_ptr<gauge::interface> logical;
+   std::unique_ptr<QWidget> visual;
    gauge::location location;
 };
 

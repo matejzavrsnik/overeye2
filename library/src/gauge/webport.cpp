@@ -30,9 +30,7 @@ webport::webport (
 {
    m_parameters.set(tags::genesis(), html(), false);
    m_parameters.set(tags::style(), style, false);
-   for (
-      const auto& page_parameter : page_parameters
-      )
+   for (const auto& page_parameter : page_parameters)
    {
       m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
    }
@@ -52,9 +50,7 @@ webport::render (
 )
 {
    std::wstring page = page_template;
-   for (
-      const auto& parameter : page_parameters
-      )
+   for (const auto& parameter : page_parameters)
    {
       mzlib::string_replace(page, parameter.get_tag(), parameter.get_value());
    }
@@ -64,9 +60,7 @@ webport::render (
 void
 webport::receive_new_settings (const gauge::parameters& parameters)
 {
-   for (
-      const auto& i : parameters
-      )
+   for (const auto& i : parameters)
    {
       m_parameters.set(i.get_tag(), i.get_value());
    }

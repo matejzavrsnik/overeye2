@@ -2,10 +2,10 @@
 
 
 gauge::parameter::parameter (
-   std::wstring  tag,
-   std::wstring  value,
+   std::wstring tag,
+   std::wstring value,
    bool user_setting,
-   std::wstring  friendly_name
+   std::wstring friendly_name
 ) :
    m_tag(std::move(tag)),
    m_value(std::move(value)),

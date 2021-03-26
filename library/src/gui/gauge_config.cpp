@@ -32,9 +32,7 @@ gui::gauge_config::populate_grid (const gauge::parameters& parameters)
    ui->config_table->verticalHeader()->hide();
    ui->config_table->horizontalHeader()->hide();
    int row = 0;
-   for (
-      const auto& parameter : parameters
-      )
+   for (const auto& parameter : parameters)
    {
       //todo: ideally it would never even get settings that aren't user settings
       if (parameter.is_user_setting())
@@ -64,9 +62,7 @@ void
 gui::gauge_config::handleApplyPress ()
 {
    gauge::parameters new_parameters;
-   for (
-      int row = 0; row < ui->config_table->rowCount(); ++row
-      )
+   for (int row = 0; row < ui->config_table->rowCount(); ++row)
    {
       const auto& valueItem = ui->config_table->item(row, 1);
       const std::wstring& tag = valueItem->data(Qt::UserRole).toString().toStdWString();

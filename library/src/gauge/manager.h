@@ -1,5 +1,6 @@
 #pragma once
 
+#include "factory.h"
 #include <vector>
 #include <memory>
 
@@ -8,14 +9,14 @@ class QGridLayout;
 namespace gauges
 {
 
-class gauge;
+class representation;
 
 class manager
 {
 
 private:
 
-   std::vector<std::unique_ptr<gauge>> m_gauges;
+   std::vector<representation> m_gauges;
    QGridLayout* m_grid;
 
 public:
@@ -24,7 +25,7 @@ public:
 
    void
    add (
-      std::unique_ptr<gauge> gauge,
+      representation gauge,
       int row,
       int col,
       int row_span,

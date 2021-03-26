@@ -27,13 +27,8 @@ webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
-   m_gui_webport(std::make_unique<gui::webport>(m_parameters)),
    m_page_template(tags::genesis())
 {
-   // todo: create outside and leave logic completely free of representation?
-   m_gui_webport->setObjectName(std::string("webport") + std::to_string(m_unique.id()));
-   m_gui_webport->new_settings.connect(&webport::update_settings, this);
-
    set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
    set_parameter(tags::style(), style, false, tags::style());
    for (
@@ -47,12 +42,10 @@ webport::webport (
 void
 webport::display ()
 {
-   m_last_rendered_page = render(m_page_template, m_parameters);
-   set_html(m_last_rendered_page);
+   auto rendered_content = render(m_page_template, m_parameters);
+   content_ready(rendered_content);
 }
 
-
-// customisation point for additional rendering by derived classes
 std::wstring
 webport::render (
    const std::wstring& page_template,
@@ -69,20 +62,8 @@ webport::render (
    return page;
 }
 
-QWidget*
-webport::graphical_representation()
-{
-   return m_gui_webport.get();
-}
-
 void
-webport::set_html (std::wstring_view html)
-{
-   m_gui_webport->setHtml(html);
-}
-
-void
-webport::update_settings (const gauges::parameters& parameters)
+webport::receive_new_settings (const gauges::parameters& parameters)
 {
    for (
       const auto& i : parameters
@@ -125,7 +106,5 @@ webport::tags::content ()
    static const std::wstring tag{L"{content}"};
    return tag;
 }
-
-
 
 }

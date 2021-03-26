@@ -9,8 +9,9 @@ namespace gauges
 {
 
 struct configuration;
+struct representation;
 
-std::unique_ptr<gauges::gauge>
+std::optional<representation>
 gauge_factory (
    const configuration& gc,
    const library::settings& set

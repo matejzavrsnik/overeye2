@@ -20,9 +20,9 @@ gui::webport::webport (
 }
 
 void
-gui::webport::setHtml (std::wstring_view html)
+gui::webport::setHtml (const std::wstring& html)
 {
-   ui->display->setHtml(mzlib::convert<QString>(html));
+   ui->display->setHtml(QString::fromStdWString(html));
 }
 
 void

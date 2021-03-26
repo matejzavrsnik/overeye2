@@ -4,9 +4,10 @@
 #include "gauge/manager.h"
 #include "gauge/types.h"
 #include "gauge/factory.h"
-#include "settings.h"
+#include "gauge/representation.h"
 #include "gauge/webport.h"
 #include "gauge/twitter.h"
+#include "settings.h"
 
 #include <QApplication>
 
@@ -60,13 +61,8 @@ run_main (
       auto& gc : set.gauge_configurations
       )
    {
-      auto g = gauges::gauge_factory(gc, set);
-      if (g)
-      {
-         g->display();
-         gm.add(std::move(g), gc.row, gc.col, gc.row_span, gc.col_span);
-
-      }
+      if (auto g = gauges::gauge_factory(gc, set))
+         gm.add(std::move(g.value()), gc.row, gc.col, gc.row_span, gc.col_span);
    }
 
    screen.show();

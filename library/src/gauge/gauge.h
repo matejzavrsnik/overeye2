@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../gui/webport.h"
-#include "../gauge/parameters.h"
+#include "parameters.h"
 
 namespace gauges
 {
@@ -17,15 +17,12 @@ public:
    virtual void
    display () = 0;
 
-   virtual QWidget*
-   graphical_representation() = 0;
+   mzlib::unique m_unique; // todo: make private
 
 protected:
 
    explicit gauge () = default;
 
-   mzlib::unique m_unique;
-   
 };
 
 }

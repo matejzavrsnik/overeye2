@@ -7,22 +7,14 @@
 namespace gauges
 {
 
-// webport webport
-// usable on its own, but intended for further specialisation
+// webport gauge
+// usable on its own, but also intended for further specialisation
 class webport : public gauge
 {
 
 private:
 
-   std::unique_ptr<gui::webport> m_gui_webport;
    const std::wstring m_page_template;
-   std::wstring m_last_rendered_page;
-
-   void
-   set_html (std::wstring_view html);
-
-   void
-   update_settings (const gauges::parameters& parameters);
 
 public:
 
@@ -31,11 +23,13 @@ public:
       const parameters& page_parameters
    );
 
+   sigslot::signal<const std::wstring&> content_ready;
+
    void
    display () override;
 
-   QWidget*
-   graphical_representation() override;
+   void
+   receive_new_settings (const gauges::parameters& parameters);
 
 protected:
 

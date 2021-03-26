@@ -17,7 +17,7 @@ public:
    virtual void
    display () = 0;
 
-   virtual gui::webport*
+   virtual QWidget*
    graphical_representation() = 0;
 
 protected:

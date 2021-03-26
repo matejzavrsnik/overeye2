@@ -14,7 +14,7 @@ class webport : public gauge
 
 private:
 
-   std::unique_ptr<gui::webport> m_qt_gauge;
+   std::unique_ptr<gui::webport> m_gui_webport;
    const std::wstring m_page_template;
    std::wstring m_last_rendered_page;
 
@@ -34,7 +34,7 @@ public:
    void
    display () override;
 
-   gui::webport*
+   QWidget*
    graphical_representation() override;
 
 protected:

@@ -36,8 +36,7 @@ gui::webport::handleConfigPress ()
 {
    gauge_config config(m_parameters, this->parentWidget());
 
-   // implicitely converts to sigslot::scoped_connection which will clean when out of scope
-   sigslot::scoped_connection sc = config.new_settings.connect(&webport::new_settings, this);
+   sigslot::scoped_connection _ = config.new_settings.connect(&webport::new_settings, this);
 
    config.exec();
 }

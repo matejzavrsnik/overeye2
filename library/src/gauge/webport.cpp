@@ -27,12 +27,12 @@ webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
-   m_qt_gauge(std::make_unique<gui::webport>(m_parameters)),
+   m_gui_webport(std::make_unique<gui::webport>(m_parameters)),
    m_page_template(tags::genesis())
 {
    // todo: create outside and leave logic completely free of representation?
-   m_qt_gauge->setObjectName(std::string("webport") + std::to_string(m_unique.id()));
-   m_qt_gauge->new_settings.connect(&webport::update_settings, this);
+   m_gui_webport->setObjectName(std::string("webport") + std::to_string(m_unique.id()));
+   m_gui_webport->new_settings.connect(&webport::update_settings, this);
 
    set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
    set_parameter(tags::style(), style, false, tags::style());
@@ -69,16 +69,16 @@ webport::render (
    return page;
 }
 
-gui::webport*
+QWidget*
 webport::graphical_representation()
 {
-   return m_qt_gauge.get();
+   return m_gui_webport.get();
 }
 
 void
 webport::set_html (std::wstring_view html)
 {
-   m_qt_gauge->setHtml(html);
+   m_gui_webport->setHtml(html);
 }
 
 void

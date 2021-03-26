@@ -18,6 +18,7 @@ gauge::gauge (QWidget* parent) :
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 
    connect(ui->configure, &QPushButton::released, this, &gauge::handleConfigPress);
+
 }
 
 void gauge::setHtml(std::wstring_view html)
@@ -34,9 +35,10 @@ void
 gauge::handleConfigPress ()
 {
    gauge_config config(this->parentWidget());
+   // implicitely converts to sigslot::scoped_connection which will clean when out of scope
+   sigslot::scoped_connection sc = config.new_settings.connect(&gauge::new_settings, this);
    config.populate(m_info);
    config.exec();
-   new_settings(*m_info);
 }
 
 gauge::~gauge ()

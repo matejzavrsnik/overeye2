@@ -2,6 +2,7 @@
 #define GAUGE_CONFIG_H
 
 #include "../gauge/information.h"
+#include <sigslot/signal.hpp>
 #include <QDialog>
 
 QT_BEGIN_NAMESPACE
@@ -19,6 +20,7 @@ public:
     ~gauge_config() override;
 
     void populate(std::shared_ptr<gauges::information> info);
+   sigslot::signal<const gauges::information&> new_settings;
 
 private slots:
 

@@ -67,4 +67,5 @@ gauge_config::handleApplyPress ()
       m_info->parameters.set(tag, value);
       int i=0;
    }
+   new_settings(*m_info);
 }

@@ -6,7 +6,6 @@
 
 #include "../qt/gauge.h"
 #include "../gauge/parameters.h"
-#include "../gauge/information.h"
 
 namespace gauges
 {
@@ -34,7 +33,6 @@ public:
 protected:
 
    mzlib::unique m_unique;
-   std::shared_ptr<information> m_info;
    cparameters m_page_parameters;
 
    void
@@ -44,7 +42,7 @@ private:
 
    std::unique_ptr<::gauge> m_qt_gauge;
 
-   void update_settings(const gauges::information&);
+   void update_settings(const gauges::cparameters& parameters);
 
 
 };

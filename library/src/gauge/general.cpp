@@ -42,7 +42,6 @@ namespace gauges
    void
    general::display ()
    {
-      //m_page_template = render_template(m_page_template, m_page_parameters);
       m_last_rendered_page = render(m_page_template, m_page_parameters);
       set_html(m_last_rendered_page);
    }
@@ -60,25 +59,7 @@ namespace gauges
 
    void general::set_parameter(const std::wstring& tag, const std::wstring& value, bool user_setting, const std::wstring& friendly_name)
    {
-      //auto existing_parameter = std::find_if(
-      //   m_page_parameters.begin(), m_page_parameters.end(),
-      //   [&tag](const parameter& p) {
-      //      return p.get_tag() == tag;
-      //   });
-      //if(existing_parameter != m_page_parameters.end())
-      //{
-      //   existing_parameter->set_value(value);
-      //   existing_parameter->set_user_setting(user_setting);
-      //}
-      //else
-      //{
-      //   parameter parameter{tag, value, user_setting, friendly_name};
-      //   m_page_parameters.push_back(parameter);
-      //}
-      //m_info->parameters = m_page_parameters; // copy for now, good enough
-
       m_page_parameters.set(tag, value, user_setting, friendly_name);
-      m_info->parameters.set(tag, value, user_setting, friendly_name);
    }
 
    const std::wstring& general::tags::genesis()
@@ -101,21 +82,6 @@ const std::wstring& general::tags::content()
    static const std::wstring tag{L"{content}"};
    return tag;
 }
-
-
-   // render basic html to be used with anything
-   // can't be done in dtor because we might want to change stylesheet after control is created
-   //std::wstring
-   //general::render_template (
-   //   std::wstring page_template,
-   //   parameters parameters
-   //)
-   //{
-   //   mzlib::string_replace(page_template, g_style_placeholder, m_style);
-   //   for(const auto& parameter : parameters)
-   //      mzlib::string_replace(page_template, parameter.first, parameter.second);
-   //   return page_template;
-   //}
 
 
 }

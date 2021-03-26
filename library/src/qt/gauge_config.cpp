@@ -1,11 +1,10 @@
 
 #include "gauge_config.h"
 #include "ui_gauge_config.h"
-#include <string/trim.h>
 #include <QMessageBox>
 
 
-gauge_config::gauge_config(QWidget *parent) :
+gauge_config::gauge_config(const gauges::cparameters& parameters, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gauge_config)
 {
@@ -13,6 +12,8 @@ gauge_config::gauge_config(QWidget *parent) :
 
    connect(ui->close, &QPushButton::released, this, &gauge_config::handleClosePress);
    connect(ui->apply, &QPushButton::released, this, &gauge_config::handleApplyPress);
+
+   populate_grid(parameters);
 }
 
 gauge_config::~gauge_config()
@@ -20,9 +21,8 @@ gauge_config::~gauge_config()
     delete ui;
 }
 
-void gauge_config::populate(std::shared_ptr<gauges::information> info)
+void gauge_config::populate_grid(const gauges::cparameters& parameters)
 {
-   m_info = info;
    // populate the form
    ui->config_table->setColumnCount(2);
    ui->config_table->horizontalHeader()->setStretchLastSection(true);
@@ -30,7 +30,7 @@ void gauge_config::populate(std::shared_ptr<gauges::information> info)
    ui->config_table->verticalHeader()->hide();
    ui->config_table->horizontalHeader()->hide();
    int row = 0;
-   for(const auto& parameter : m_info->parameters)
+   for(const auto& parameter : parameters)
    {
       //todo: ideally it would never even get settings that aren't user settings
       if(parameter.is_user_setting())
@@ -59,13 +59,14 @@ gauge_config::handleClosePress ()
 void
 gauge_config::handleApplyPress ()
 {
+   gauges::cparameters new_parameters;
    for (int row = 0; row < ui->config_table->rowCount(); ++row)
    {
       const auto& valueItem = ui->config_table->item(row, 1);
       const std::wstring& tag = valueItem->data(Qt::UserRole).toString().toStdWString();
       const std::wstring& value = valueItem->data(Qt::DisplayRole).toString().toStdWString();
-      m_info->parameters.set(tag, value);
+      new_parameters.set(tag, value);
       int i=0;
    }
-   new_settings(*m_info);
+   new_settings(new_parameters);
 }

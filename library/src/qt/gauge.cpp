@@ -10,8 +10,9 @@
 
 #include <tools/converters.h>
 
-gauge::gauge (QWidget* parent) :
+gauge::gauge (const gauges::cparameters& parameters, QWidget* parent) :
    QWidget(parent),
+   m_parameters(parameters),
    ui(new Ui::gauge)
 {
    ui->setupUi(this);
@@ -34,10 +35,11 @@ void gauge::setObjectName(std::string object_name)
 void
 gauge::handleConfigPress ()
 {
-   gauge_config config(this->parentWidget());
+   gauge_config config(m_parameters, this->parentWidget());
+
    // implicitely converts to sigslot::scoped_connection which will clean when out of scope
    sigslot::scoped_connection sc = config.new_settings.connect(&gauge::new_settings, this);
-   config.populate(m_info);
+
    config.exec();
 }
 

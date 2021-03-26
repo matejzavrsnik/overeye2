@@ -8,14 +8,14 @@ class QGridLayout;
 namespace gauges
 {
 
-class base;
+class gauge;
 
 class manager
 {
 
 private:
 
-   std::vector<std::unique_ptr<base>> m_gauges;
+   std::vector<std::unique_ptr<gauge>> m_gauges;
    QGridLayout* m_grid;
 
 public:
@@ -24,7 +24,7 @@ public:
 
    void
    add (
-      std::unique_ptr<base> gauge,
+      std::unique_ptr<gauge> gauge,
       int row,
       int col,
       int row_span,

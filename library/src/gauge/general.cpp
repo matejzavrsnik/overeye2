@@ -27,8 +27,13 @@ general::general (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
+   m_qt_gauge(std::make_unique<::gauge>(m_parameters)),
    m_page_template(tags::genesis())
 {
+   // todo: create outside and leave logic completely free of representation?
+   m_qt_gauge->setObjectName(std::string("gauge") + std::to_string(m_unique.id()));
+   m_qt_gauge->new_settings.connect(&general::update_settings, this);
+
    set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
    set_parameter(tags::style(), style, false, tags::style());
    for (
@@ -64,6 +69,30 @@ general::render (
    return page;
 }
 
+::gauge*
+general::graphical_representation()
+{
+   return m_qt_gauge.get();
+}
+
+void
+general::set_html (std::wstring_view html)
+{
+   m_qt_gauge->setHtml(html);
+}
+
+void
+general::update_settings (const gauges::parameters& parameters)
+{
+   for (
+      const auto& i : parameters
+      )
+   {
+      m_parameters.set(i.get_tag(), i.get_value());
+   }
+   display();
+}
+
 void
 general::set_parameter (
    const std::wstring& tag,
@@ -96,6 +125,7 @@ general::tags::content ()
    static const std::wstring tag{L"{content}"};
    return tag;
 }
+
 
 
 }

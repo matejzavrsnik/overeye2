@@ -20,16 +20,28 @@ set (CMAKE_AUTORCC ON)
 
 # Add these files to this binary
 set (SOURCES
-   # externally visible
-   src/implementation.cpp ./include/library/header.h
-   # internally visible
+
+   # external
+   ./include/library/header.h
+
+   # internal
+   src/settings.h
+   src/implementation.cpp
+   src/gauge/configuration.h
+   src/gauge/interface.h
+   src/gauge/representation.h
+   src/gauge/location.h
+   src/gauge/parameters.cpp src/gauge/parameters.h
    src/gauge/webport.cpp src/gauge/webport.h
    src/gauge/twitter.cpp src/gauge/twitter.h
+   src/gauge/manager.cpp src/gauge/manager.h
+   src/gauge/factory.cpp src/gauge/factory.h
+
    # QT dialogs
-   src/gui/screen.cpp src/gui/screen.h src/gui/screen.ui
-   src/gui/webport.cpp src/gui/webport.h src/gui/webport.ui
-   src/gauge/manager.cpp src/gauge/manager.h src/gauge/configuration.h src/gauge/factory.cpp src/gauge/factory.h src/settings.h src/gauge/interface.h
-   src/gui/gauge_config.cpp src/gui/gauge_config.h src/gui/gauge_config.ui src/gauge/parameters.h src/gauge/parameters.cpp src/gauge/representation.h src/gauge/location.h)
+   src/gui/screen.ui src/gui/screen.cpp src/gui/screen.h
+   src/gui/webport.ui src/gui/webport.cpp src/gui/webport.h
+   src/gui/gauge_config.ui src/gui/gauge_config.cpp src/gui/gauge_config.h
+   )
 
 # The result
 add_library (library ${SOURCES})

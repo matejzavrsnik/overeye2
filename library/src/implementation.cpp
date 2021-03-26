@@ -1,6 +1,6 @@
 #include "../include/library/header.h"
 
-#include "qt/dialog.h"
+#include "gui/dialog.h"
 #include "gauge/manager.h"
 #include "gauge/types.h"
 #include "gauge/factory.h"
@@ -25,8 +25,8 @@ run_main (
    set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
    set.gauge_stylesheet = L"body { color: yellow; background-color: rgb(50, 56, 58) }";
    set.gauge_configurations = {
-      //todo: don't like the fact that it needs to be set from outside of gauge which parameters are user setting and
-      // which are not. That should be known to gauge, from outside only values for tags should come, not definitions
+      //todo: don't like the fact that it needs to be set from outside of webport which parameters are user setting and
+      // which are not. That should be known to webport, from outside only values for tags should come, not definitions
       {
          gauges::type::webport, 0, 0, 1, 1, {
                                                {gauges::webport::tags::content(), L"Hello",                                                                                                                                                                                    true, L"Content"}

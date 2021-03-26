@@ -7,14 +7,14 @@
 namespace gauges
 {
 
-// webport gauge
+// webport webport
 // usable on its own, but intended for further specialisation
 class webport : public gauge
 {
 
 private:
 
-   std::unique_ptr<::gauge> m_qt_gauge;
+   std::unique_ptr<::webport> m_qt_gauge;
    const std::wstring m_page_template;
    std::wstring m_last_rendered_page;
 
@@ -34,7 +34,7 @@ public:
    void
    display () override;
 
-   ::gauge*
+   ::webport*
    graphical_representation() override;
 
 protected:

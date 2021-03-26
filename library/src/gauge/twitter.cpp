@@ -34,7 +34,7 @@ twitter::twitter (
 ) :
    webport(style, {})
 {
-   // twitter gauge will control the {content} tag, so it's setting it to not be a user setting
+   // twitter webport will control the {content} tag, so it's setting it to not be a user setting
    set_parameter(webport::tags::content(), html(), false, webport::tags::content());
    for (
       const auto& page_parameter : page_parameters

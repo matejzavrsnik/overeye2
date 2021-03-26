@@ -5,26 +5,26 @@
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class gauge; }
+namespace Ui { class webport; }
 QT_END_NAMESPACE
 
 namespace gauges { class parameters; }
 
-// custom qt widget for base
-// goal is to contain qt as much as possible inside this class and not leak it out too much
-// added functionality should be just to access qt stuff, not for project needs
-class gauge : public QWidget
+// custom gui widget for base
+// goal is to contain gui as much as possible inside this class and not leak it out too much
+// added functionality should be just to access gui stuff, not for project needs
+class webport : public QWidget
 {
 Q_OBJECT
 
 public:
 
-   explicit gauge (
+   explicit webport (
       const gauges::parameters& parameters,
       QWidget* parent = nullptr
    );
 
-   ~gauge () override;
+   ~webport () override;
 
    void
    setHtml (std::wstring_view html);
@@ -41,7 +41,7 @@ private slots:
 
 private:
 
-   Ui::gauge* ui;
+   Ui::webport* ui;
    const gauges::parameters& m_parameters;
 
 };

@@ -27,11 +27,11 @@ webport::webport (
    const std::wstring& style,
    const parameters& page_parameters
 ) :
-   m_qt_gauge(std::make_unique<::gauge>(m_parameters)),
+   m_qt_gauge(std::make_unique<::webport>(m_parameters)),
    m_page_template(tags::genesis())
 {
    // todo: create outside and leave logic completely free of representation?
-   m_qt_gauge->setObjectName(std::string("gauge") + std::to_string(m_unique.id()));
+   m_qt_gauge->setObjectName(std::string("webport") + std::to_string(m_unique.id()));
    m_qt_gauge->new_settings.connect(&webport::update_settings, this);
 
    set_parameter(tags::genesis(), html(), false, tags::genesis()); //todo: make it accept default
@@ -69,7 +69,7 @@ webport::render (
    return page;
 }
 
-::gauge*
+::webport*
 webport::graphical_representation()
 {
    return m_qt_gauge.get();

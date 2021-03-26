@@ -1,20 +1,20 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "screen.h"
+#include "ui_screen.h"
 
-dialog::dialog (QWidget* parent) :
+screen::screen (QWidget* parent) :
    QDialog(parent),
    ui(new Ui::main_dialog)
 {
    ui->setupUi(this);
 }
 
-dialog::~dialog ()
+screen::~screen ()
 {
    delete ui;
 }
 
 QGridLayout*
-dialog::grid ()
+screen::grid ()
 {
    return ui->grid;
 }

@@ -26,7 +26,7 @@ set (SOURCES
    src/gauge/webport.cpp src/gauge/webport.h
    src/gauge/twitter.cpp src/gauge/twitter.h
    # QT dialogs
-   src/gui/dialog.cpp src/gui/dialog.h src/gui/dialog.ui
+   src/gui/screen.cpp src/gui/screen.h src/gui/screen.ui
    src/gui/webport.cpp src/gui/webport.h src/gui/webport.ui
    src/gauge/manager.cpp src/gauge/manager.h src/gauge/configuration.h src/gauge/factory.cpp src/gauge/factory.h src/settings.h src/gauge/gauge.h
    src/gui/gauge_config.cpp src/gui/gauge_config.h src/gui/gauge_config.ui src/gauge/parameters.h src/gauge/parameters.cpp)

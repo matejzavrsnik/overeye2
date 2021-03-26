@@ -1,6 +1,6 @@
 #include "../include/library/header.h"
 
-#include "gui/dialog.h"
+#include "gui/screen.h"
 #include "gauge/manager.h"
 #include "gauge/types.h"
 #include "gauge/factory.h"
@@ -49,8 +49,8 @@ run_main (
       },
    };
 
-   //todo: rename dialog to screen
-   dialog dlg;
+   //todo: rename screen to screen
+   screen dlg;
    //dlg.setWindowState(Qt::WindowFullScreen);
    dlg.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
 

@@ -7,17 +7,17 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class main_dialog; }
 QT_END_NAMESPACE
 
-class dialog : public QDialog
+class screen : public QDialog
 {
 Q_OBJECT
 
 public:
-   explicit dialog (QWidget* parent = nullptr);
+   explicit screen (QWidget* parent = nullptr);
 
    QGridLayout*
    grid ();
 
-   ~dialog () override;
+   ~screen () override;
 
 private:
 

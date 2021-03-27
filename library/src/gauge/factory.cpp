@@ -3,6 +3,7 @@
 #include "types.h"
 #include "webport.h"
 #include "twitter.h"
+#include "clock.h"
 #include "representation.h"
 #include "../settings.h"
 
@@ -38,6 +39,19 @@ gauge_factory (
 
       visual->new_settings.connect(&gauge::twitter::receive_new_settings, logical.get());
       logical->content_ready.connect(&gui::webport::setHtml, visual.get());
+
+      return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
+   }
+   case gauge::type::clock:
+   {
+
+      auto visual = std::make_unique<gui::webport>(gc.parameters);
+      auto logical = std::make_unique<gauge::clock>(set.gauge_stylesheet, gc.parameters, visual.get()); //todo: move one line up again
+      visual->setObjectName(std::string("clock") + std::to_string(unique.id()));
+
+      visual->new_settings.connect(&gauge::clock::receive_new_settings, logical.get());
+      logical->content_ready.connect(&gui::webport::setHtml, visual.get());
+      visual->request_new_content.connect(&gauge::clock::new_content_requested, logical.get());
 
       return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }

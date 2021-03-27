@@ -7,7 +7,7 @@
 namespace gauge
 {
 
-class parameter
+class parameter //todo: separate file
 {
 
 public:
@@ -52,7 +52,7 @@ public:
 
 };
 
-class parameters
+class parameters //todo: implementation to cpp
 {
    std::vector<parameter> m_parameters;
 
@@ -125,6 +125,19 @@ public:
       {
          param.set_name(*name);
       }
+   }
+
+   std::optional<parameter>
+   get (
+      const std::wstring& tag
+   )
+   {
+      auto existing_parameter = find(tag);
+      if (existing_parameter != m_parameters.end())
+      {
+         return *existing_parameter;
+      }
+      return std::nullopt;
    }
 
    //todo: leaking implementation detail

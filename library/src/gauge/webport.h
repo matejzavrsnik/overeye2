@@ -31,7 +31,7 @@ protected:
 
    parameters m_parameters;
 
-   static std::wstring
+   virtual std::wstring
    render (
       const std::wstring& page_template,
       const parameters& page_parameters
@@ -46,7 +46,7 @@ public:
    private:
 
       const static std::wstring&
-      genesis ();
+      genesis (); //todo: too complicated for no reason
 
    public:
 

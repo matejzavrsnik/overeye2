@@ -16,13 +16,14 @@ gui::webport::webport (
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 
    connect(ui->configure, &QPushButton::released, this, &webport::handleConfigPress);
-
 }
 
 void
 gui::webport::setHtml (const std::wstring& html)
 {
-   ui->display->setHtml(QString::fromStdWString(html));
+   std::wstring html2 = html;
+   auto html3 = QString::fromStdWString(html2);
+   ui->display->setHtml(html3);
 }
 
 void

@@ -17,8 +17,6 @@ public:
 
    class tags
    {
-      friend class twitter;
-
    public:
 
       const static std::wstring&

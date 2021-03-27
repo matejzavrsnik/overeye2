@@ -34,6 +34,7 @@ set (SOURCES
    src/gauge/parameters.cpp src/gauge/parameters.h
    src/gauge/webport.cpp src/gauge/webport.h
    src/gauge/twitter.cpp src/gauge/twitter.h
+   src/gauge/clock.cpp src/gauge/clock.h
    src/gauge/manager.cpp src/gauge/manager.h
    src/gauge/factory.cpp src/gauge/factory.h
 

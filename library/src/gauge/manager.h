@@ -5,6 +5,9 @@
 #include <vector>
 #include <memory>
 
+#include "clock.h"
+#include "representation.h"
+
 class QGridLayout;
 
 namespace gauge
@@ -28,6 +31,21 @@ public:
    add (
       representation gauge
    );
+
+   std::future<void> f;
+   void test()
+   {
+      f = std::async(std::launch::async, [this](){
+         using namespace std::chrono_literals;
+         std::this_thread::sleep_for(5000ms);
+         dynamic_cast<gauge::clock*>(m_gauges[0].logical.get())->tick();
+      });
+   }
+
+   void tick()
+   {
+
+   }
 
 };
 

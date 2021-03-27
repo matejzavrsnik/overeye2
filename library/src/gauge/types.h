@@ -5,7 +5,7 @@ namespace gauge
 
 enum class type
 {
-   webport, twitter
+   webport, twitter, clock
 };
 
 }

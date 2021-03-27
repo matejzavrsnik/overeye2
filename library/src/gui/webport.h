@@ -3,6 +3,7 @@
 #include <abstract/unique.h>
 #include <sigslot/signal.hpp>
 #include <QWidget>
+#include <QEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
@@ -37,6 +38,9 @@ public:
 
    sigslot::signal<const gauge::parameters&> new_settings;
 
+   sigslot::signal<> request_new_content;
+
+
 private slots:
 
    void
@@ -46,6 +50,22 @@ private:
 
    Ui::webport* ui;
    const gauge::parameters& m_parameters;
+
+   // https://stackoverflow.com/questions/40916479/thread-safety-of-calling-qobjects-method-from-another-non-qt-thread
+
+   bool event(QEvent* event) override
+   {
+      if (event->type() == QEvent::User+1)
+      {
+         int i = request_new_content.slot_count();
+         request_new_content();
+         return true;
+      }
+
+      // Make sure the rest of events are handled
+      return QWidget::event(event);
+   }
+
 
 };
 

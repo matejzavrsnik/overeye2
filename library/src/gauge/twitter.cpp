@@ -38,7 +38,11 @@ twitter::twitter (
    m_parameters.set(webport::tags::content(), html(), false);
    for (const auto& page_parameter : page_parameters)
    {
-      m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
+      m_parameters.set(
+         page_parameter.get_tag(),
+         page_parameter.get_value(),
+         true,
+         page_parameter.get_name());
    }
 }
 

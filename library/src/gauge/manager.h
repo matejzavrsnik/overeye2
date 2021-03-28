@@ -32,20 +32,8 @@ public:
       representation gauge
    );
 
-   std::future<void> f;
-   void test()
-   {
-      f = std::async(std::launch::async, [this](){
-         using namespace std::chrono_literals;
-         std::this_thread::sleep_for(5000ms);
-         dynamic_cast<gauge::clock*>(m_gauges[0].logical.get())->tick();
-      });
-   }
-
-   void tick()
-   {
-
-   }
+   void
+   slot_wish_refresh();
 
 };
 

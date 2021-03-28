@@ -33,7 +33,7 @@ public:
 private:
 
    bool m_stop;
-   std::future<void> _;
+   std::future<void> _; // future needs to outlive scope of std::async otherwise dtor will block
 
    void runner(std::chrono::milliseconds period)
    {
@@ -48,6 +48,8 @@ private:
 namespace gauge
 {
 
+
+
 class clock : public webport
 {
 
@@ -55,17 +57,16 @@ public:
 
    clock (
       const std::wstring& style,
-      const parameters& page_parameters,
-      QWidget* widget // todo: temporary solutuon!
+      const parameters& page_parameters
    );
 
    void
    tick ();
 
-   //sigslot::signal<> new_content;
+
 
    void
-   new_content_requested()
+   receive_request_content()
    {
       display ();
    }
@@ -73,8 +74,10 @@ public:
 private:
 
    QDateTime m_date_time;
+
    mytimer<sigslot::signal<>> m_timer;
-   QWidget* m_widget; // todo: remove
+
+
 
    std::wstring
    render (

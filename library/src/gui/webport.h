@@ -4,6 +4,7 @@
 #include <sigslot/signal.hpp>
 #include <QWidget>
 #include <QEvent>
+#include <QCoreApplication>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
@@ -30,16 +31,25 @@ public:
 
    ~webport () override;
 
+   sigslot::signal<const gauge::parameters&> send_user_changes;
+   sigslot::signal<> request_content;
+
    void
-   setHtml (const std::wstring& html);
+   receive_content (const std::wstring& html);
+
+   void
+   receive_content_refresh_request ()
+   {
+      // Logical part of gauge wishes to be refreshed and the signal may be coming from another thread.
+      // QWidget doesn't behave well with concurrent access. This function may be invoked from that other
+      // thread, so all I'll do here is leave a nice QEvent here for the QWidget in the original thread
+      // to pick up. It can then request content from it's own thread and not die on me.
+      auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
+      QCoreApplication::postEvent(this, event.release());
+   }
 
    void
    setObjectName (const std::string& object_name);
-
-   sigslot::signal<const gauge::parameters&> new_settings;
-
-   sigslot::signal<> request_new_content;
-
 
 private slots:
 
@@ -51,20 +61,19 @@ private:
    Ui::webport* ui;
    const gauge::parameters& m_parameters;
 
-   // https://stackoverflow.com/questions/40916479/thread-safety-of-calling-qobjects-method-from-another-non-qt-thread
-
    bool event(QEvent* event) override
    {
       if (event->type() == QEvent::User+1)
       {
-         int i = request_new_content.slot_count();
-         request_new_content();
+         // For explanation see: receive_content_refresh_request method
+         request_content();
          return true;
       }
 
-      // Make sure the rest of events are handled
       return QWidget::event(event);
    }
+
+
 
 
 };

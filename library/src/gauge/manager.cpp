@@ -28,4 +28,10 @@ manager::add (
    m_gauges.push_back(std::move(gauge));
 }
 
+void
+manager::slot_wish_refresh()
+{
+
+}
+
 }

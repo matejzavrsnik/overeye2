@@ -19,13 +19,14 @@ public:
       const parameters& page_parameters
    );
 
-   sigslot::signal<const std::wstring&> content_ready;
+   sigslot::signal<const std::wstring&> send_content;
+   sigslot::signal<> request_content_refresh;
 
    void
    display () override;
 
    void
-   receive_new_settings (const gauge::parameters& parameters);
+   receive_user_changes (const gauge::parameters& parameters);
 
 protected:
 

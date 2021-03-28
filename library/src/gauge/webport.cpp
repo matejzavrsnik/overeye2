@@ -40,7 +40,7 @@ void
 webport::display ()
 {
    auto rendered_content = render(tags::genesis(), m_parameters);
-   content_ready(rendered_content);
+   send_content(rendered_content);
 }
 
 std::wstring
@@ -58,7 +58,7 @@ webport::render (
 }
 
 void
-webport::receive_new_settings (const gauge::parameters& parameters)
+webport::receive_user_changes (const gauge::parameters& parameters)
 {
    for (const auto& i : parameters)
    {

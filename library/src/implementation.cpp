@@ -25,7 +25,7 @@ run_main (
 
    settings set;
    set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
-   set.gauge_stylesheet = L"body { color: yellow; background-color: rgb(50, 56, 58) }";
+   set.gauge_stylesheet = L"body { color: rgb(179, 179, 0); background-color: rgb(50, 56, 58) }";
    set.gauge_configurations = {
       //todo: don't like the fact that it needs to be set from outside of webport which parameters are user setting and
       // which are not. That should be known to webport, from outside only values for tags should come, not definitions

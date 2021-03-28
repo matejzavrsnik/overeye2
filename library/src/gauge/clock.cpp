@@ -1,6 +1,5 @@
 #include "clock.h"
 #include <string/replace.h>
-#include <QCoreApplication>
 
 
 namespace
@@ -21,13 +20,13 @@ html ()
 namespace gauge
 {
 
+
+
 clock::clock (
    const std::wstring& style,
-   const parameters& page_parameters,
-   QWidget* widget
+   const parameters& page_parameters
 ) :
-   webport(style, {}),
-   m_widget(widget)
+   webport(style, {})
 {
    // set default parameters
    m_parameters.set(webport::tags::content(), html(), false); // take over content from users
@@ -53,9 +52,7 @@ clock::clock (
 void
 clock::tick()
 {
-   //display(); // will trigger render too
-   auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
-   QCoreApplication::postEvent(m_widget, event.release());
+   request_content_refresh();
 }
 
 std::wstring

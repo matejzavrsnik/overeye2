@@ -21,9 +21,18 @@ gui::webport::webport (
 void
 gui::webport::receive_content (const std::wstring& html)
 {
-   std::wstring html2 = html;
-   auto html3 = QString::fromStdWString(html2);
-   ui->display->setHtml(html3);
+   ui->display->setHtml(QString::fromStdWString(html));
+}
+
+void
+gui::webport::receive_content_refresh_request ()
+{
+   // Logical part of gauge wishes to be refreshed and the signal may be coming from another thread.
+   // QWidget doesn't behave well with concurrent access. This function may be invoked from that other
+   // thread, so all I'll do here is leave a nice QEvent here for the QWidget in the original thread
+   // to pick up. It can then request content from it's own thread and not die on me.
+   auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
+   QCoreApplication::postEvent(this, event.release());
 }
 
 void
@@ -40,6 +49,19 @@ gui::webport::handleConfigPress ()
    sigslot::scoped_connection _ = config.new_settings.connect(&webport::send_user_changes, this);
 
    config.exec();
+}
+
+bool
+gui::webport::event (QEvent* event)
+{
+   if (event->type() == QEvent::User + 1)
+   {
+      // For explanation see: receive_content_refresh_request method
+      request_content();
+      return true;
+   }
+
+   return QWidget::event(event);
 }
 
 gui::webport::~webport ()

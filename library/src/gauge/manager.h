@@ -33,7 +33,7 @@ public:
    );
 
    void
-   slot_wish_refresh();
+   slot_wish_refresh ();
 
 };
 

@@ -21,7 +21,6 @@ namespace gauge
 {
 
 
-
 clock::clock (
    const std::wstring& style,
    const parameters& page_parameters
@@ -37,23 +36,14 @@ clock::clock (
    for (const auto& page_parameter : page_parameters)
    {
       m_parameters.set( // todo: only if it is a user setting
-         page_parameter.get_tag(),
-         page_parameter.get_value(),
-         true,
-         page_parameter.get_name());
+         page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name()
+      );
    }
 
    using namespace std::chrono_literals;
-   m_timer.tick.connect(&clock::tick, this);
-   m_timer.start(1000ms);
-   int i = 0;
+   set_content_refresh_period(1000ms);
 }
 
-void
-clock::tick()
-{
-   request_content_refresh();
-}
 
 std::wstring
 clock::render (
@@ -64,7 +54,10 @@ clock::render (
    auto page = webport::render(page_template, page_parameters);
 
    auto opt_format = m_parameters.get(tags::format());
-   if(!opt_format) return page;
+   if (!opt_format)
+   {
+      return page;
+   }
 
    auto qstr_format = QString::fromStdWString(opt_format->get_value());
    auto clock = m_date_time.currentDateTime().toString(qstr_format).toStdWString();

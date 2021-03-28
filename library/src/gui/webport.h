@@ -4,7 +4,6 @@
 #include <sigslot/signal.hpp>
 #include <QWidget>
 #include <QEvent>
-#include <QCoreApplication>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
@@ -38,15 +37,7 @@ public:
    receive_content (const std::wstring& html);
 
    void
-   receive_content_refresh_request ()
-   {
-      // Logical part of gauge wishes to be refreshed and the signal may be coming from another thread.
-      // QWidget doesn't behave well with concurrent access. This function may be invoked from that other
-      // thread, so all I'll do here is leave a nice QEvent here for the QWidget in the original thread
-      // to pick up. It can then request content from it's own thread and not die on me.
-      auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
-      QCoreApplication::postEvent(this, event.release());
-   }
+   receive_content_refresh_request ();
 
    void
    setObjectName (const std::string& object_name);
@@ -61,20 +52,8 @@ private:
    Ui::webport* ui;
    const gauge::parameters& m_parameters;
 
-   bool event(QEvent* event) override
-   {
-      if (event->type() == QEvent::User+1)
-      {
-         // For explanation see: receive_content_refresh_request method
-         request_content();
-         return true;
-      }
-
-      return QWidget::event(event);
-   }
-
-
-
+   bool
+   event (QEvent* event) override;
 
 };
 

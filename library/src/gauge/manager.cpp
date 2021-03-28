@@ -18,18 +18,14 @@ manager::add (
    gauge.logical->display();
 
    m_grid->addWidget(
-      gauge.visual.get(),
-      gauge.location.row,
-      gauge.location.col,
-      gauge.location.row_span,
-      gauge.location.col_span
+      gauge.visual.get(), gauge.location.row, gauge.location.col, gauge.location.row_span, gauge.location.col_span
    );
 
    m_gauges.push_back(std::move(gauge));
 }
 
 void
-manager::slot_wish_refresh()
+manager::slot_wish_refresh ()
 {
 
 }

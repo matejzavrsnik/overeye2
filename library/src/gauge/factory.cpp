@@ -1,4 +1,3 @@
-
 #include "factory.h"
 
 #include "types.h"
@@ -9,10 +8,8 @@
 #include "../settings.h"
 
 
-
 namespace gauge
 {
-
 
 
 std::optional<representation>
@@ -31,8 +28,10 @@ gauge_factory (
       auto visual = std::make_unique<gui::webport>(gc.parameters);
       visual->setObjectName(std::string("webport") + std::to_string(unique.id()));
 
-      visual->send_user_changes.connect(&gauge::webport::receive_user_changes, logical.get());
+      visual->send_user_changes.connect(&gauge::clock::receive_user_changes, logical.get());
+      visual->request_content.connect(&gauge::clock::receive_request_content, logical.get());
       logical->send_content.connect(&gui::webport::receive_content, visual.get());
+      logical->request_content_refresh.connect(&gui::webport::receive_content_refresh_request, visual.get());
 
       return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }
@@ -42,8 +41,10 @@ gauge_factory (
       auto visual = std::make_unique<gui::webport>(gc.parameters);
       visual->setObjectName(std::string("twitter") + std::to_string(unique.id()));
 
-      visual->send_user_changes.connect(&gauge::twitter::receive_user_changes, logical.get());
+      visual->send_user_changes.connect(&gauge::clock::receive_user_changes, logical.get());
+      visual->request_content.connect(&gauge::clock::receive_request_content, logical.get());
       logical->send_content.connect(&gui::webport::receive_content, visual.get());
+      logical->request_content_refresh.connect(&gui::webport::receive_content_refresh_request, visual.get());
 
       return std::make_optional<representation>(std::move(unique), std::move(logical), std::move(visual), gc.location);
    }

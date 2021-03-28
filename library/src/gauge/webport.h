@@ -2,6 +2,7 @@
 
 #include "interface.h"
 #include "configuration.h"
+#include "../utils/metronome.h"
 #include <string>
 
 namespace gauge
@@ -19,6 +20,8 @@ public:
       const parameters& page_parameters
    );
 
+   virtual ~webport();
+
    sigslot::signal<const std::wstring&> send_content;
    sigslot::signal<> request_content_refresh;
 
@@ -27,6 +30,9 @@ public:
 
    void
    receive_user_changes (const gauge::parameters& parameters);
+
+   void
+   receive_request_content ();
 
 protected:
 
@@ -37,6 +43,18 @@ protected:
       const std::wstring& page_template,
       const parameters& page_parameters
    );
+
+   void
+   set_content_refresh_period (
+      std::chrono::milliseconds period
+   );
+
+private:
+
+   metronome<sigslot::signal<>> m_timer;
+
+   void
+   tick ();
 
 public:
 

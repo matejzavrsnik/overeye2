@@ -76,7 +76,9 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 - library - most of the code. It's in form of a library so that tests can be written.
   - include - header files meant to be included in executable
   - src - sources
-    - utils - standalone utilities, waiting room to get into mzlib
+    - gauge - logical part of gauges, uncoupled from GUI
+    - gui - visual part of gauges
+    - utils - standalone utilities, in some cases waiting room to get into mzlib
 - tests - unit tests
 - res - resource files that aren't code
   
@@ -96,6 +98,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 
 - QT5
 - gtest
+- sigslot
 
 ## 3rdparty source preference
 

@@ -34,6 +34,13 @@ webport::webport (
    {
       m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
    }
+
+   m_timer.tick.connect(&webport::tick, this);
+}
+
+webport::~webport()
+{
+   m_timer.tick.disconnect_all();
 }
 
 void
@@ -58,12 +65,32 @@ webport::render (
 }
 
 void
+webport::set_content_refresh_period (
+   std::chrono::milliseconds period
+)
+{
+   m_timer.start(period);
+}
+
+void
+webport::tick ()
+{
+   request_content_refresh();
+}
+
+void
 webport::receive_user_changes (const gauge::parameters& parameters)
 {
    for (const auto& i : parameters)
    {
       m_parameters.set(i.get_tag(), i.get_value());
    }
+   display();
+}
+
+void
+webport::receive_request_content ()
+{
    display();
 }
 

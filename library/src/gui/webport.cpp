@@ -1,6 +1,7 @@
 #include "webport.h"
 #include "ui_webport.h"
 #include "gauge_config.h"
+#include "custom_event_types.h"
 
 #include <tools/converters.h>
 
@@ -36,7 +37,7 @@ gui::webport::receive_content_refresh_request ()
    // QWidget doesn't behave well with concurrent access. This function may be invoked from that other
    // thread, so all I'll do here is leave a nice QEvent here for the QWidget in the original thread
    // to pick up. It can then request content from it's own thread and not die on me.
-   auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
+   auto event = std::make_unique<QEvent>(custom_qevent_type::refresh_content);
    // segfaults due to race condition with destructor of qobject; don't yet know how to solve it.
    // immediate idea is to synchronise destructor with this call, but might get better idea later.
    QCoreApplication::postEvent(this, event.release());
@@ -61,7 +62,7 @@ gui::webport::handleConfigPress ()
 bool
 gui::webport::event (QEvent* event)
 {
-   if (event->type() == QEvent::User + 1)
+   if (event->type() == custom_qevent_type::refresh_content)
    {
       // For explanation see: receive_content_refresh_request method
       request_content();

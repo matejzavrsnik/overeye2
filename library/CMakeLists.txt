@@ -42,7 +42,7 @@ set (SOURCES
    src/gui/screen.ui src/gui/screen.cpp src/gui/screen.h
    src/gui/webport.ui src/gui/webport.cpp src/gui/webport.h
    src/gui/gauge_config.ui src/gui/gauge_config.cpp src/gui/gauge_config.h
-   src/utils/metronome.h)
+   src/utils/metronome.h src/gui/custom_event_types.h)
 
 # The result
 add_library (library ${SOURCES})

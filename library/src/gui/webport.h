@@ -1,6 +1,5 @@
 #pragma once
 
-#include <abstract/unique.h>
 #include <sigslot/signal.hpp>
 #include <QWidget>
 #include <QEvent>

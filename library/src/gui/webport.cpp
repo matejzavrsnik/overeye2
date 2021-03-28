@@ -18,6 +18,11 @@ gui::webport::webport (
    connect(ui->configure, &QPushButton::released, this, &webport::handleConfigPress);
 }
 
+gui::webport::~webport ()
+{
+   delete ui;
+}
+
 void
 gui::webport::receive_content (const std::wstring& html)
 {
@@ -32,6 +37,8 @@ gui::webport::receive_content_refresh_request ()
    // thread, so all I'll do here is leave a nice QEvent here for the QWidget in the original thread
    // to pick up. It can then request content from it's own thread and not die on me.
    auto event = std::make_unique<QEvent>(static_cast<QEvent::Type>(QEvent::User + 1));
+   // segfaults due to race condition with destructor of qobject; don't yet know how to solve it.
+   // immediate idea is to synchronise destructor with this call, but might get better idea later.
    QCoreApplication::postEvent(this, event.release());
 }
 
@@ -64,7 +71,3 @@ gui::webport::event (QEvent* event)
    return QWidget::event(event);
 }
 
-gui::webport::~webport ()
-{
-   delete ui;
-}

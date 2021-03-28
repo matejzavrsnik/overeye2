@@ -1,6 +1,7 @@
 #pragma once
 
 #include "location.h"
+#include <abstract/unique.h>
 #include <memory>
 
 class QWidget;

@@ -1,6 +1,6 @@
 #include "clock.h"
 #include <string/replace.h>
-
+#include <QTimeZone>
 
 namespace
 {
@@ -9,8 +9,8 @@ const std::wstring&
 html ()
 {
    static const std::wstring html = LR"(
-   <h1>{location}<h1><br>
-   <h1>{clock}<h1>
+   {location}
+   <h3>{clock}<h3>
    )";
    return html;
 }
@@ -53,14 +53,16 @@ clock::render (
 {
    auto page = webport::render(page_template, page_parameters);
 
-   auto opt_format = m_parameters.get(tags::format());
-   if (!opt_format)
-   {
-      return page;
-   }
+   auto format = QString::fromStdWString(m_parameters.get(tags::format())->get_value());
+   auto location = QString::fromStdWString(m_parameters.get(tags::location())->get_value());
 
-   auto qstr_format = QString::fromStdWString(opt_format->get_value());
-   auto clock = m_date_time.currentDateTime().toString(qstr_format).toStdWString();
+   //auto aaa = QTimeZone::availableTimeZoneIds();
+   //std::vector<std::string> zones;
+   //for(auto aa : aaa)
+   //   zones.push_back(aa.toStdString());
+
+   QTimeZone timeZone(location.toUtf8());
+   auto clock = m_date_time.currentDateTime().toTimeZone(timeZone).toString(format).toStdWString();
    mzlib::string_replace(page, tags::clock(), clock);
 
    return page;

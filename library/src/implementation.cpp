@@ -32,7 +32,7 @@ run_main (
       {gauge::type::clock,
          gauge::location{0, 0, 1, 1},
          {{gauge::clock::tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format"},
-            {gauge::clock::tags::location(), L"London", true, L"Location"}}},
+            {gauge::clock::tags::location(), L"America/Tijuana", true, L"Location"}}},
       {gauge::type::webport,
          gauge::location{0, 1, 1, 1},
          {{gauge::webport::tags::content(),

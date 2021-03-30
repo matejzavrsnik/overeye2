@@ -61,6 +61,13 @@ clock::render (
    //for(auto aa : aaa)
    //   zones.push_back(aa.toStdString());
 
+   //Asia/Ulaanbaatar
+   //Antarctica/Davis
+   //Europe/London
+   //Europe/Ljubljana
+   //America/New_York
+   //America/Monterrey
+
    QTimeZone timeZone(location.toUtf8());
    auto clock = m_date_time.currentDateTime().toTimeZone(timeZone).toString(format).toStdWString();
    mzlib::string_replace(page, tags::clock(), clock);

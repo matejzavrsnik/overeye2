@@ -20,7 +20,7 @@ class manager
 
 private:
 
-   std::vector<representation> m_gauges;
+   std::vector<std::unique_ptr<representation>> m_gauges;
    QGridLayout* m_grid;
 
 public:
@@ -29,7 +29,7 @@ public:
 
    void
    add (
-      representation gauge
+   std::unique_ptr<representation> gauge
    );
 
 };

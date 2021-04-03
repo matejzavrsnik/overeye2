@@ -13,7 +13,7 @@ public:
 
    clock (
       const std::wstring& style,
-      const std::vector<user_setting>& user_settings
+      interface_gauge_settings& user_settings
    );
 
 private:
@@ -23,7 +23,7 @@ private:
    std::wstring
    render (
       const std::wstring& page_template,
-      const parameters& page_parameters
+      interface_gauge_settings& page_parameters
    ) override;
 
 public:

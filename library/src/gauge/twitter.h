@@ -12,7 +12,7 @@ public:
 
    twitter (
       const std::wstring& style,
-      const std::vector<user_setting>& user_settings
+      interface_gauge_settings& user_settings
    );
 
    class tags

@@ -17,7 +17,7 @@ public:
 
    webport (
       const std::wstring& style,
-      const std::vector<user_setting>& user_settings
+      interface_gauge_settings& user_settings
    );
 
    virtual ~webport();
@@ -29,19 +29,19 @@ public:
    display () override;
 
    void
-   receive_user_setting (const gauge::user_setting& parameters);
+   receive_user_setting (const gauge::user_setting& user_setting);
 
    void
    receive_request_content ();
 
 protected:
 
-   parameters m_parameters;
+   interface_gauge_settings& m_parameters;
 
    virtual std::wstring
    render (
       const std::wstring& page_template,
-      const parameters& page_parameters
+      interface_gauge_settings& page_parameters
    );
 
    void

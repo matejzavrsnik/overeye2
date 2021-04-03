@@ -52,10 +52,8 @@ run_main (
 
    for (auto& gc : set.gauge_configurations)
    {
-      if (auto g = gauge::gauge_factory(gc, set))
-      {
-         gm.add(std::move(g.value()));
-      }
+      auto g = gauge::gauge_factory(gc, set);
+      gm.add(std::move(g));
    }
 
    screen.show();

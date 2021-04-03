@@ -11,7 +11,7 @@ namespace gauge
 struct configuration;
 struct representation;
 
-std::optional<representation>
+std::unique_ptr<representation>
 gauge_factory (
    const configuration& gc,
    const library::settings& set

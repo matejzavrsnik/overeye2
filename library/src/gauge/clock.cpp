@@ -23,9 +23,9 @@ namespace gauge
 
 clock::clock (
    const std::wstring& style,
-   const std::vector<user_setting>& user_settings
+   interface_gauge_settings& user_settings
 ) :
-   webport(style, {})
+   webport(style, user_settings)
 {
    // setup parameters expected for this gauge
    m_parameters.set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
@@ -33,10 +33,10 @@ clock::clock (
    m_parameters.set_or_add(tags::location(), L"current", true, L"Location");
 
    // configure with user settings
-   for (const auto& user_setting : user_settings)
-   {
-      m_parameters.set_user_setting(user_setting.tag, user_setting.value);
-   }
+   //for (const auto& user_setting : user_settings)
+   //{
+   //   m_parameters.user_setting_set(user_setting);
+   //}
 
    using namespace std::chrono_literals;
    set_content_refresh_period(1000ms);
@@ -46,13 +46,13 @@ clock::clock (
 std::wstring
 clock::render (
    const std::wstring& page_template,
-   const parameters& page_parameters
+   interface_gauge_settings& page_parameters
 )
 {
    auto page = webport::render(page_template, page_parameters);
 
-   auto format = QString::fromStdWString(m_parameters.get(tags::format())->get_value());
-   auto location = QString::fromStdWString(m_parameters.get(tags::location())->get_value());
+   auto format = QString::fromStdWString(m_parameters.get_value(tags::format()).value_or(L""));
+   auto location = QString::fromStdWString(m_parameters.get_value(tags::location()).value_or(L""));
 
    //auto aaa = QTimeZone::availableTimeZoneIds();
    //std::vector<std::string> zones;

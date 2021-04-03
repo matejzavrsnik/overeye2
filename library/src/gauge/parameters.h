@@ -177,7 +177,7 @@ public:
 //      }
 //   }
 
-//private:
+private:
 
    // sets tag value if exists, adds if it doesn't
    // two params are optional because two audiences: gauge setting these for themselves and user settings

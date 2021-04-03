@@ -23,14 +23,14 @@ namespace gauge
 
 clock::clock (
    const std::wstring& style,
-   interface_gauge_settings& user_settings
+   std::shared_ptr<interface_gauge_settings> user_settings
 ) :
    webport(style, user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters.set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
-   m_parameters.set_or_add(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format");
-   m_parameters.set_or_add(tags::location(), L"current", true, L"Location");
+   m_parameters->set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
+   m_parameters->set_or_add(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format");
+   m_parameters->set_or_add(tags::location(), L"current", true, L"Location");
 
    // configure with user settings
    //for (const auto& user_setting : user_settings)
@@ -46,13 +46,13 @@ clock::clock (
 std::wstring
 clock::render (
    const std::wstring& page_template,
-   interface_gauge_settings& page_parameters
+   std::shared_ptr<gauge::interface_gauge_settings> page_parameters
 )
 {
    auto page = webport::render(page_template, page_parameters);
 
-   auto format = QString::fromStdWString(m_parameters.get_value(tags::format()).value_or(L""));
-   auto location = QString::fromStdWString(m_parameters.get_value(tags::location()).value_or(L""));
+   auto format = QString::fromStdWString(m_parameters->get_value(tags::format()).value_or(L""));
+   auto location = QString::fromStdWString(m_parameters->get_value(tags::location()).value_or(L""));
 
    //auto aaa = QTimeZone::availableTimeZoneIds();
    //std::vector<std::string> zones;

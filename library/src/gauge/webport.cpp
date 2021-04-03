@@ -25,14 +25,14 @@ namespace gauge
 
 webport::webport (
    const std::wstring& style,
-   interface_gauge_settings& user_settings
+   std::shared_ptr<interface_gauge_settings> user_settings
 ) :
    m_parameters(user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters.set_or_add(tags::genesis(), html(), false);
-   m_parameters.set_or_add(tags::style(), style, false);
-   m_parameters.set_or_add(tags::content(), L"", true);
+   m_parameters->set_or_add(tags::genesis(), html(), false);
+   m_parameters->set_or_add(tags::style(), style, false);
+   m_parameters->set_or_add(tags::content(), L"", true);
 
    // configure with user settings
    //for (const auto& user_setting : user_settings)
@@ -58,12 +58,11 @@ webport::display ()
 std::wstring
 webport::render (
    const std::wstring& page_template,
-   interface_gauge_settings& page_parameters
+   std::shared_ptr<gauge::interface_gauge_settings> page_parameters
 )
 {
    std::wstring page = page_template;
-   auto params = page_parameters.get_all();
-   for (const auto& parameter : params)
+   for (const auto& parameter : page_parameters->get_all())
    {
       mzlib::string_replace(page, parameter.tag, parameter.value);
    }
@@ -87,7 +86,7 @@ webport::tick ()
 void
 webport::receive_user_setting (const gauge::user_setting& user_setting)
 {
-   m_parameters.user_setting_set(user_setting);
+   m_parameters->user_setting_set(user_setting);
    display();
 }
 

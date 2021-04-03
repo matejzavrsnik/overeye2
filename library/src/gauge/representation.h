@@ -23,7 +23,7 @@ public:
    std::unique_ptr<gauge::interface> logical;
    std::unique_ptr<QWidget> visual;
    gauge::location location;
-   gauge::parameters parameters;
+   std::shared_ptr<gauge::interface_gauge_settings> parameters = std::make_shared<gauge::parameters>();
 };
 
 }

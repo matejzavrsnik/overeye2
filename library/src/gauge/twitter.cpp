@@ -30,13 +30,13 @@ namespace gauge
 
 twitter::twitter (
    const std::wstring& style,
-   interface_gauge_settings& user_settings
+   std::shared_ptr<interface_gauge_settings> user_settings
 ) :
    webport(style, user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters.set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
-   m_parameters.set_or_add(twitter::tags::handle(), L"", true);
+   m_parameters->set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
+   m_parameters->set_or_add(twitter::tags::handle(), L"", true);
 
    // configure with user settings
    //for (const auto& user_setting : user_settings)

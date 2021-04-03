@@ -30,7 +30,7 @@ gauge_factory (
       visual->setObjectName(std::string("webport") + std::to_string(unique.id()));
 
       for(auto setting : gc.parameters)
-         r->parameters.user_setting_set(setting); //todo: make it so that order doesn't matter that much
+         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->send_user_setting.connect(&gauge::clock::receive_user_setting, logical.get());
       visual->request_content.connect(&gauge::clock::receive_request_content, logical.get());
@@ -51,7 +51,7 @@ gauge_factory (
       visual->setObjectName(std::string("twitter") + std::to_string(unique.id()));
 
       for(auto setting : gc.parameters)
-         r->parameters.user_setting_set(setting); //todo: make it so that order doesn't matter that much
+         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->send_user_setting.connect(&gauge::clock::receive_user_setting, logical.get());
       visual->request_content.connect(&gauge::clock::receive_request_content, logical.get());
@@ -72,7 +72,7 @@ gauge_factory (
       visual->setObjectName(std::string("clock") + std::to_string(unique.id()));
 
       for(auto setting : gc.parameters)
-         r->parameters.user_setting_set(setting); //todo: make it so that order doesn't matter that much
+         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->send_user_setting.connect(&gauge::clock::receive_user_setting, logical.get());
       visual->request_content.connect(&gauge::clock::receive_request_content, logical.get());

@@ -6,7 +6,7 @@
 #include <tools/converters.h>
 
 gui::webport::webport (
-   const std::vector<gauge::user_setting>& user_settings,
+   std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
    QWidget* parent
 ) :
    QWidget(parent),
@@ -31,7 +31,7 @@ gui::webport::receive_content (const std::wstring& html)
 }
 
 void
-gui::webport::receive_content_refresh_request ()
+gui::webport::receive_request_refresh ()
 {
    // Logical part of gauge wishes to be refreshed and the signal may be coming from another thread.
    // QWidget doesn't behave well with concurrent access. This function may be invoked from that other
@@ -53,9 +53,7 @@ void
 gui::webport::handleConfigPress ()
 {
    gauge_config config(m_user_settings, this->parentWidget());
-
-   sigslot::scoped_connection _ = config.new_setting.connect(&webport::send_user_setting, this);
-
+   sigslot::scoped_connection _ = config.signal_settings_changed.connect(&webport::signal_settings_changed, this);
    config.exec();
 }
 

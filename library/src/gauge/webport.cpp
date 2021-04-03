@@ -30,15 +30,9 @@ webport::webport (
    m_parameters(user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters->set_or_add(tags::genesis(), html(), false);
-   m_parameters->set_or_add(tags::style(), style, false);
-   m_parameters->set_or_add(tags::content(), L"", true);
-
-   // configure with user settings
-   //for (const auto& user_setting : user_settings)
-   //{
-   //   m_parameters.user_setting_set(user_setting);
-   //}
+   m_parameters->set_or_add_internal_setting(tags::genesis(), html());
+   m_parameters->set_or_add_internal_setting(tags::style(), style);
+   m_parameters->set_or_add_user_setting(tags::content(), L"", L"Content");
 
    m_timer.tick.connect(&webport::tick, this);
 }
@@ -80,20 +74,7 @@ webport::set_content_refresh_period (
 void
 webport::tick ()
 {
-   request_content_refresh();
-}
-
-void
-webport::receive_user_setting (const gauge::user_setting& user_setting)
-{
-   m_parameters->user_setting_set(user_setting);
-   display();
-}
-
-void
-webport::receive_request_content ()
-{
-   display();
+   request_refresh();
 }
 
 const std::wstring&

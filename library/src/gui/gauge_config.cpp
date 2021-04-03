@@ -3,18 +3,19 @@
 #include <QMessageBox>
 
 gui::gauge_config::gauge_config (
-   const std::vector<gauge::user_setting>& user_settings,
+   std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
    QWidget* parent
 ) :
    QDialog(parent),
-   ui(new Ui::gauge_config)
+   ui(new Ui::gauge_config),
+   m_settings(user_settings)
 {
    ui->setupUi(this);
 
    connect(ui->close, &QPushButton::released, this, &gauge_config::handleClosePress);
    connect(ui->apply, &QPushButton::released, this, &gauge_config::handleApplyPress);
 
-   populate_grid(user_settings);
+   populate_grid();
 }
 
 gui::gauge_config::~gauge_config ()
@@ -23,7 +24,7 @@ gui::gauge_config::~gauge_config ()
 }
 
 void
-gui::gauge_config::populate_grid (const std::vector<gauge::user_setting>& user_settings)
+gui::gauge_config::populate_grid ()
 {
    // populate the form
    ui->config_table->setColumnCount(2);
@@ -32,14 +33,14 @@ gui::gauge_config::populate_grid (const std::vector<gauge::user_setting>& user_s
    ui->config_table->verticalHeader()->hide();
    ui->config_table->horizontalHeader()->hide();
    int row = 0;
-   for (const auto& setting : user_settings)
+   for (const auto& setting : m_settings->user_setting_get_all())
    {
       ui->config_table->insertRow(row);
-      auto item_tag = std::make_unique<QTableWidgetItem>(QString::fromStdWString(setting.tag)); //todo: name
-      item_tag->setFlags(item_tag->flags() ^ Qt::ItemIsEditable);
+      auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdWString(m_settings->user_setting_get_name(setting.tag).value()));
+      item_name->setFlags(item_name->flags() ^ Qt::ItemIsEditable);
       auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdWString(setting.value));
       item_value->setData(Qt::UserRole, QString::fromStdWString(setting.tag));
-      ui->config_table->setItem(row, 0, item_tag.release());
+      ui->config_table->setItem(row, 0, item_name.release());
       ui->config_table->setItem(row, 1, item_value.release());
       ++row;
    }
@@ -57,14 +58,18 @@ gui::gauge_config::handleClosePress ()
 void
 gui::gauge_config::handleApplyPress ()
 {
-   //gauge::parameters new_parameters;
+   bool anything_changed = false;
+
    for (int row = 0; row < ui->config_table->rowCount(); ++row)
    {
       const auto& valueItem = ui->config_table->item(row, 1);
       const std::wstring& tag = valueItem->data(Qt::UserRole).toString().toStdWString();
       const std::wstring& value = valueItem->data(Qt::DisplayRole).toString().toStdWString();
-      //new_parameters.set_or_add(tag, value);
-      new_setting(gauge::user_setting{tag, value}); // todo: split
+      m_settings->user_setting_set({tag, value});
+      anything_changed = true; // todo: better if it was done from settings class centraly
    }
+
+   if(anything_changed)
+      signal_settings_changed();
 
 }

@@ -35,14 +35,8 @@ twitter::twitter (
    webport(style, user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters->set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
-   m_parameters->set_or_add(twitter::tags::handle(), L"", true);
-
-   // configure with user settings
-   //for (const auto& user_setting : user_settings)
-   //{
-   //   m_parameters.user_setting_set(user_setting);
-   //}
+   m_parameters->set_or_add_internal_setting(webport::tags::content(), html()); // taking over {content} tag from user
+   m_parameters->set_or_add_user_setting(twitter::tags::handle(), L"", L"Handle");
 }
 
 const std::wstring&

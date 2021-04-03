@@ -28,15 +28,9 @@ clock::clock (
    webport(style, user_settings)
 {
    // setup parameters expected for this gauge
-   m_parameters->set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
-   m_parameters->set_or_add(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format");
-   m_parameters->set_or_add(tags::location(), L"current", true, L"Location");
-
-   // configure with user settings
-   //for (const auto& user_setting : user_settings)
-   //{
-   //   m_parameters.user_setting_set(user_setting);
-   //}
+   m_parameters->set_or_add_internal_setting(webport::tags::content(), html()); // taking over {content} tag from user
+   m_parameters->set_or_add_user_setting(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", L"Format");
+   m_parameters->set_or_add_user_setting(tags::location(), L"current", L"Location");
 
    using namespace std::chrono_literals;
    set_content_refresh_period(1000ms);

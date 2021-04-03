@@ -7,24 +7,14 @@
 namespace gauge
 {
 
-struct user_setting
+struct setting
 {
    std::wstring tag;
    std::wstring value;
 };
 
-// audience: factory that needs to create settings in the first place
-class interface_user_settings
-{
-public:
-   virtual bool
-   user_setting_add (
-      const user_setting& setting
-   ) = 0;
-};
-
 // audience: visual control that needs to display settings and also set them accordign to user changes
-class interface_visual_control_settings : public interface_user_settings
+class interface_visual_control_settings
 {
 public:
    virtual std::optional<std::wstring>
@@ -39,10 +29,10 @@ public:
 
    virtual bool
    user_setting_set (
-      const user_setting& setting
+      const setting& setting
    ) = 0;
 
-   virtual std::vector<user_setting>
+   virtual std::vector<setting>
    user_setting_get_all() = 0;
 };
 
@@ -91,8 +81,6 @@ public:
    void
    set_name (const std::wstring& name);
 
-
-
 };
 
 
@@ -103,11 +91,16 @@ class interface_gauge_settings : public interface_visual_control_settings
 {
 public:
    virtual void
-   set_or_add (
+   set_or_add_user_setting (
       const std::wstring& tag,
       const std::wstring& value,
-      const std::optional<bool> user_setting = std::nullopt,
-      const std::optional<std::wstring>& name = std::nullopt
+      const std::wstring& name
+   ) = 0;
+
+   virtual void
+   set_or_add_internal_setting (
+      const std::wstring& tag,
+      const std::wstring& value
    ) = 0;
 
    virtual std::optional<std::wstring>
@@ -115,7 +108,7 @@ public:
       const std::wstring& tag
    ) = 0;
 
-   virtual std::vector<user_setting> //todo: not "user setting" anymore is it
+   virtual std::vector<setting> //todo: not "user setting" anymore is it
    get_all() = 0;
 };
 
@@ -167,57 +160,38 @@ public:
 
    parameters () = default;
 
-//   parameters (
-//      const std::initializer_list<parameter>& params
-//   )
-//   {
-//      for (const auto& param : params)
-//      {
-//         m_parameters.push_back(param);
-//      }
-//   }
-
 private:
 
-   // sets tag value if exists, adds if it doesn't
-   // two params are optional because two audiences: gauge setting these for themselves and user settings
-   // perhaps an opportunity for refactor?
    void
-   set_or_add (
+   set_or_add_user_setting (
       const std::wstring& tag,
       const std::wstring& value,
-      const std::optional<bool> user_setting = std::nullopt,
-      const std::optional<std::wstring>& name = std::nullopt
-   )
+      const std::wstring& name
+   ) override
    {
       parameter& param = find_or_add(tag);
 
       param.set_value(value);
-      if (user_setting)
-      {
-         param.set_user_setting(*user_setting);
-      }
-      if (name)
-      {
-         param.set_name(*name);
-      }
+      param.set_user_setting(true);
+      param.set_name(name);
    }
 
-   virtual bool
-   user_setting_add (
-      const user_setting& setting
-   )
+   void
+   set_or_add_internal_setting(
+      const std::wstring& tag,
+      const std::wstring& value
+   ) override
    {
-      auto parameter = find(setting.tag);
-      if(parameter != m_parameters.end()) return false;
-      set_or_add(setting.tag, setting.value, true);
-      return true;
+      parameter& param = find_or_add(tag);
+
+      param.set_value(value);
+      param.set_user_setting(false);
    }
 
    // sets tag value if exists and is available as user setting
    bool
    user_setting_set (
-      const user_setting& setting
+      const setting& setting
    )
    {
       auto parameter = find(setting.tag);
@@ -266,53 +240,25 @@ private:
       return std::nullopt;
    }
 
-   std::vector<user_setting>
+   std::vector<setting>
    user_setting_get_all()
    {
-      std::vector<user_setting> s;
+      std::vector<setting> s;
       for(auto param : m_parameters)
          if(param.is_user_setting())
             s.push_back({param.get_tag(), param.get_value()});
       return s;
    }
 
-   std::vector<user_setting>
+   std::vector<setting>
    get_all() override
    {
-      std::vector<user_setting> s;
+      std::vector<setting> s;
       for(auto param : m_parameters)
          s.push_back({param.get_tag(), param.get_value()});
       return s;
    }
 
-
-
-
-
-   //todo: leaking implementation detail
-   std::vector<parameter>::iterator
-   begin ()
-   {
-      return m_parameters.begin();
-   }
-
-   std::vector<parameter>::iterator
-   end ()
-   {
-      return m_parameters.end();
-   }
-
-   [[nodiscard]] std::vector<parameter>::const_iterator
-   begin () const
-   {
-      return m_parameters.begin();
-   }
-
-   [[nodiscard]] std::vector<parameter>::const_iterator
-   end () const
-   {
-      return m_parameters.end();
-   }
 };
 
 }

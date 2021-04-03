@@ -23,16 +23,10 @@ public:
    virtual ~webport();
 
    sigslot::signal<const std::wstring&> send_content;
-   sigslot::signal<> request_content_refresh;
+   sigslot::signal<> request_refresh;
 
    void
    display () override;
-
-   void
-   receive_user_setting (const gauge::user_setting& user_setting);
-
-   void
-   receive_request_content ();
 
 protected:
 

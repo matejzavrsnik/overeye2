@@ -17,13 +17,13 @@ Q_OBJECT
 
 public:
    explicit gauge_config (
-      const std::vector<gauge::user_setting>& user_settings,
+      std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
       QWidget* parent = nullptr
    );
 
    ~gauge_config () override;
 
-   sigslot::signal<const gauge::user_setting&> new_setting;
+   sigslot::signal<> signal_settings_changed;
 
 private slots:
 
@@ -36,9 +36,10 @@ private slots:
 private:
 
    Ui::gauge_config* ui;
+   std::shared_ptr<gauge::interface_visual_control_settings> m_settings;
 
    void
-   populate_grid (const std::vector<gauge::user_setting>& user_settings);
+   populate_grid ();
 
 };
 

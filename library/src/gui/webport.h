@@ -8,7 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
 QT_END_NAMESPACE
 
-namespace gauge { class parameters; }
+namespace gauge { class user_setting; }
 
 namespace gui
 {
@@ -23,13 +23,13 @@ Q_OBJECT
 public:
 
    explicit webport (
-      const gauge::parameters& parameters,
+      const std::vector<gauge::user_setting>& user_settings,
       QWidget* parent = nullptr
    );
 
    ~webport () override;
 
-   sigslot::signal<const gauge::parameters&> send_user_changes;
+   sigslot::signal<const gauge::user_setting&> send_user_setting;
    sigslot::signal<> request_content;
 
    void
@@ -49,7 +49,7 @@ private slots:
 private:
 
    Ui::webport* ui;
-   const gauge::parameters& m_parameters;
+   const std::vector<gauge::user_setting>& m_user_settings;
 
    bool
    event (QEvent* event) override;

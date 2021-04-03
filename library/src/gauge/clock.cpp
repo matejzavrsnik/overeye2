@@ -23,21 +23,19 @@ namespace gauge
 
 clock::clock (
    const std::wstring& style,
-   const parameters& page_parameters
+   const std::vector<user_setting>& user_settings
 ) :
    webport(style, {})
 {
-   // set default parameters
-   m_parameters.set(webport::tags::content(), html(), false); // take over content from users
-   m_parameters.set(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format");
-   m_parameters.set(tags::location(), L"current", true, L"Location");
+   // setup parameters expected for this gauge
+   m_parameters.set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
+   m_parameters.set_or_add(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", true, L"Format");
+   m_parameters.set_or_add(tags::location(), L"current", true, L"Location");
 
-   // then apply user setting on top
-   for (const auto& page_parameter : page_parameters)
+   // configure with user settings
+   for (const auto& user_setting : user_settings)
    {
-      m_parameters.set( // todo: only if it is a user setting
-         page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name()
-      );
+      m_parameters.set_user_setting(user_setting.tag, user_setting.value);
    }
 
    using namespace std::chrono_literals;

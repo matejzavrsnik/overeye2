@@ -7,6 +7,12 @@
 namespace gauge
 {
 
+struct user_setting
+{
+   std::wstring tag;
+   std::wstring value;
+};
+
 class parameter //todo: separate file
 {
 
@@ -107,7 +113,7 @@ public:
    // two params are optional because two audiences: gauge setting these for themselves and user settings
    // perhaps an opportunity for refactor?
    void
-   set (
+   set_or_add (
       const std::wstring& tag,
       const std::wstring& value,
       const std::optional<bool> user_setting = std::nullopt,
@@ -125,6 +131,20 @@ public:
       {
          param.set_name(*name);
       }
+   }
+
+   // sets tag value if exists and is available as user setting
+   bool
+   set_user_setting (
+      const std::wstring& tag,
+      const std::wstring& value
+   )
+   {
+      auto parameter = find(tag);
+      if(parameter == m_parameters.end()) return false;
+      if(!parameter->is_user_setting()) return false;
+      parameter->set_value(value);
+      return true;
    }
 
    std::optional<parameter>

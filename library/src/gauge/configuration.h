@@ -12,7 +12,7 @@ struct configuration
 {
    gauge::type type = gauge::type::webport;
    gauge::location location;
-   gauge::parameters parameters;
+   std::vector<gauge::user_setting> parameters;
 };
 
 }

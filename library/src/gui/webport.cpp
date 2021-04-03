@@ -6,11 +6,11 @@
 #include <tools/converters.h>
 
 gui::webport::webport (
-   const gauge::parameters& parameters,
+   const std::vector<gauge::user_setting>& user_settings,
    QWidget* parent
 ) :
    QWidget(parent),
-   m_parameters(parameters),
+   m_user_settings(user_settings),
    ui(new Ui::webport)
 {
    ui->setupUi(this);
@@ -52,9 +52,9 @@ gui::webport::setObjectName (const std::string& object_name)
 void
 gui::webport::handleConfigPress ()
 {
-   gauge_config config(m_parameters, this->parentWidget());
+   gauge_config config(m_user_settings, this->parentWidget());
 
-   sigslot::scoped_connection _ = config.new_settings.connect(&webport::send_user_changes, this);
+   sigslot::scoped_connection _ = config.new_setting.connect(&webport::send_user_setting, this);
 
    config.exec();
 }
@@ -64,7 +64,6 @@ gui::webport::event (QEvent* event)
 {
    if (event->type() == custom_qevent_type::refresh_content)
    {
-      // For explanation see: receive_content_refresh_request method
       request_content();
       return true;
    }

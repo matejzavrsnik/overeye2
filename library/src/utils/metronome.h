@@ -1,7 +1,7 @@
 #include <future>
 
 /**
- * @brief A non-blocking timer which invokes a signal on a set period.
+ * @brief A non-blocking timer which invokes a signal on a set_or_add period.
  * @details Signal will be invoked from another thread so make necessary arrangements if this is going to
  * be a problem. For example, Qt widgets can't be signalled safely from another thread.
  * Destructor will stop the timer.

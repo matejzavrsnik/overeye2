@@ -32,9 +32,6 @@ public:
       representation gauge
    );
 
-   void
-   slot_wish_refresh ();
-
 };
 
 }

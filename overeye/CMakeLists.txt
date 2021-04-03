@@ -15,7 +15,7 @@ set(SOURCES main.cpp)
 # The result
 add_executable(overeye ${SOURCES})
 
-# set compiler warnings as defined in cmake/warnings and included in root CMakeLists.txt
+# set_or_add compiler warnings as defined in cmake/warnings and included in root CMakeLists.txt
 set_project_warnings(overeye)
 
 # Link with libraries

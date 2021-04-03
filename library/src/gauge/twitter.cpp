@@ -30,17 +30,18 @@ namespace gauge
 
 twitter::twitter (
    const std::wstring& style,
-   const parameters& page_parameters
+   const std::vector<user_setting>& user_settings
 ) :
    webport(style, {})
 {
-   // twitter webport will control the {content} tag, so it's setting it to not be a user setting
-   m_parameters.set(webport::tags::content(), html(), false);
-   for (const auto& page_parameter : page_parameters)
+   // setup parameters expected for this gauge
+   m_parameters.set_or_add(webport::tags::content(), html(), false); // taking over {content} tag from user
+   m_parameters.set_or_add(twitter::tags::handle(), L"", true);
+
+   // configure with user settings
+   for (const auto& user_setting : user_settings)
    {
-      m_parameters.set(
-         page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name()
-      );
+      m_parameters.set_user_setting(user_setting.tag, user_setting.value);
    }
 }
 

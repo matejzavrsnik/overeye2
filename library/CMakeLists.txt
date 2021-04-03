@@ -47,7 +47,7 @@ set (SOURCES
 # The result
 add_library (library ${SOURCES})
 
-# set compiler warnings as defined in cmake/warnings and included in root CMakeLists.txt
+# set_or_add compiler warnings as defined in cmake/warnings and included in root CMakeLists.txt
 set_project_warnings (library)
 
 # make this folder visible to executable

@@ -25,14 +25,18 @@ namespace gauge
 
 webport::webport (
    const std::wstring& style,
-   const parameters& page_parameters
+   const std::vector<user_setting>& user_settings
 )
 {
-   m_parameters.set(tags::genesis(), html(), false);
-   m_parameters.set(tags::style(), style, false);
-   for (const auto& page_parameter : page_parameters)
+   // setup parameters expected for this gauge
+   m_parameters.set_or_add(tags::genesis(), html(), false);
+   m_parameters.set_or_add(tags::style(), style, false);
+   m_parameters.set_or_add(tags::content(), L"", true);
+
+   // configure with user settings
+   for (const auto& user_setting : user_settings)
    {
-      m_parameters.set(page_parameter.get_tag(), page_parameter.get_value(), true, page_parameter.get_name());
+      m_parameters.set_user_setting(user_setting.tag, user_setting.value);
    }
 
    m_timer.tick.connect(&webport::tick, this);
@@ -79,12 +83,9 @@ webport::tick ()
 }
 
 void
-webport::receive_user_changes (const gauge::parameters& parameters)
+webport::receive_user_setting (const gauge::user_setting& parameters)
 {
-   for (const auto& i : parameters)
-   {
-      m_parameters.set(i.get_tag(), i.get_value());
-   }
+   m_parameters.set_user_setting(parameters.tag, parameters.value);
    display();
 }
 

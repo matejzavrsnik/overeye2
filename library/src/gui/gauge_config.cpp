@@ -3,7 +3,7 @@
 #include <QMessageBox>
 
 gui::gauge_config::gauge_config (
-   std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
+   std::shared_ptr<gauge::visual_settings> user_settings,
    QWidget* parent
 ) :
    QDialog(parent),

@@ -26,11 +26,10 @@ gauge_factory (
    case gauge::type::webport:
    {
       auto logical = std::make_unique<gauge::webport>(set.gauge_stylesheet, r->parameters);
+      logical->apply_user_settings(gc.parameters);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("webport") + std::to_string(unique.id()));
 
-      for(auto setting : gc.parameters)
-         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->request_content.connect(&gauge::webport::display, logical.get());
       visual->signal_settings_changed.connect(&gauge::webport::display, logical.get());
@@ -47,11 +46,9 @@ gauge_factory (
    case gauge::type::twitter:
    {
       auto logical = std::make_unique<gauge::twitter>(set.gauge_stylesheet, r->parameters);
+      logical->apply_user_settings(gc.parameters);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("twitter") + std::to_string(unique.id()));
-
-      for(auto setting : gc.parameters)
-         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->request_content.connect(&gauge::webport::display, logical.get());
       visual->signal_settings_changed.connect(&gauge::webport::display, logical.get());
@@ -68,11 +65,9 @@ gauge_factory (
    case gauge::type::clock:
    {
       auto logical = std::make_unique<gauge::clock>(set.gauge_stylesheet, r->parameters);
+      logical->apply_user_settings(gc.parameters);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("clock") + std::to_string(unique.id()));
-
-      for(auto setting : gc.parameters)
-         r->parameters->user_setting_set(setting); //todo: make it so that order doesn't matter that much
 
       visual->request_content.connect(&gauge::webport::display, logical.get());
       visual->signal_settings_changed.connect(&gauge::webport::display, logical.get());

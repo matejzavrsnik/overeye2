@@ -25,7 +25,7 @@ namespace gauge
 
 webport::webport (
    const std::wstring& style,
-   std::shared_ptr<interface_gauge_settings> user_settings
+   std::shared_ptr<gauge_settings> user_settings
 ) :
    m_parameters(user_settings)
 {
@@ -43,6 +43,13 @@ webport::~webport()
 }
 
 void
+webport::apply_user_settings(std::vector<gauge::basic_setting> visual_settings)
+{
+   for(auto setting : visual_settings)
+      m_parameters->set(setting.tag, setting.value);
+}
+
+void
 webport::display ()
 {
    auto rendered_content = render(tags::genesis(), m_parameters);
@@ -52,7 +59,7 @@ webport::display ()
 std::wstring
 webport::render (
    const std::wstring& page_template,
-   std::shared_ptr<gauge::interface_gauge_settings> page_parameters
+   std::shared_ptr<gauge::gauge_settings> page_parameters
 )
 {
    std::wstring page = page_template;

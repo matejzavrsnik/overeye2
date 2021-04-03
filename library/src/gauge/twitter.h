@@ -12,7 +12,7 @@ public:
 
    twitter (
       const std::wstring& style,
-      std::shared_ptr<interface_gauge_settings> user_settings
+      std::shared_ptr<gauge_settings> user_settings
    );
 
    class tags

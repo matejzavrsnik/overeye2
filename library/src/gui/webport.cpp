@@ -6,7 +6,7 @@
 #include <tools/converters.h>
 
 gui::webport::webport (
-   std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
+   std::shared_ptr<gauge::visual_settings> user_settings,
    QWidget* parent
 ) :
    QWidget(parent),

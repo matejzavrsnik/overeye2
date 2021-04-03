@@ -23,7 +23,7 @@ namespace gauge
 
 clock::clock (
    const std::wstring& style,
-   std::shared_ptr<interface_gauge_settings> user_settings
+   std::shared_ptr<gauge_settings> user_settings
 ) :
    webport(style, user_settings)
 {
@@ -40,7 +40,7 @@ clock::clock (
 std::wstring
 clock::render (
    const std::wstring& page_template,
-   std::shared_ptr<gauge::interface_gauge_settings> page_parameters
+   std::shared_ptr<gauge::gauge_settings> page_parameters
 )
 {
    auto page = webport::render(page_template, page_parameters);

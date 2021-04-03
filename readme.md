@@ -56,7 +56,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
     /**
      * @brief Brief
      * @details Details
-     * @tparam Template parameter
+     * @tparam Template extended_setting
      * @example
      * \code{.cpp}
      * std::vector &lt; std::string> var;

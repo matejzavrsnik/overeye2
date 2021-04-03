@@ -17,7 +17,7 @@ Q_OBJECT
 
 public:
    explicit gauge_config (
-      std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
+      std::shared_ptr<gauge::visual_settings> user_settings,
       QWidget* parent = nullptr
    );
 
@@ -36,7 +36,7 @@ private slots:
 private:
 
    Ui::gauge_config* ui;
-   std::shared_ptr<gauge::interface_visual_control_settings> m_settings;
+   std::shared_ptr<gauge::visual_settings> m_settings;
 
    void
    populate_grid ();

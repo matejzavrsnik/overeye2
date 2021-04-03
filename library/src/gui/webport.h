@@ -8,7 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
 QT_END_NAMESPACE
 
-namespace gauge { class interface_visual_control_settings; }
+namespace gauge { class visual_settings; }
 
 namespace gui
 {
@@ -23,7 +23,7 @@ Q_OBJECT
 public:
 
    explicit webport (
-      std::shared_ptr<gauge::interface_visual_control_settings> user_settings,
+      std::shared_ptr<gauge::visual_settings> user_settings,
       QWidget* parent = nullptr
    );
 
@@ -49,7 +49,7 @@ private slots:
 private:
 
    Ui::webport* ui;
-   std::shared_ptr<gauge::interface_visual_control_settings> m_user_settings;
+   std::shared_ptr<gauge::visual_settings> m_user_settings;
 
    bool
    event (QEvent* event) override;

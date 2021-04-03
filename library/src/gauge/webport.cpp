@@ -25,14 +25,14 @@ namespace gauge
 
 webport::webport (
    const std::wstring& style,
-   std::shared_ptr<gauge_settings> user_settings
+   std::shared_ptr<gauge_settings> settings
 ) :
-   m_parameters(user_settings)
+   m_settings(settings)
 {
-   // setup parameters expected for this gauge
-   m_parameters->set_or_add_internal_setting(tags::genesis(), html());
-   m_parameters->set_or_add_internal_setting(tags::style(), style);
-   m_parameters->set_or_add_user_setting(tags::content(), L"", L"Content");
+   // setup settings expected for this gauge
+   m_settings->set_or_add_internal_setting(tags::genesis(), html());
+   m_settings->set_or_add_internal_setting(tags::style(), style);
+   m_settings->set_or_add_user_setting(tags::content(), L"", L"Content");
 
    m_timer.tick.connect(&webport::tick, this);
 }
@@ -43,16 +43,16 @@ webport::~webport()
 }
 
 void
-webport::apply_user_settings(std::vector<gauge::basic_setting> visual_settings)
+webport::apply_user_settings(std::vector<gauge::basic_setting> settings)
 {
-   for(auto setting : visual_settings)
-      m_parameters->set(setting.tag, setting.value);
+   for(auto setting : settings)
+      m_settings->set(setting.tag, setting.value);
 }
 
 void
 webport::display ()
 {
-   auto rendered_content = render(tags::genesis(), m_parameters);
+   auto rendered_content = render(tags::genesis(), m_settings);
    send_content(rendered_content);
 }
 

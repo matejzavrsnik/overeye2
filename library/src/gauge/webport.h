@@ -17,7 +17,7 @@ public:
 
    webport (
       const std::wstring& style,
-      std::shared_ptr<gauge_settings> user_settings
+      std::shared_ptr<gauge_settings> settings
    );
 
    virtual ~webport();
@@ -26,14 +26,14 @@ public:
    sigslot::signal<> request_refresh;
 
    void
-   apply_user_settings(std::vector<gauge::basic_setting> user_settings);
+   apply_user_settings(std::vector<gauge::basic_setting> settings);
 
    void
    display () override;
 
 protected:
 
-   std::shared_ptr<gauge::gauge_settings> m_parameters;
+   std::shared_ptr<gauge::gauge_settings> m_settings;
 
    virtual std::wstring
    render (

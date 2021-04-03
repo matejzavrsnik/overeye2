@@ -5,8 +5,8 @@
 namespace gauge
 {
 
-// atom of parameters
-class extended_setting //todo: separate file
+// atom of settings
+class extended_setting
 {
 
 private:
@@ -17,7 +17,7 @@ private:
 
 public:
 
-   //todo: I have configuration, information, and parameters. Need better names
+   //todo: I have configuration, information, and settings. Need better names
    extended_setting (
       std::wstring tag,
       std::wstring value,

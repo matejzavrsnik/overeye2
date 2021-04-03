@@ -26,7 +26,7 @@ gauge_factory (
    case gauge::type::webport:
    {
       auto logical = std::make_unique<gauge::webport>(set.gauge_stylesheet, r->parameters);
-      logical->apply_user_settings(gc.parameters);
+      logical->apply_user_settings(gc.settings);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("webport") + std::to_string(unique.id()));
 
@@ -46,7 +46,7 @@ gauge_factory (
    case gauge::type::twitter:
    {
       auto logical = std::make_unique<gauge::twitter>(set.gauge_stylesheet, r->parameters);
-      logical->apply_user_settings(gc.parameters);
+      logical->apply_user_settings(gc.settings);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("twitter") + std::to_string(unique.id()));
 
@@ -65,7 +65,7 @@ gauge_factory (
    case gauge::type::clock:
    {
       auto logical = std::make_unique<gauge::clock>(set.gauge_stylesheet, r->parameters);
-      logical->apply_user_settings(gc.parameters);
+      logical->apply_user_settings(gc.settings);
       auto visual = std::make_unique<gui::webport>(r->parameters);
       visual->setObjectName(std::string("clock") + std::to_string(unique.id()));
 

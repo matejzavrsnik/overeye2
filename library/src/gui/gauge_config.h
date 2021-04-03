@@ -17,7 +17,7 @@ Q_OBJECT
 
 public:
    explicit gauge_config (
-      std::shared_ptr<gauge::visual_settings> user_settings,
+      std::shared_ptr<gauge::visual_settings> settings,
       QWidget* parent = nullptr
    );
 

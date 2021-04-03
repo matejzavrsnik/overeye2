@@ -23,7 +23,7 @@ Q_OBJECT
 public:
 
    explicit webport (
-      std::shared_ptr<gauge::visual_settings> user_settings,
+      std::shared_ptr<gauge::visual_settings> settings,
       QWidget* parent = nullptr
    );
 
@@ -49,7 +49,7 @@ private slots:
 private:
 
    Ui::webport* ui;
-   std::shared_ptr<gauge::visual_settings> m_user_settings;
+   std::shared_ptr<gauge::visual_settings> m_settings;
 
    bool
    event (QEvent* event) override;

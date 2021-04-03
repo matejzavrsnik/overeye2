@@ -31,7 +31,7 @@ public:
 
 };
 
-// audience: gauge needs to control of everything about the parameters
+// audience: gauge needs to control of everything about the settings
 class gauge_settings
 {
 
@@ -76,7 +76,7 @@ public:
 
 private:
 
-   std::vector<extended_setting> m_parameters;
+   std::vector<extended_setting> m_settings;
 
    std::vector<extended_setting>::iterator
    find (const std::wstring& tag);

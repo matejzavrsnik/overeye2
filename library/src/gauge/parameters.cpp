@@ -6,34 +6,34 @@ namespace gauge
    std::vector<extended_setting>::iterator
    parameters::find (const std::wstring& tag)
    {
-      auto existing_parameter = std::find_if(
-         m_parameters.begin(), m_parameters.end(), [&tag] (const extended_setting& p)
+      auto existing_setting = std::find_if(
+         m_settings.begin(), m_settings.end(), [&tag] (const extended_setting& p)
          {
             return p.get_tag() == tag;
          }
       );
 
-      if (existing_parameter != m_parameters.end())
+      if (existing_setting != m_settings.end())
       {
-         return existing_parameter;
+         return existing_setting;
       }
 
-      return m_parameters.end();
+      return m_settings.end();
    }
 
    extended_setting&
    parameters::find_or_add (const std::wstring& tag)
    {
-      auto existing_parameter = find(tag);
-      if (existing_parameter != m_parameters.end())
+      auto existing_setting = find(tag);
+      if (existing_setting != m_settings.end())
       {
-         return *existing_parameter;
+         return *existing_setting;
       }
 
       //todo: to allow ctor that only takes tag? It would make sense here
-      extended_setting parameter{tag, L"", false, L""};
-      m_parameters.push_back(parameter);
-      return *m_parameters.rbegin();
+      extended_setting setting{tag, L"", false, L""};
+      m_settings.push_back(setting);
+      return *m_settings.rbegin();
    }
 
    void
@@ -43,11 +43,11 @@ namespace gauge
       const std::wstring& name
    )
    {
-      extended_setting& param = find_or_add(tag);
+      extended_setting& setting = find_or_add(tag);
 
-      param.set_value(value);
-      param.set_user_setting(true);
-      param.set_name(name);
+      setting.set_value(value);
+      setting.set_user_setting(true);
+      setting.set_name(name);
    }
 
    void
@@ -56,10 +56,10 @@ namespace gauge
       const std::wstring& value
    )
    {
-      extended_setting& param = find_or_add(tag);
+      extended_setting& setting = find_or_add(tag);
 
-      param.set_value(value);
-      param.set_user_setting(false);
+      setting.set_value(value);
+      setting.set_user_setting(false);
    }
 
 bool
@@ -68,10 +68,10 @@ parameters::set(
    const std::wstring& value
 )
 {
-   auto existing_parameter = find(tag);
-   if (existing_parameter != m_parameters.end())
+   auto existing_setting = find(tag);
+   if (existing_setting != m_settings.end())
    {
-      existing_parameter->set_value(value);
+      existing_setting->set_value(value);
       return true;
    }
 
@@ -84,22 +84,22 @@ parameters::set(
       const basic_setting& setting
    )
    {
-      auto parameter = find(setting.tag);
-      if (parameter == m_parameters.end())
+      auto it_setting = find(setting.tag);
+      if (it_setting == m_settings.end())
          return false;
-      if (!parameter->is_user_setting())
+      if (!it_setting->is_user_setting())
          return false;
-      parameter->set_value(setting.value);
+      it_setting->set_value(setting.value);
       return true;
    }
 
    std::optional<std::wstring>
    parameters::get_value (const std::wstring& tag)
    {
-      auto existing_parameter = find(tag);
-      if (existing_parameter != m_parameters.end())
+      auto it_setting = find(tag);
+      if (it_setting != m_settings.end())
       {
-         return existing_parameter->get_value();
+         return it_setting->get_value();
       }
       return std::nullopt;
    }
@@ -109,10 +109,10 @@ parameters::set(
       const std::wstring& tag
    )
    {
-      auto existing_parameter = find(tag);
-      if (existing_parameter != m_parameters.end() && existing_parameter->is_user_setting())
+      auto it_setting = find(tag);
+      if (it_setting != m_settings.end() && it_setting->is_user_setting())
       {
-         return existing_parameter->get_name();
+         return it_setting->get_name();
       }
       return std::nullopt;
    }
@@ -120,20 +120,20 @@ parameters::set(
    std::vector<basic_setting>
    parameters::user_setting_get_all ()
    {
-      std::vector<basic_setting> s;
-      for (auto param : m_parameters)
-         if (param.is_user_setting())
-            s.push_back({param.get_tag(), param.get_value()});
-      return s;
+      std::vector<basic_setting> settings;
+      for (auto setting : m_settings)
+         if (setting.is_user_setting())
+            settings.push_back({setting.get_tag(), setting.get_value()});
+      return settings;
    }
 
    std::vector<basic_setting>
    parameters::get_all ()
    {
-      std::vector<basic_setting> s;
-      for (auto param : m_parameters)
-         s.push_back({param.get_tag(), param.get_value()});
-      return s;
+      std::vector<basic_setting> settings;
+      for (auto setting : m_settings)
+         settings.push_back({setting.get_tag(), setting.get_value()});
+      return settings;
    }
 
 }

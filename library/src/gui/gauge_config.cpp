@@ -3,12 +3,12 @@
 #include <QMessageBox>
 
 gui::gauge_config::gauge_config (
-   std::shared_ptr<gauge::visual_settings> user_settings,
+   std::shared_ptr<gauge::visual_settings> settings,
    QWidget* parent
 ) :
    QDialog(parent),
    ui(new Ui::gauge_config),
-   m_settings(user_settings)
+   m_settings(settings)
 {
    ui->setupUi(this);
 

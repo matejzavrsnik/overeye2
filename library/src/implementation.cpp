@@ -43,7 +43,6 @@ run_main (
          {{gauge::webport::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"}}}
    };
 
-   //todo: rename screen to screen
    gui::screen screen;
    //dlg.setWindowState(Qt::WindowFullScreen);
    screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
@@ -52,7 +51,7 @@ run_main (
 
    for (auto& gc : set.gauge_configurations)
    {
-      auto g = gauge::gauge_factory(gc, set);
+      auto g = gauge::gauge_factory(gc, set.gauge_stylesheet);
       gm.add(std::move(g));
    }
 

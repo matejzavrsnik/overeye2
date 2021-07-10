@@ -64,7 +64,7 @@ webport_gauge_factory(
 std::unique_ptr<representation>
 gauge_factory (
    const configuration& gc,
-   const library::settings& settings
+   const std::wstring& gauge_stylesheet
 )
 {
    switch(gc.type)
@@ -72,7 +72,7 @@ gauge_factory (
    case gauge::type::webport:
    case gauge::type::clock:
    case gauge::type::twitter:
-      return webport_gauge_factory(gc.type, gc.settings, gc, settings.gauge_stylesheet);
+      return webport_gauge_factory(gc.type, gc.settings, gc, gauge_stylesheet);
    }
 
    throw std::exception{}; // todo: make my own

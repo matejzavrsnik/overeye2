@@ -15,6 +15,7 @@ cmake-build-release/*
 # Temporary Files
 *.swp
 *.dia~
+*.dia.autosave
 *.kate-swp
 
 # Compiled Object Files

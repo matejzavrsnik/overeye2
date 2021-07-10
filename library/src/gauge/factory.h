@@ -14,7 +14,7 @@ struct representation;
 std::unique_ptr<representation>
 gauge_factory (
    const configuration& gc,
-   const library::settings& settings
+   const std::wstring& gauge_stylesheet
 );
 
 }

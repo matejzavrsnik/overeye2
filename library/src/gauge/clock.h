@@ -1,6 +1,7 @@
 #pragma once
 
 #include "webport.h"
+#include "gauge_parameters.h"
 #include <QDateTime>
 
 namespace gauge
@@ -13,7 +14,7 @@ public:
 
    clock (
       const std::wstring& style,
-      std::shared_ptr<gauge_settings> user_settings
+      std::shared_ptr<gauge_parameters> user_settings
    );
 
 private:
@@ -23,7 +24,7 @@ private:
    std::wstring
    render (
       const std::wstring& page_template,
-      std::shared_ptr<gauge::gauge_settings> page_parameters
+      std::shared_ptr<gauge_parameters> page_parameters
    ) override;
 
 public:

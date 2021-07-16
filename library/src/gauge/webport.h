@@ -3,6 +3,7 @@
 #include "interface.h"
 #include "configuration.h"
 #include "../utils/metronome.h"
+#include "gauge_parameters.h"
 #include <string>
 
 namespace gauge
@@ -17,7 +18,7 @@ public:
 
    webport (
       const std::wstring& style,
-      std::shared_ptr<gauge_settings> settings
+      std::shared_ptr<gauge_parameters> settings
    );
 
    virtual ~webport();
@@ -33,12 +34,12 @@ public:
 
 protected:
 
-   std::shared_ptr<gauge::gauge_settings> m_settings;
+   std::shared_ptr<gauge_parameters> m_settings;
 
    virtual std::wstring
    render (
       const std::wstring& page_template,
-      std::shared_ptr<gauge::gauge_settings> page_parameters
+      std::shared_ptr<gauge_parameters> page_parameters
    );
 
    void

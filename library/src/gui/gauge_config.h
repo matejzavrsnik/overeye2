@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../gauge/parameters.h"
+#include "../gauge/user_parameters.h"
 #include <sigslot/signal.hpp>
 #include <QDialog>
 
@@ -17,7 +18,7 @@ Q_OBJECT
 
 public:
    explicit gauge_config (
-      std::shared_ptr<gauge::visual_settings> settings,
+      std::shared_ptr<gauge::user_parameters> settings,
       QWidget* parent = nullptr
    );
 
@@ -36,7 +37,7 @@ private slots:
 private:
 
    Ui::gauge_config* ui;
-   std::shared_ptr<gauge::visual_settings> m_settings;
+   std::shared_ptr<gauge::user_parameters> m_settings;
 
    void
    populate_grid ();

@@ -2,6 +2,8 @@
 
 #include "basic_setting.h"
 #include "extended_setting.h"
+#include "user_parameters.h"
+#include "gauge_parameters.h"
 
 #include <string>
 #include <vector>
@@ -10,64 +12,8 @@
 namespace gauge
 {
 
-// audience: visual control that needs to display settings and also set them according to user changes
-class visual_settings
-{
-
-public:
-
-   virtual std::optional<std::wstring>
-   user_setting_get_name (
-      const std::wstring& tag
-   ) = 0;
-
-   virtual bool
-   user_setting_set (
-      const basic_setting& setting
-   ) = 0;
-
-   virtual std::vector<basic_setting>
-   user_setting_get_all() = 0;
-
-};
-
-// audience: gauge needs to control of everything about the settings
-class gauge_settings
-{
-
-public:
-
-   virtual void
-   set_or_add_user_setting (
-      const std::wstring& tag,
-      const std::wstring& value,
-      const std::wstring& name
-   ) = 0;
-
-   virtual void
-   set_or_add_internal_setting (
-      const std::wstring& tag,
-      const std::wstring& value
-   ) = 0;
-
-   virtual bool
-   set(
-      const std::wstring& tag,
-      const std::wstring& value
-   ) = 0;
-
-   virtual std::optional<std::wstring>
-   get_value(
-      const std::wstring& tag
-   ) = 0;
-
-   virtual std::vector<basic_setting>
-   get_all() = 0;
-
-};
-
 // two interfaces for two audiences
-class parameters : public visual_settings, public gauge_settings
+class parameters : public user_parameters, public gauge_parameters
 {
 
 public:

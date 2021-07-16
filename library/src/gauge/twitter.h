@@ -1,6 +1,7 @@
 #pragma once
 
 #include "webport.h"
+#include "gauge_parameters.h"
 
 namespace gauge
 {
@@ -12,7 +13,7 @@ public:
 
    twitter (
       const std::wstring& style,
-      std::shared_ptr<gauge_settings> user_settings
+      std::shared_ptr<gauge_parameters> user_settings
    );
 
    class tags

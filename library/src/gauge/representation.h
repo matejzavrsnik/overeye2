@@ -9,7 +9,7 @@ class QWidget;
 namespace gauge
 {
 
-class interface;
+class i_gauge;
 
 class representation
 {
@@ -20,7 +20,7 @@ public:
    representation() = default;
 
    mzlib::unique unique;
-   std::unique_ptr<gauge::interface> logical;
+   std::unique_ptr<gauge::i_gauge> logical;
    std::unique_ptr<QWidget> visual;
    gauge::location location;
    std::shared_ptr<gauge::parameters> parameters = std::make_shared<gauge::parameters>();

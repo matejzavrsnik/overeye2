@@ -7,9 +7,9 @@ namespace gauge
 {
 
 // base class for all gauge
-// audience: an interface for webport for the rest of the logic + what's common, ie unique member.
+// audience: an i_gauge for webport for the rest of the logic + what's common, ie unique member.
 // Q: Why is "webport" not base class? A: Not all gauge will be web based.
-class interface
+class i_gauge
 {
 
 public:
@@ -19,7 +19,7 @@ public:
 
 protected:
 
-   explicit interface () = default;
+   explicit i_gauge () = default;
 
 };
 

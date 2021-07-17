@@ -92,6 +92,13 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
    2) other libraries
 5) standard library
 
+## Style
+
+- snake case in my code
+- interfaces prefixed with i_
+- classes not prefixed with anything
+- for external libraries, whatever case is natural to that library
+
 # projects used
 
 ## 3rdparty stuff used

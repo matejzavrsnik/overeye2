@@ -1,9 +1,9 @@
 #pragma once
 
-#include "interface.h"
+#include "i_gauge.h"
 #include "configuration.h"
 #include "../utils/metronome.h"
-#include "gauge_parameters.h"
+#include "i_gauge_parameters.h"
 #include <string>
 
 namespace gauge
@@ -11,14 +11,14 @@ namespace gauge
 
 // webport gauge
 // usable on its own, but also intended for further specialisation
-class webport : public interface
+class webport : public i_gauge
 {
 
 public:
 
    webport (
       const std::wstring& style,
-      std::shared_ptr<gauge_parameters> settings
+      std::shared_ptr<i_gauge_parameters> settings
    );
 
    virtual ~webport();
@@ -34,12 +34,12 @@ public:
 
 protected:
 
-   std::shared_ptr<gauge_parameters> m_settings;
+   std::shared_ptr<i_gauge_parameters> m_settings;
 
    virtual std::wstring
    render (
       const std::wstring& page_template,
-      std::shared_ptr<gauge_parameters> page_parameters
+      std::shared_ptr<i_gauge_parameters> page_parameters
    );
 
    void

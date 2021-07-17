@@ -2,8 +2,8 @@
 
 #include "basic_setting.h"
 #include "extended_setting.h"
-#include "user_parameters.h"
-#include "gauge_parameters.h"
+#include "i_user_parameters.h"
+#include "i_gauge_parameters.h"
 
 #include <string>
 #include <vector>
@@ -12,8 +12,28 @@
 namespace gauge
 {
 
-// two interfaces for two audiences
-class parameters : public user_parameters, public gauge_parameters
+/**
+ * @brief A collection of gauges parameters.
+ *
+ * @details The class implements two interfaces to serve two audiences. When gauges use it, they need access
+ * to all parameters and everything about them, even changing some from user-controlled parameter to internal
+ * one, as in the case of twitter gauge taking over the "content" parameter away from the user. However, when
+ * the gauge hands out access to it's parameters to a dialog through which user will be setting them, that
+ * level of access would be inappropriate. To list and allow edit of user-controlled parameters only, that
+ * dialog needs access to user-controlled parameters only.
+ *
+ * One alternative solution would be that gauges sent a copy of parameters and configuration dialog sent a copy
+ * of the changes back. This was attempted but it resulted in additional complications due to complete decoupling
+ * of logical gauges from the visuals. Logical gauge does not know when visual gauge gets a click on configuration
+ * button. Visual gauge would first need to request user parameters through sigslot system, which is the only means
+ * of communication, then wait for logical gauge to respond with parameters and then send them back when they are
+ * changed. I felt that's too convoluted.
+ *
+ * Another alternative solution would be that gauges keep two separate collections of parameters, one for users
+ * and one for internal use. Gauge could then share just the users' collection of parameters with the configuration
+ * dialog and keep reading both collections when rendering. This wasn't attempted.
+ */
+class parameters : public i_gauge_parameters, public i_user_parameters
 {
 
 public:

@@ -1,11 +1,11 @@
 #include "twitter.h"
-#include "gauge_parameters.h"
+#include "i_gauge_parameters.h"
 
 namespace
 {
 
 const std::wstring&
-html ()
+twitter_embedded_html ()
 {
    static const std::wstring html = LR"(
    <a class="twitter-timeline"
@@ -31,12 +31,12 @@ namespace gauge
 
 twitter::twitter (
    const std::wstring& style,
-   std::shared_ptr<gauge_parameters> user_settings
+   std::shared_ptr<i_gauge_parameters> user_settings
 ) :
    webport(style, user_settings)
 {
    // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(webport::tags::content(), html()); // taking over {content} tag from user
+   m_settings->set_or_add_internal_setting(webport::tags::content(), twitter_embedded_html()); // taking over {content} tag from user
    m_settings->set_or_add_user_setting(twitter::tags::handle(), L"", L"Handle");
 }
 

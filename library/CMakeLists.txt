@@ -28,7 +28,7 @@ set (SOURCES
    src/settings.h
    src/implementation.cpp
    src/gauge/configuration.h
-   src/gauge/interface.h
+   src/gauge/i_gauge.h
    src/gauge/representation.h
    src/gauge/location.h
    src/gauge/parameters.cpp src/gauge/parameters.h

@@ -10,8 +10,11 @@
 namespace gauge
 {
 
-// audience: visual control that needs to display settings and also set them according to user changes
-class user_parameters
+/**
+ * @brief Interface to gauge parameters that user is allowed to control.
+ * @details The audience for this i_gauge is the dialog that displays gauge configuration to the user.
+ */
+class i_user_parameters
 {
 
 public:

@@ -2,14 +2,17 @@
 
 #include "basic_setting.h"
 #include "extended_setting.h"
-#include "user_parameters.h"
+#include "i_user_parameters.h"
 
 #include <string>
 #include <vector>
 #include <optional>
 
-// audience: gauge needs to control of everything about the settings
-class gauge_parameters
+/**
+ * @brief Interface to everything related to gauge parameters.
+ * @details The audience for this i_gauge is the gauge itself and it needs access to everything about configuration.
+ */
+class i_gauge_parameters
 {
 
 public:

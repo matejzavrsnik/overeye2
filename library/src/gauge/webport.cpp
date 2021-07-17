@@ -1,11 +1,11 @@
 #include "webport.h"
-#include "gauge_parameters.h"
+#include "i_gauge_parameters.h"
 #include <string/replace.h>
 
 namespace
 {
 const std::wstring&
-html ()
+twitter_embedded_html ()
 {
    static const std::wstring html = LR"(
    <!DOCTYPE html>
@@ -15,7 +15,7 @@ html ()
        <style>{style}</style>
      </head>
      <body>{content}</body>
-   </html>
+   </twitter_embedded_html>
    )";
    return html;
 }
@@ -26,12 +26,12 @@ namespace gauge
 
 webport::webport (
    const std::wstring& style,
-   std::shared_ptr<gauge_parameters> settings
+   std::shared_ptr<i_gauge_parameters> settings
 ) :
    m_settings(settings)
 {
    // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(tags::genesis(), html());
+   m_settings->set_or_add_internal_setting(tags::genesis(), twitter_embedded_html());
    m_settings->set_or_add_internal_setting(tags::style(), style);
    m_settings->set_or_add_user_setting(tags::content(), L"", L"Content");
 
@@ -60,7 +60,7 @@ webport::display ()
 std::wstring
 webport::render (
    const std::wstring& page_template,
-   std::shared_ptr<gauge_parameters> page_parameters
+   std::shared_ptr<i_gauge_parameters> page_parameters
 )
 {
    std::wstring page = page_template;

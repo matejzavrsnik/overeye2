@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interface.h"
+#include "i_gauge.h"
 #include <memory>
 
 namespace library { struct settings; }

@@ -1,5 +1,5 @@
 #include "clock.h"
-#include "gauge_parameters.h"
+#include "i_gauge_parameters.h"
 #include <string/replace.h>
 #include <QTimeZone>
 
@@ -7,7 +7,7 @@ namespace
 {
 
 const std::wstring&
-html ()
+twitter_embedded_html ()
 {
    static const std::wstring html = LR"(
    {location}
@@ -24,12 +24,12 @@ namespace gauge
 
 clock::clock (
    const std::wstring& style,
-   std::shared_ptr<gauge_parameters> user_settings
+   std::shared_ptr<i_gauge_parameters> user_settings
 ) :
    webport(style, user_settings)
 {
    // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(webport::tags::content(), html()); // taking over {content} tag from user
+   m_settings->set_or_add_internal_setting(webport::tags::content(), twitter_embedded_html()); // taking over {content} tag from user
    m_settings->set_or_add_user_setting(tags::format(), L"ddd MMMM d yyyy hh:mm:ss", L"Format");
    m_settings->set_or_add_user_setting(tags::location(), L"current", L"Location");
 
@@ -41,7 +41,7 @@ clock::clock (
 std::wstring
 clock::render (
    const std::wstring& page_template,
-   std::shared_ptr<gauge_parameters> page_parameters
+   std::shared_ptr<i_gauge_parameters> page_parameters
 )
 {
    auto page = webport::render(page_template, page_parameters);

@@ -25,9 +25,15 @@ set (SOURCES
    ./include/library/header.h
 
    # internal
-   src/settings.h
+   src/logic/settings.h
+   src/logic/load_settings.h src/logic/load_settings.cpp
+
    src/implementation.cpp
+   src/utils/metronome.h
+
    src/gauge/configuration.h
+   src/gauge/basic_setting.h
+   src/gauge/extended_setting.h src/gauge/extended_setting.cpp
    src/gauge/i_gauge.h
    src/gauge/representation.h
    src/gauge/location.h
@@ -42,7 +48,8 @@ set (SOURCES
    src/gui/screen.ui src/gui/screen.cpp src/gui/screen.h
    src/gui/webport.ui src/gui/webport.cpp src/gui/webport.h
    src/gui/gauge_config.ui src/gui/gauge_config.cpp src/gui/gauge_config.h
-   src/utils/metronome.h src/gui/custom_event_types.h src/gauge/basic_setting.h src/gauge/extended_setting.cpp src/gauge/extended_setting.h)
+   src/gui/custom_event_types.h
+   )
 
 # The result
 add_library (library ${SOURCES})

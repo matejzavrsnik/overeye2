@@ -8,9 +8,12 @@
 #include "gauge/webport.h"
 #include "gauge/twitter.h"
 #include "gauge/clock.h"
-#include "settings.h"
+#include "logic/load_settings.h"
+
+#include <lang/exceptions.h>
 
 #include <QApplication>
+#include <QMessageBox>
 
 namespace library
 {
@@ -21,45 +24,42 @@ run_main (
    char** argv
 )
 {
+   // can't have this inside the try, because then I can't display error message box in catch
    QApplication app(argc, argv);
 
-   settings set;
-   set.dialog_stylesheet = L"background-color: rgb(46, 52, 54)";
-   set.gauge_stylesheet = L"body { color: rgb(179, 179, 0); background-color: rgb(50, 56, 58) }";
-   set.gauge_configurations = {
-      {gauge::type::clock,
-         gauge::location{0, 0, 1, 1},
-         {{gauge::clock::tags::format(), L"ddd MMMM d yyyy hh:mm:ss"},
-            {gauge::clock::tags::location(), L"America/Tijuana"}}},
-      {gauge::type::webport,
-         gauge::location{0, 1, 1, 1},
-         {{gauge::webport::tags::content(),
-            L"<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"}}},
-      {gauge::type::twitter,
-         gauge::location{0, 2, 2, 1},
-         {{gauge::twitter::tags::handle(), L"NASAPersevere"}}},
-      {gauge::type::webport,
-         gauge::location{1, 1, 1, 1},
-         {{gauge::webport::tags::content(), L"<h1>Hello \U0001f34c\U0001f34c\U0001F412<h1>"}}}
-   };
-
-   gui::screen screen;
-   //dlg.setWindowState(Qt::WindowFullScreen);
-   screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
-
-   gauge::manager gm(screen.grid());
-
-   for (auto& gc : set.gauge_configurations)
+   try
    {
-      auto g = gauge::gauge_factory(gc, set.gauge_stylesheet);
-      gm.add(std::move(g));
+      app.setApplicationName("overeye");
+      app.setApplicationVersion("2.0");
+
+      auto set = logic::load_settings();
+
+      gui::screen screen;
+      //screen.setWindowState(Qt::WindowFullScreen);
+      screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
+
+      gauge::manager gm(screen.grid());
+
+      for (auto& gc: set.gauge_configurations)
+      {
+         auto g = gauge::gauge_factory(gc, set.gauge_stylesheet);
+         gm.add(std::move(g));
+      }
+
+      screen.show();
+
+      // weird things happen if QApplication::exec() isn't inside try-block
+      return QApplication::exec();
+   }
+   catch(mzlib::exception::parse_error& parse_error)
+   {
+      QMessageBox::critical(
+         nullptr,
+         QString::fromWCharArray(L"Unable to start"),
+         QString::fromWCharArray(L"JSON error: ") + parse_error.what());
    }
 
-   screen.show();
-
-   //gm.test();
-
-   return QApplication::exec();
+   return -1;
 }
 
 }

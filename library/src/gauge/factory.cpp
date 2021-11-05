@@ -5,7 +5,7 @@
 #include "twitter.h"
 #include "clock.h"
 #include "representation.h"
-#include "../settings.h"
+#include "../logic/settings.h"
 #include "i_gauge_parameters.h"
 
 

@@ -9,7 +9,7 @@ twitter_embedded_html ()
 {
    static const std::wstring html = LR"(
    <a class="twitter-timeline"
-      href="https://twitter.com/{twitter_handle}"
+      href="https://twitter.com/{handle}"
       data-width="400"
       data-height="1200"
       data-chrome="nofooter noborders transparent noscrollbar"
@@ -43,7 +43,7 @@ twitter::twitter (
 const std::wstring&
 twitter::tags::handle ()
 {
-   static const std::wstring tag{L"{twitter_handle}"};
+   static const std::wstring tag{L"{handle}"};
    return tag;
 }
 

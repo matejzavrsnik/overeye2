@@ -41,7 +41,7 @@ public:
    public:
 
       const static std::wstring&
-      location ();
+      timezone ();
 
       const static std::wstring&
       format ();

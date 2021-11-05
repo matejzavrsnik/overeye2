@@ -21,8 +21,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 #    - https://conan.io/center/
 set(CONAN_EXTRA_REQUIRES "")
 set(CONAN_EXTRA_OPTIONS "")
-set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES} 
-   gtest/1.10.0
+set(CONAN_EXTRA_REQUIRES ${CONAN_EXTRA_REQUIRES}
+   gtest/1.11.0
    sigslot/1.2.0
    )
 run_conan()

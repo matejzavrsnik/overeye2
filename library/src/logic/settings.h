@@ -1,11 +1,11 @@
 #pragma once
 
-#include "gauge/configuration.h"
+#include "../gauge/configuration.h"
 
 #include <string_view>
 #include <vector>
 
-namespace library
+namespace logic
 {
 
 struct settings

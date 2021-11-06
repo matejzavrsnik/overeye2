@@ -10,6 +10,7 @@ nbproject/project.properties
 cmake-build-debug-coverage/*
 cmake-build-debug/*
 cmake-build-release/*
+cmake-build-relwithdebinfo/*
 .dep.inc
 
 # Temporary Files

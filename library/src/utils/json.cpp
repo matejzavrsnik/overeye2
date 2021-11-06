@@ -54,4 +54,26 @@ read_gauge_configuration (const QJsonObject& json_object)
    return new_gauge;
 }
 
+logic::settings
+read_settings(
+   std::wstring json_string)
+{
+   logic::settings set;
+
+   QJsonObject root_object = mzlib::get_json_object(json_string);
+
+   set.dialog_stylesheet = mzlib::read_string(root_object, "dialog_stylesheet");
+   set.gauge_stylesheet = mzlib::read_string(root_object, "gauge_stylesheet");
+
+   QJsonArray gauge_configurations = mzlib::read_array(root_object, "gauge_configurations");
+   for (auto gauge_configuration: gauge_configurations)
+   {
+      const QJsonObject& json_object = gauge_configuration.toObject();
+      gauge::configuration gc = utils::read_gauge_configuration(json_object);
+      set.gauge_configurations.push_back(gc);
+   }
+
+   return set;
+}
+
 }

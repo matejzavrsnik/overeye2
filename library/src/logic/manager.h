@@ -1,11 +1,11 @@
 #pragma once
 
-#include "factory.h"
-#include "configuration.h"
+#include "../gauge/factory.h"
+#include "../gauge/configuration.h"
 #include <vector>
 #include <memory>
 
-#include "clock.h"
+#include "../gauge/clock.h"
 #include "representation.h"
 
 class QGridLayout;

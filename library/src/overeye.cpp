@@ -1,14 +1,9 @@
-#include "../include/library/header.h"
+#include "../include/library/overeye.h"
 
 #include "gui/screen.h"
-#include "gauge/manager.h"
-#include "gauge/types.h"
 #include "gauge/factory.h"
-#include "gauge/representation.h"
-#include "gauge/webport.h"
-#include "gauge/twitter.h"
-#include "gauge/clock.h"
 #include "logic/load_settings.h"
+#include "logic/manager.h"
 
 #include <lang/exceptions.h>
 

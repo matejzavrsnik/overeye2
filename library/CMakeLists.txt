@@ -21,35 +21,36 @@ set (CMAKE_AUTORCC ON)
 # Add these files to this binary
 set (SOURCES
 
-   # external
-   ./include/library/header.h
+   src/logic/load_settings.cpp
+   src/overeye.cpp
+   #../3rdparty/mzlib/include/tools/metronome.h
 
-   # internal
-   src/logic/settings.h
-   src/logic/load_settings.h src/logic/load_settings.cpp
-
-   src/implementation.cpp
-   ../3rdparty/mzlib/include/tools/metronome.h
-
-   src/gauge/configuration.h
-   src/gauge/basic_setting.h
-   src/gauge/extended_setting.h src/gauge/extended_setting.cpp
-   src/gauge/i_gauge.h
-   src/gauge/representation.h
-   src/gauge/location.h
-   src/gauge/parameters.cpp src/gauge/parameters.h
-   src/gauge/webport.cpp src/gauge/webport.h
-   src/gauge/twitter.cpp src/gauge/twitter.h
-   src/gauge/clock.cpp src/gauge/clock.h
-   src/gauge/manager.cpp src/gauge/manager.h
-   src/gauge/factory.cpp src/gauge/factory.h
+   #src/gauge/configuration.h
+   #src/gauge/basic_setting.h
+   src/gauge/extended_setting.h
+   src/gauge/extended_setting.cpp
+   #src/gauge/i_gauge.h
+   #src/logic/representation.h
+   #src/gauge/location.h
+   src/gauge/parameters.cpp
+   #src/gauge/parameters.h
+   src/gauge/webport.cpp
+   #src/gauge/webport.h
+   src/gauge/twitter.cpp
+   #src/gauge/twitter.h
+   src/gauge/clock.cpp
+   #src/gauge/clock.h
+   src/logic/manager.cpp
+   #src/logic/manager.h
+   src/gauge/factory.cpp
+   #src/gauge/factory.h
 
    # QT dialogs
    src/gui/screen.ui src/gui/screen.cpp src/gui/screen.h
    src/gui/webport.ui src/gui/webport.cpp src/gui/webport.h
    src/gui/gauge_config.ui src/gui/gauge_config.cpp src/gui/gauge_config.h
    src/gui/custom_event_types.h
-   )
+   src/utils/json.cpp src/utils/json.h)
 
 # The result
 add_library (library ${SOURCES})

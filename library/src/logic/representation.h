@@ -1,6 +1,6 @@
 #pragma once
 
-#include "location.h"
+#include "../gauge/location.h"
 #include <abstract/unique.h>
 #include <memory>
 

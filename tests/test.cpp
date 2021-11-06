@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include <library/header.h>
+#include <library/overeye.h>
 
 TEST(library_tests, check_sum_is_correct)
 {

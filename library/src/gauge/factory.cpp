@@ -4,7 +4,7 @@
 #include "webport.h"
 #include "twitter.h"
 #include "clock.h"
-#include "representation.h"
+#include "../logic/representation.h"
 #include "../logic/settings.h"
 #include "i_gauge_parameters.h"
 

@@ -29,7 +29,7 @@ set (SOURCES
    src/logic/load_settings.h src/logic/load_settings.cpp
 
    src/implementation.cpp
-   src/utils/metronome.h
+   ../3rdparty/mzlib/include/tools/metronome.h
 
    src/gauge/configuration.h
    src/gauge/basic_setting.h

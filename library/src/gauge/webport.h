@@ -2,8 +2,10 @@
 
 #include "i_gauge.h"
 #include "configuration.h"
-#include "../utils/metronome.h"
 #include "i_gauge_parameters.h"
+
+#include <tools/metronome.h>
+
 #include <string>
 
 namespace gauge
@@ -49,7 +51,7 @@ protected:
 
 private:
 
-   metronome<sigslot::signal<>> m_timer;
+   mzlib::metronome<sigslot::signal<>> m_timer;
 
    void
    tick ();

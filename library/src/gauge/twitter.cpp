@@ -8,6 +8,9 @@ const std::wstring&
 twitter_embedded_html ()
 {
    static const std::wstring html = LR"(
+   <style type="text/css">
+      body { overflow:hidden; }
+   </style>
    <a class="twitter-timeline"
       href="https://twitter.com/{handle}"
       data-width="400"

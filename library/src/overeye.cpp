@@ -9,6 +9,7 @@
 
 #include <QApplication>
 #include <QMessageBox>
+#include <iostream>
 
 namespace
 {
@@ -79,6 +80,8 @@ run_main (
       }
 
       screen.show();
+
+      logic::save_settings(set);
 
       // weird things happen if QApplication::exec() isn't inside try-block
       return QApplication::exec();

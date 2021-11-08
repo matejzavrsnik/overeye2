@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <extension/qt/json.h>
+#include <tools/converters.h>
 
 namespace
 {
@@ -46,3 +47,26 @@ logic::load_settings (
 
 }
 
+
+
+void
+logic::save_settings (
+   logic::settings set )
+{
+
+   QString aaa = QStandardPaths::writableLocation(
+      QStandardPaths::StandardLocation::AppConfigLocation);
+   std::wstring settings_aaa = aaa.toStdWString();
+
+   QString qstr_settings_file = QStandardPaths::locate(
+      QStandardPaths::StandardLocation::AppConfigLocation,
+      "settings.json",
+      QStandardPaths::LocateFile);
+   std::wstring settings_file = qstr_settings_file.toStdWString();
+
+   QJsonObject json;
+   json["test"] = "test content";
+   QJsonDocument jd(json);
+   std::wstring ws = mzlib::convert<std::wstring>(jd.toJson());
+   int i = 0;
+}

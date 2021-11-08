@@ -17,6 +17,12 @@ gui::webport::webport (
    ui->setupUi(this);
    ui->display->setContextMenuPolicy(Qt::ContextMenuPolicy::NoContextMenu);
 
+   // Would be nice if I could prevent scrollbars here but it doesn't seem to be possible.
+   // To achieve that, try to add this to the CSS of the page you're displaying, if possible:
+   // <style type="text/css">
+   //    body { overflow:hidden; }
+   // </style>
+
    connect(ui->configure, &QPushButton::released, this, &webport::handleConfigPress);
 }
 

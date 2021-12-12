@@ -1,4 +1,4 @@
-#include "load_settings.h"
+#include "load_save_settings.h"
 #include "../utils/json.h"
 
 #include <QStandardPaths>
@@ -64,7 +64,6 @@ logic::load_settings ()
 
    return set;
 }
-
 
 
 void

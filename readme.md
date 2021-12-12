@@ -98,6 +98,7 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 - interfaces prefixed with i_
 - classes not prefixed with anything
 - for external libraries, whatever case is natural to that library
+- two empty lines between functions
 
 # projects used
 

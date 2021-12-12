@@ -76,6 +76,45 @@ deserialise_settings(
    return set;
 }
 
+
+QJsonArray location_to_json_array(const gauge::location& location)
+{
+   QJsonArray gaugeLocationArray;
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.row));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.col));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.row_span));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.col_span));
+   return gaugeLocationArray;
+}
+
+
+QJsonObject&
+add_settings (
+   QJsonObject& gaugeConfig,
+   const std::vector<gauge::basic_setting>& settings
+)
+{
+   for(auto& setting : settings) {
+      gaugeConfig[mzlib::convert<QString>(setting.tag)] = mzlib::convert<QJsonValue>(setting.value);
+   }
+   return gaugeConfig;
+}
+
+QJsonArray configurations_to_json_array(const std::vector<gauge::configuration>& configurations)
+{
+   QJsonArray gaugeConfigsArray;
+   for (auto& config : configurations)
+   {
+      QJsonObject gaugeConfig;
+      gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(config.type));
+      gaugeConfig["location"] = location_to_json_array(config.location);
+      gaugeConfig = add_settings(gaugeConfig, config.settings);
+      gaugeConfigsArray.append(gaugeConfig);
+   }
+   return gaugeConfigsArray;
+}
+
+
 std::wstring
 serialise_settings (
    const logic::settings& set)
@@ -85,25 +124,18 @@ serialise_settings (
    json["dialog_stylesheet"] = mzlib::convert<QJsonValue>(set.dialog_stylesheet);
    json["gauge_stylesheet"] = mzlib::convert<QJsonValue>(set.gauge_stylesheet);
 
-   QJsonArray gaugeConfigsArray;
-   for (auto& gc : set.gauge_configurations)
-   {
-      QJsonObject gaugeConfig;
-      gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(gc.type));
-
-      QJsonArray gaugeLocationArray;
-      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.row));
-      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.col));
-      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.row_span));
-      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.col_span));
-      gaugeConfig["location"] = gaugeLocationArray;
-
-      for(auto& gc_setting : gc.settings) {
-         gaugeConfig[mzlib::convert<QString>(gc_setting.tag)] = mzlib::convert<QJsonValue>(gc_setting.value);
-      }
-      gaugeConfigsArray.append(gaugeConfig);
-   }
-   json["gauge_configurations"] = gaugeConfigsArray;
+   //QJsonArray gaugeConfigsArray;
+   //for (auto& gc : set.gauge_configurations)
+   //{
+   //   QJsonObject gaugeConfig;
+   //   gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(gc.type));
+   //   gaugeConfig["location"] = location_to_json_array(gc.location);
+   //   for(auto& gc_setting : gc.settings) {
+   //      gaugeConfig[mzlib::convert<QString>(gc_setting.tag)] = mzlib::convert<QJsonValue>(gc_setting.value);
+   //   }
+   //   gaugeConfigsArray.append(gaugeConfig);
+   //}
+   json["gauge_configurations"] = configurations_to_json_array(set.gauge_configurations);
 
    QJsonDocument json_document(json);
 

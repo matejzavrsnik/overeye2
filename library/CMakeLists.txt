@@ -21,7 +21,7 @@ set (CMAKE_AUTORCC ON)
 # Add these files to this binary
 set (SOURCES
 
-   src/logic/load_settings.cpp
+   src/logic/load_save_settings.cpp
    src/overeye.cpp
    #../3rdparty/mzlib/include/tools/metronome.h
 

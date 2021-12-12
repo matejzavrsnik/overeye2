@@ -2,7 +2,7 @@
 
 #include "gui/screen.h"
 #include "gauge/factory.h"
-#include "logic/load_settings.h"
+#include "logic/load_save_settings.h"
 #include "logic/manager.h"
 
 #include <lang/exceptions.h>

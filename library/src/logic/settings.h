@@ -15,6 +15,4 @@ struct settings
    std::vector<gauge::configuration> gauge_configurations;
 };
 
-std::wstring
-serialise_settings (const settings& set);
 }

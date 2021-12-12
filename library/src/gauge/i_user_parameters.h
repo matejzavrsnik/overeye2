@@ -32,6 +32,9 @@ public:
    virtual std::vector<gauge::basic_setting>
    user_setting_get_all () = 0;
 
+   virtual
+   ~i_user_parameters () = 0;
+
 };
 
 }

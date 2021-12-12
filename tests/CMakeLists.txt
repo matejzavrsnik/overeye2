@@ -9,6 +9,10 @@ project(library_tests
    LANGUAGES CXX
 )
 
+find_package (QT NAMES Qt6 Qt5 COMPONENTS Widgets WebEngineWidgets REQUIRED)
+find_package (Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package (Qt${QT_VERSION_MAJOR} COMPONENTS WebEngineWidgets REQUIRED)
+
 # Add these files to this binary
 file(GLOB HeaderFiles *.h)
 file(GLOB SourceFiles *.cpp)
@@ -22,7 +26,9 @@ add_executable(tests ${SOURCES})
 set_project_warnings(tests)
 
 # Link with libraries
-target_link_libraries(tests 
+target_link_libraries(tests
+   PRIVATE Qt${QT_VERSION_MAJOR}::Widgets # installed on system
+   PRIVATE Qt${QT_VERSION_MAJOR}::WebEngineWidgets # installed on system
    library # exists in this solution, imported in CMakeLists.txt
    CONAN_PKG::gtest # defined in root CMakeLists.txt
 ) 

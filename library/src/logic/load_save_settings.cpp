@@ -6,9 +6,11 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QDir>
+
 #include <extension/qt/json.h>
 #include <tools/converters.h>
-#include <iostream>
+
+#include <string>
 
 namespace
 {

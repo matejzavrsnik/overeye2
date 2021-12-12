@@ -124,17 +124,6 @@ serialise_settings (
    json["dialog_stylesheet"] = mzlib::convert<QJsonValue>(set.dialog_stylesheet);
    json["gauge_stylesheet"] = mzlib::convert<QJsonValue>(set.gauge_stylesheet);
 
-   //QJsonArray gaugeConfigsArray;
-   //for (auto& gc : set.gauge_configurations)
-   //{
-   //   QJsonObject gaugeConfig;
-   //   gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(gc.type));
-   //   gaugeConfig["location"] = location_to_json_array(gc.location);
-   //   for(auto& gc_setting : gc.settings) {
-   //      gaugeConfig[mzlib::convert<QString>(gc_setting.tag)] = mzlib::convert<QJsonValue>(gc_setting.value);
-   //   }
-   //   gaugeConfigsArray.append(gaugeConfig);
-   //}
    json["gauge_configurations"] = configurations_to_json_array(set.gauge_configurations);
 
    QJsonDocument json_document(json);

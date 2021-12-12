@@ -44,4 +44,6 @@ public:
    virtual std::vector<gauge::basic_setting>
    get_all() = 0;
 
+   virtual
+   ~i_gauge_parameters () = 0;
 };

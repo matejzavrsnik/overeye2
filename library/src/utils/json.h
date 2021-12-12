@@ -19,8 +19,12 @@ read_gauge_configuration (
    const QJsonObject& json_object);
 
 logic::settings
-read_settings(
-   std::wstring json_string);
+deserialise_settings(
+   const std::wstring& json_string);
+
+std::wstring
+serialise_settings (
+   const logic::settings& set);
 
 }
 

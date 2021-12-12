@@ -55,8 +55,8 @@ read_gauge_configuration (const QJsonObject& json_object)
 }
 
 logic::settings
-read_settings(
-   std::wstring json_string)
+deserialise_settings(
+   const std::wstring& json_string)
 {
    logic::settings set;
 
@@ -74,6 +74,41 @@ read_settings(
    }
 
    return set;
+}
+
+std::wstring
+serialise_settings (
+   const logic::settings& set)
+{
+   QJsonObject json;
+   // todo: there are json utils for reading, add for writing
+   json["dialog_stylesheet"] = mzlib::convert<QJsonValue>(set.dialog_stylesheet);
+   json["gauge_stylesheet"] = mzlib::convert<QJsonValue>(set.gauge_stylesheet);
+
+   QJsonArray gaugeConfigsArray;
+   for (auto& gc : set.gauge_configurations)
+   {
+      QJsonObject gaugeConfig;
+      gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(gc.type));
+
+      QJsonArray gaugeLocationArray;
+      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.row));
+      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.col));
+      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.row_span));
+      gaugeLocationArray.append(mzlib::convert<QJsonValue>(gc.location.col_span));
+      gaugeConfig["location"] = gaugeLocationArray;
+
+      for(auto& gc_setting : gc.settings) {
+         gaugeConfig[mzlib::convert<QString>(gc_setting.tag)] = mzlib::convert<QJsonValue>(gc_setting.value);
+      }
+      gaugeConfigsArray.append(gaugeConfig);
+   }
+   json["gauge_configurations"] = gaugeConfigsArray;
+
+   QJsonDocument json_document(json);
+
+   std::wstring serialised = mzlib::convert<std::wstring>(json_document.toJson());
+   return serialised;
 }
 
 }

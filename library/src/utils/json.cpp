@@ -56,7 +56,7 @@ read_gauge_configuration (const QJsonObject& json_object)
 
 logic::settings
 deserialise_settings(
-   const std::wstring& json_string)
+   const std::string& json_string)
 {
    logic::settings set;
 
@@ -115,7 +115,7 @@ QJsonArray configurations_to_json_array(const std::vector<gauge::configuration>&
 }
 
 
-std::wstring
+std::string
 serialise_settings (
    const logic::settings& set)
 {
@@ -128,7 +128,7 @@ serialise_settings (
 
    QJsonDocument json_document(json);
 
-   std::wstring serialised = mzlib::convert<std::wstring>(json_document.toJson());
+   std::string serialised = mzlib::convert<std::string>(json_document.toJson());
    return serialised;
 }
 

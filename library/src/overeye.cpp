@@ -27,12 +27,11 @@ run_main (
 {
    // can't have this inside the try, because then I can't display error message box in catch
    QApplication app(argc, argv);
+   app.setApplicationName("overeye");
+   app.setApplicationVersion("2.0");
 
    try
    {
-      app.setApplicationName("overeye");
-      app.setApplicationVersion("2.0");
-
       auto set = logic::load_settings();
 
       gui::screen screen;
@@ -50,6 +49,7 @@ run_main (
       screen.show();
       auto exit_code = QApplication::exec();
       logic::save_settings(set);
+
       return exit_code;
    }
    catch(mzlib::exception::parse_error& parse_error)

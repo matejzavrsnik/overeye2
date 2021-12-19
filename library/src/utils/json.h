@@ -22,7 +22,7 @@ read_gauge_configuration (
 
 logic::settings
 deserialise_settings(
-   const std::wstring& json_string);
+   const std::string& json_string);
 
 // settings -> json
 
@@ -41,7 +41,7 @@ QJsonArray
 configurations_to_json_array(
    const std::vector<gauge::configuration>& configurations);
 
-std::wstring
+std::string
 serialise_settings (
    const logic::settings& set);
 

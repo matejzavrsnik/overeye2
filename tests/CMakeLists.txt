@@ -9,6 +9,11 @@ project(library_tests
    LANGUAGES CXX
 )
 
+# Include cmake scripts
+include(../cmake/configurations.cmake)
+include(../cmake/warnings.cmake)
+include(../cmake/conan.cmake)
+
 find_package (QT NAMES Qt6 Qt5 COMPONENTS Widgets WebEngineWidgets REQUIRED)
 find_package (Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package (Qt${QT_VERSION_MAJOR} COMPONENTS WebEngineWidgets REQUIRED)
@@ -17,7 +22,10 @@ find_package (Qt${QT_VERSION_MAJOR} COMPONENTS WebEngineWidgets REQUIRED)
 file(GLOB HeaderFiles *.h)
 file(GLOB SourceFiles *.cpp)
 
-set(SOURCES ${HeaderFiles} ${SourceFiles})
+set(SOURCES
+   main.cpp
+   test_settings_serialisation.cpp
+   test_settings_load.cpp)
 
 # The result
 add_executable(tests ${SOURCES})

@@ -45,5 +45,5 @@ public:
    get_all() = 0;
 
    virtual
-   ~i_gauge_parameters () = 0;
+   ~i_gauge_parameters () {}
 };

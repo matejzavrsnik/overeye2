@@ -5,49 +5,14 @@
 
 #include "../library/src/logic/load_save_settings.h"
 #include "../library/src/utils/json.h"
+#include "testing_tools.h"
 
 using namespace ::testing;
-
-namespace
-{
-
-const std::string&
-sample_of_valid_settings_content ()
-{
-   static const std::string json = R"(
-   {
-      "dialog_stylesheet" : "background-color: rgb(46, 52, 54) ",
-      "gauge_stylesheet" : "body { color: rgb(179, 179, 0); background-color: rgb(50, 56, 58) } ",
-      "gauge_configurations" :
-      [  {  "type" : "clock",
-            "location" : [0, 0, 1, 1],
-            "{format}" : "ddd MMMM d yyyy hh:mm:ss",
-            "{timezone}" : "America/Tijuana"
-         },
-         {  "type" : "webport",
-            "location" : [0, 1, 1, 1],
-            "{content}" : "<iframe src=\"https://mars.nasa.gov/layout/embed/image/320mosaicvert/?i=N_L000_0621XEDR031POLTSB1330_DRIVEM1\" width=\"320\" height=\"320\" scrolling=\"no\" frameborder=\"0\"></iframe>"
-         },
-         {  "type" : "twitter",
-            "location" : [0, 2, 2, 1],
-            "{handle}" : "NASAPersevere"
-         },
-         {  "type" : "webport",
-            "location" : [1, 1, 1, 1],
-            "{content}" : "<h1>Hello 🍌🐒<h1>"
-         }
-      ]
-   })";
-
-   return json;
-}
-
-}
 
 TEST(settings_load, will_use_system_config_folder)
 {
    // arrange
-   std::filesystem::path path = "/config/folder123";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
@@ -62,7 +27,7 @@ TEST(settings_load, will_use_system_config_folder)
 TEST(settings_load, will_not_attempt_reading_file_if_not_exists)
 {
    // arrange
-   std::filesystem::path path = "/config/folder234";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
    StrictMock<filesystem_mock> fs_mock; // to cover all variants of reading a file
    EXPECT_CALL(fs_mock, get_system_app_config_location()).WillRepeatedly(Return(path));
@@ -78,7 +43,7 @@ TEST(settings_load, will_not_attempt_reading_file_if_not_exists)
 TEST(settings_load, will_not_attempt_reading_file_if_not_regular)
 {
    // arrange
-   std::filesystem::path path = "/config/folder3454";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
    StrictMock<filesystem_mock> fs_mock; // to cover all variants of reading a file
    EXPECT_CALL(fs_mock, get_system_app_config_location()).WillRepeatedly(Return(path));
@@ -95,7 +60,7 @@ TEST(settings_load, will_not_attempt_reading_file_if_not_regular)
 TEST(settings_load, will_read_the_correct_file)
 {
    // arrange
-   std::filesystem::path path = "/config/folder4556";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
@@ -112,9 +77,9 @@ TEST(settings_load, will_read_the_correct_file)
 TEST(settings_load, will_deserialise_entire_contents_of_the_file)
 {
    // arrange
-   std::filesystem::path path = "/config/folder5667";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
-   std::string file_content = sample_of_valid_settings_content ();
+   std::string file_content = testing_tools::sample_of_valid_settings_content ();
    const int num_gauges_in_sample = 4;
 
    NiceMock<filesystem_mock> fs_mock;
@@ -133,9 +98,9 @@ TEST(settings_load, will_deserialise_entire_contents_of_the_file)
 TEST(settings_load, will_correctly_handle_utf8_chars)
 {
    // arrange
-   std::filesystem::path path = "/config/folder6778";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
-   std::string file_content = sample_of_valid_settings_content ();
+   std::string file_content = testing_tools::sample_of_valid_settings_content ();
    std::wstring utf8_content_in_sample = L"<h1>Hello 🍌🐒<h1>";
 
    NiceMock<filesystem_mock> fs_mock;
@@ -171,7 +136,7 @@ TEST(settings_load, will_use_default_settings_if_file_doesnt_exist)
 TEST(settings_load, will_use_default_settings_if_file_empty)
 {
    // arrange
-   std::filesystem::path path = "/config/folder5667";
+   std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
 
    NiceMock<filesystem_mock> fs_mock;

@@ -25,7 +25,7 @@ file(GLOB SourceFiles *.cpp)
 set(SOURCES
    main.cpp
    test_settings_serialisation.cpp
-   test_settings_load.cpp)
+   test_settings_load.cpp testing_tools.cpp testing_tools.h)
 
 # The result
 add_executable(tests ${SOURCES})

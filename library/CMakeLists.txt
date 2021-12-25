@@ -50,7 +50,7 @@ set (SOURCES
    src/gui/webport.ui src/gui/webport.cpp src/gui/webport.h
    src/gui/gauge_config.ui src/gui/gauge_config.cpp src/gui/gauge_config.h
    src/gui/custom_event_types.h
-   src/utils/json.cpp src/utils/json.h ../3rdparty/mzlib/include/mocks/filesystem_mock.h)
+   src/utils/json.cpp src/utils/json.h ../3rdparty/mzlib/include/mocks/filesystem_mock.h src/utils/load_save_settings.h)
 
 # The result
 add_library (library ${SOURCES})

@@ -1,31 +1,8 @@
 #include "load_save_settings.h"
 #include "../utils/json.h"
-
-#include <QStandardPaths>
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QDir>
+#include "../utils/load_save_settings.h"
 
 #include <tools/converters.h>
-#include <iostream>
-
-
-   //std::filesystem::path
-   //default_settings_file (const filesystem_interface& fsi)
-   //{
-   //   auto appConfigLocation = fsi.get_system_app_config_location();
-   //   appConfigLocation /= L"settings.json";
-   //   return appConfigLocation;
-   //   //auto appConfigLocation = QDir{QStandardPaths::writableLocation(QStandardPaths::StandardLocation::AppConfigLocation)};
-   //   //return QFile{appConfigLocation.filePath("settings.json")};
-//
-   //}
-
-
-
-
-
-
 
 namespace logic
 {
@@ -66,14 +43,7 @@ load_settings (
    const mzlib::filesystem_proxy& fs
 )
 {
-   auto app_config_location = fs.get_system_app_config_location();
-
-   auto app_config_file = app_config_location / std::filesystem::path{L"settings.json"};
-   std::string json_string;
-   if (fs.exists(app_config_file) && fs.is_regular_file(app_config_file))
-   {
-      json_string = fs.read_file(app_config_file);
-   }
+   std::string json_string = mzlib::load_settings(fs, "settings.json");
 
    if (json_string.empty())
       json_string = default_settings_content();
@@ -91,13 +61,5 @@ logic::save_settings (
    const mzlib::filesystem_proxy& fs)
 {
    std::string serialised = utils::serialise_settings(set);
-
-   auto app_config_location = fs.get_system_app_config_location();
-   if (!fs.exists(app_config_location))
-   {
-      fs.create_directories(app_config_location);
-   }
-
-   auto app_config_file = app_config_location / std::filesystem::path{L"settings.json"};
-   fs.save_file(app_config_file, serialised);
+   mzlib::save_settings(fs, "settings.json", serialised);
 }

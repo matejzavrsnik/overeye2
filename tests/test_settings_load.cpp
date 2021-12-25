@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include <mocks/filesystem_mock.h>
+#include "testing_tools.h"
 
 #include "../library/src/logic/load_save_settings.h"
 #include "../library/src/utils/json.h"
-#include "testing_tools.h"
+
+#include <mocks/filesystem_mock.h>
 
 using namespace ::testing;
 

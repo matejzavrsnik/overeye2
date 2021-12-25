@@ -115,3 +115,28 @@ Didn't find a good way to document templated stuff, so using HTML less-then tag 
 4) system install
 
 If I can, I stick to these separately for different OSes. For example, QT is installed on openSUSE but Conaned on Windows and Ubuntu.
+
+## Board
+
+I can afford to just have a list of things I want to achieve here.
+
+🚁 - feature, 🐞 - bug, 🔧 - refactor.
+
+The order implies priority.
+
+Open:
+- 🔧 file saving could be moved to mzlib because there's nothing specific to Overeye in it
+- 🚁 widget to be set per screen coordinates rather than as Qt grid coordinates so that it would look prettier
+- 🚁 a widget that shows linux logs
+- 🚁 webports to be able to set width and height via keywords
+- 🚁 a specialised webport widget for youtube
+- 🚁 clock widget to enable custom HTML into which the clock will be set using keywords
+- 🐞 error messages on exit
+- 🔧 simplify how settings work; it's technically correct now, but it's way to complicated for the problem at hand
+- 🚁 when changing settings in the app, the changes should also be saved
+- 🚁 a plugin system for the widgets
+- 🔧 set up build system so that builds are in one builds folder rather than scattered out
+
+Done:
+- 🔧 file saving can be extracted from settings saving
+

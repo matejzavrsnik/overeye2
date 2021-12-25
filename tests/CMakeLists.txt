@@ -19,13 +19,12 @@ find_package (Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package (Qt${QT_VERSION_MAJOR} COMPONENTS WebEngineWidgets REQUIRED)
 
 # Add these files to this binary
-file(GLOB HeaderFiles *.h)
-file(GLOB SourceFiles *.cpp)
-
 set(SOURCES
    main.cpp
    test_settings_serialisation.cpp
-   test_settings_load.cpp testing_tools.cpp testing_tools.h)
+   test_settings_load.cpp
+   test_settings_save.cpp
+   testing_tools.cpp)
 
 # The result
 add_executable(tests ${SOURCES})

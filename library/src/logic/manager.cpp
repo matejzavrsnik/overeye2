@@ -17,7 +17,7 @@ manager::add (
 {
    gauge->logical->display();
 
-   gauge->visual->window()->setGeometry(gauge->location.x, gauge->location.y, gauge->location.w, gauge->location.h);
+   gauge->visual->window()->setGeometry(gauge->location.x, gauge->location.y, gauge->location.width, gauge->location.height);
    gauge->visual->setParent(m_screen.get());
 
    m_gauges.push_back(std::move(gauge));

@@ -20,16 +20,7 @@ public:
       auto appConfigLocation = QDir{QStandardPaths::writableLocation(QStandardPaths::StandardLocation::AppConfigLocation)};
       return mzlib::convert<std::filesystem::path>(appConfigLocation.path());
    }
-/*
-   std::wstring
-   read_file (const std::filesystem::path& filepath) const override
-   {
-      QFile file{mzlib::convert<QString>(filepath)};
-      file.open(QIODevice::ReadOnly);
-      return mzlib::convert<std::wstring>(file.readAll());
 
-   }
-*/
 };
 
 namespace logic

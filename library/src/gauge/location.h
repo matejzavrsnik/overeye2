@@ -7,8 +7,8 @@ struct location
 {
    int y{};
    int x{};
-   int h{};
-   int w{};
+   int height{};
+   int width{};
 };
 
 }

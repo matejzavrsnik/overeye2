@@ -123,10 +123,10 @@ TEST(settings_serialisation, configurations_locations)
    // assert
    EXPECT_EQ(settings_in.gauge_configurations[0].location.y, settings_out.gauge_configurations[0].location.y);
    EXPECT_EQ(settings_in.gauge_configurations[0].location.x, settings_out.gauge_configurations[0].location.x);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.h, settings_out.gauge_configurations[0].location.h);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.w, settings_out.gauge_configurations[0].location.w);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.height, settings_out.gauge_configurations[0].location.height);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.width, settings_out.gauge_configurations[0].location.width);
    EXPECT_EQ(settings_in.gauge_configurations[1].location.y, settings_out.gauge_configurations[1].location.y);
    EXPECT_EQ(settings_in.gauge_configurations[1].location.x, settings_out.gauge_configurations[1].location.x);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.h, settings_out.gauge_configurations[1].location.h);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.w, settings_out.gauge_configurations[1].location.w);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.height, settings_out.gauge_configurations[1].location.height);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.width, settings_out.gauge_configurations[1].location.width);
 }

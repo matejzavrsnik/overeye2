@@ -12,10 +12,6 @@ namespace utils
 
 // json -> settings
 
-gauge::location
-read_gauge_location (
-   const QJsonObject& json_object);
-
 gauge::configuration
 read_gauge_configuration (
    const QJsonObject& json_object);
@@ -25,10 +21,6 @@ deserialise_settings(
    const std::string& json_string);
 
 // settings -> json
-
-QJsonArray
-location_to_json_array(
-   const gauge::location& location);
 
 
 QJsonObject&

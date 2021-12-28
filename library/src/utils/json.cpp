@@ -8,39 +8,41 @@
 namespace utils
 {
 
-gauge::location
-read_gauge_location (const QJsonObject& json_object)
-{
-   QJsonArray json_loc_arr = mzlib::read_array(json_object, "location");
-   std::vector<int> loc_numbers = mzlib::read_as_numbers<int>(json_loc_arr);
-
-   if (loc_numbers.size() != 4)
-      throw mzlib::exception::parse_error("location needs 4 and only 4 numbers");
-
-   // order matters
-   gauge::location
-      loc{.y = loc_numbers[0], .x = loc_numbers[1], .h = loc_numbers[2], .w = loc_numbers[3],};
-
-   return loc;
-}
-
 gauge::configuration
 read_gauge_configuration (const QJsonObject& json_object)
 {
-   bool has_type = false, has_location = false; // required for all
+   bool has_type = false;
+   int has_locations = false; // required for all
 
    gauge::configuration new_gauge;
    for (const QString& key: json_object.keys())
    {
+      // fixed gauge settings for all gauges
       if (key == "type")
       {
-         new_gauge.type = gauge::to_type(mzlib::read_string(json_object, "type"));
+         new_gauge.type = gauge::to_type(mzlib::read_string(json_object, key));
          has_type = true;
       }
-      else if (key == "location")
+      //else if (key == "location")
+      else if (key == "x")
       {
-         new_gauge.location = utils::read_gauge_location(json_object);
-         has_location = true;
+         new_gauge.location.x = mzlib::read_int(json_object, key);
+         ++has_locations;
+      }
+      else if (key == "y")
+      {
+         new_gauge.location.y = mzlib::read_int(json_object, key);
+         ++has_locations;
+      }
+      else if (key == "width")
+      {
+         new_gauge.location.width = mzlib::read_int(json_object, key);
+         ++has_locations;
+      }
+      else if (key == "height")
+      {
+         new_gauge.location.height = mzlib::read_int(json_object, key);
+         ++has_locations;
       }
       else
          new_gauge.settings.push_back(
@@ -48,11 +50,12 @@ read_gauge_configuration (const QJsonObject& json_object)
          );
    }
 
-   if (!has_type || !has_location)
-      throw mzlib::exception::parse_error("gauge definition lacks type or location");
+   if (!has_type || has_locations != 4)
+      throw mzlib::exception::parse_error("gauge definition lacks type, location, or size");
 
    return new_gauge;
 }
+
 
 logic::settings
 deserialise_settings(
@@ -77,17 +80,6 @@ deserialise_settings(
 }
 
 
-QJsonArray location_to_json_array(const gauge::location& location)
-{
-   QJsonArray gaugeLocationArray;
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.y));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.x));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.h));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.w));
-   return gaugeLocationArray;
-}
-
-
 QJsonObject&
 add_settings (
    QJsonObject& gaugeConfig,
@@ -107,7 +99,11 @@ QJsonArray configurations_to_json_array(const std::vector<gauge::configuration>&
    {
       QJsonObject gaugeConfig;
       gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(config.type));
-      gaugeConfig["location"] = location_to_json_array(config.location);
+      //gaugeConfig["location"] = location_to_json_array(config.location);
+      gaugeConfig["x"] = mzlib::convert<QJsonValue>(config.location.x);
+      gaugeConfig["y"] = mzlib::convert<QJsonValue>(config.location.y);
+      gaugeConfig["width"] = mzlib::convert<QJsonValue>(config.location.width);
+      gaugeConfig["height"] = mzlib::convert<QJsonValue>(config.location.height);
       gaugeConfig = add_settings(gaugeConfig, config.settings);
       gaugeConfigsArray.append(gaugeConfig);
    }

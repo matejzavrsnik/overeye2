@@ -5,8 +5,8 @@
 namespace gauge
 {
 
-manager::manager (QGridLayout* grid) :
-   m_grid(grid)
+manager::manager (std::unique_ptr<gui::screen> screen) :
+   m_screen(std::move(screen))
 {
 }
 
@@ -17,11 +17,16 @@ manager::add (
 {
    gauge->logical->display();
 
-   m_grid->addWidget(
-      gauge->visual.get(), gauge->location.row, gauge->location.col, gauge->location.row_span, gauge->location.col_span
-   );
+   gauge->visual->window()->setGeometry(gauge->location.x, gauge->location.y, gauge->location.w, gauge->location.h);
+   gauge->visual->setParent(m_screen.get());
 
    m_gauges.push_back(std::move(gauge));
+}
+
+void
+manager::show ()
+{
+   m_screen->show();
 }
 
 }

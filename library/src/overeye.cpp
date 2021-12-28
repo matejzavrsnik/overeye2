@@ -34,19 +34,20 @@ run_main (
    {
       auto set = logic::load_settings();
 
-      gui::screen screen;
-      //screen.setWindowState(Qt::WindowFullScreen);
-      screen.setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
+      std::unique_ptr<gui::screen> screen = std::make_unique<gui::screen>();
+      screen->setWindowState(Qt::WindowFullScreen);
+      screen->setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
 
-      gauge::manager gm(screen.grid());
+      gauge::manager gauge_manager(std::move(screen));
 
       for (auto& gc: set.gauge_configurations)
       {
          auto g = gauge::gauge_factory(gc, set.gauge_stylesheet);
-         gm.add(std::move(g));
+         gauge_manager.add(std::move(g));
       }
 
-      screen.show();
+      gauge_manager.show();
+
       auto exit_code = QApplication::exec();
       logic::save_settings(set);
 

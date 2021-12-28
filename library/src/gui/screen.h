@@ -17,9 +17,6 @@ Q_OBJECT
 public:
    explicit screen (QWidget* parent = nullptr);
 
-   QGridLayout*
-   grid ();
-
    ~screen () override;
 
 private:

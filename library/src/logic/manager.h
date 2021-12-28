@@ -7,6 +7,7 @@
 
 #include "../gauge/clock.h"
 #include "representation.h"
+#include "../gui/screen.h"
 
 class QGridLayout;
 
@@ -21,16 +22,19 @@ class manager
 private:
 
    std::vector<std::unique_ptr<representation>> m_gauges;
-   QGridLayout* m_grid;
+   std::unique_ptr<gui::screen> m_screen;
 
 public:
 
-   explicit manager (QGridLayout* grid);
+   explicit manager (std::unique_ptr<gui::screen> screen);
 
    void
    add (
    std::unique_ptr<representation> gauge
    );
+
+   void
+   show ();
 
 };
 

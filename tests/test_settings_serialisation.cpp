@@ -121,12 +121,12 @@ TEST(settings_serialisation, configurations_locations)
    auto serialised = utils::serialise_settings(settings_in);
    logic::settings settings_out = utils::deserialise_settings(serialised);
    // assert
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.row, settings_out.gauge_configurations[0].location.row);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.col, settings_out.gauge_configurations[0].location.col);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.row_span, settings_out.gauge_configurations[0].location.row_span);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.col_span, settings_out.gauge_configurations[0].location.col_span);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.row, settings_out.gauge_configurations[1].location.row);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.col, settings_out.gauge_configurations[1].location.col);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.row_span, settings_out.gauge_configurations[1].location.row_span);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.col_span, settings_out.gauge_configurations[1].location.col_span);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.y, settings_out.gauge_configurations[0].location.y);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.x, settings_out.gauge_configurations[0].location.x);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.h, settings_out.gauge_configurations[0].location.h);
+   EXPECT_EQ(settings_in.gauge_configurations[0].location.w, settings_out.gauge_configurations[0].location.w);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.y, settings_out.gauge_configurations[1].location.y);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.x, settings_out.gauge_configurations[1].location.x);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.h, settings_out.gauge_configurations[1].location.h);
+   EXPECT_EQ(settings_in.gauge_configurations[1].location.w, settings_out.gauge_configurations[1].location.w);
 }

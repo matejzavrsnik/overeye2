@@ -13,8 +13,4 @@ gui::screen::~screen ()
    delete ui;
 }
 
-QGridLayout*
-gui::screen::grid ()
-{
-   return ui->grid;
-}
+

@@ -1,108 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>main_dialog</class>
-    <widget class="QDialog" name="main_dialog">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>1193</width>
-                <height>857</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>screen</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-                <layout class="QGridLayout" name="grid"/>
-            </item>
-            <item>
-                <layout class="QVBoxLayout" name="controls">
-                    <item>
-                        <widget class="QPushButton" name="button_configure">
-                            <property name="sizePolicy">
-                                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>25</width>
-                                    <height>25</height>
-                                </size>
-                            </property>
-                            <property name="maximumSize">
-                                <size>
-                                    <width>25</width>
-                                    <height>25</height>
-                                </size>
-                            </property>
-                            <property name="text">
-                                <string>⚙</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QPushButton" name="button_exit">
-                            <property name="sizePolicy">
-                                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>25</width>
-                                    <height>25</height>
-                                </size>
-                            </property>
-                            <property name="maximumSize">
-                                <size>
-                                    <width>25</width>
-                                    <height>25</height>
-                                </size>
-                            </property>
-                            <property name="text">
-                                <string>X</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <spacer name="verticalSpacer">
-                            <property name="orientation">
-                                <enum>Qt::Vertical</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                                <size>
-                                    <width>20</width>
-                                    <height>40</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </item>
-                </layout>
-            </item>
-        </layout>
-    </widget>
-    <resources/>
-    <connections>
-        <connection>
-            <sender>button_exit</sender>
-            <signal>clicked()</signal>
-            <receiver>main_dialog</receiver>
-            <slot>close()</slot>
-            <hints>
-                <hint type="sourcelabel">
-                    <x>346</x>
-                    <y>50</y>
-                </hint>
-                <hint type="destinationlabel">
-                    <x>329</x>
-                    <y>236</y>
-                </hint>
-            </hints>
-        </connection>
-    </connections>
+ <class>main_dialog</class>
+ <widget class="QDialog" name="main_dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>664</width>
+    <height>452</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Overeye</string>
+  </property>
+  <widget class="QPushButton" name="button_configure">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>5</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>⚙</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_exit">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>30</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>button_exit</sender>
+   <signal>clicked()</signal>
+   <receiver>main_dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>329</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

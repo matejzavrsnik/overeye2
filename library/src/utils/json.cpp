@@ -19,7 +19,7 @@ read_gauge_location (const QJsonObject& json_object)
 
    // order matters
    gauge::location
-      loc{.row = loc_numbers[0], .col = loc_numbers[1], .row_span = loc_numbers[2], .col_span = loc_numbers[3],};
+      loc{.y = loc_numbers[0], .x = loc_numbers[1], .h = loc_numbers[2], .w = loc_numbers[3],};
 
    return loc;
 }
@@ -80,10 +80,10 @@ deserialise_settings(
 QJsonArray location_to_json_array(const gauge::location& location)
 {
    QJsonArray gaugeLocationArray;
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.row));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.col));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.row_span));
-   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.col_span));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.y));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.x));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.h));
+   gaugeLocationArray.append(mzlib::convert<QJsonValue>(location.w));
    return gaugeLocationArray;
 }
 

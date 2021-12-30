@@ -37,10 +37,10 @@ gui::gauge_config::populate_grid ()
    for (const auto& setting : m_settings->user_setting_get_all())
    {
       ui->config_table->insertRow(row);
-      auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdWString(m_settings->user_setting_get_name(setting.tag).value()));
+      auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdString(m_settings->user_setting_get_name(setting.tag).value()));
       item_name->setFlags(item_name->flags() ^ Qt::ItemIsEditable);
-      auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdWString(setting.value));
-      item_value->setData(Qt::UserRole, QString::fromStdWString(setting.tag));
+      auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdString(setting.value));
+      item_value->setData(Qt::UserRole, QString::fromStdString(setting.tag));
       ui->config_table->setItem(row, 0, item_name.release());
       ui->config_table->setItem(row, 1, item_value.release());
       ++row;
@@ -64,8 +64,8 @@ gui::gauge_config::handleApplyPress ()
    for (int row = 0; row < ui->config_table->rowCount(); ++row)
    {
       const auto& valueItem = ui->config_table->item(row, 1);
-      const std::wstring& tag = valueItem->data(Qt::UserRole).toString().toStdWString();
-      const std::wstring& value = valueItem->data(Qt::DisplayRole).toString().toStdWString();
+      const std::string& tag = valueItem->data(Qt::UserRole).toString().toStdString();
+      const std::string& value = valueItem->data(Qt::DisplayRole).toString().toStdString();
       m_settings->user_setting_set({tag, value});
       anything_changed = true; // todo: better if it was done from settings class centraly
    }

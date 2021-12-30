@@ -13,7 +13,7 @@ class clock : public webport
 public:
 
    clock (
-      const std::wstring& style,
+      const std::string& style,
       std::shared_ptr<i_gauge_parameters> user_settings
    );
 
@@ -21,9 +21,9 @@ private:
 
    QDateTime m_date_time;
 
-   std::wstring
+   std::string
    render (
-      const std::wstring& page_template,
+      const std::string& page_template,
       std::shared_ptr<i_gauge_parameters> page_parameters
    ) override;
 
@@ -35,15 +35,15 @@ public:
 
    private:
 
-      const static std::wstring&
+      const static std::string&
       clock ();
 
    public:
 
-      const static std::wstring&
+      const static std::string&
       timezone ();
 
-      const static std::wstring&
+      const static std::string&
       format ();
 
    };

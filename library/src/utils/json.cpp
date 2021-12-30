@@ -46,7 +46,7 @@ read_gauge_configuration (const QJsonObject& json_object)
       }
       else
          new_gauge.settings.push_back(
-            gauge::basic_setting{.tag = key.toStdWString(), .value = mzlib::read_string(json_object, key)}
+            gauge::basic_setting{.tag = key.toStdString(), .value = mzlib::read_string(json_object, key)}
          );
    }
 

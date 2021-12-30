@@ -34,7 +34,7 @@ public:
    sigslot::signal<> request_content;
 
    void
-   receive_content (const std::wstring& html);
+   receive_content (const std::string& html);
 
    void
    receive_request_refresh ();

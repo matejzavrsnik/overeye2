@@ -16,9 +16,9 @@ template<typename String>
 type
 to_type(String type_string)
 {
-   if(type_string == L"webport") return type::webport;
-   else if(type_string == L"twitter") return type::twitter;
-   else if(type_string == L"clock") return type::clock;
+   if(type_string == "webport") return type::webport;
+   else if(type_string == "twitter") return type::twitter;
+   else if(type_string == "clock") return type::clock;
 
    throw mzlib::exception::parse_error("not a known gauge type");
 }

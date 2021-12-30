@@ -32,9 +32,9 @@ gui::webport::~webport ()
 }
 
 void
-gui::webport::receive_content (const std::wstring& html)
+gui::webport::receive_content (const std::string& html)
 {
-   ui->display->setHtml(QString::fromStdWString(html));
+   ui->display->setHtml(QString::fromStdString(html));
 }
 
 void

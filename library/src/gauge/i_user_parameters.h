@@ -19,9 +19,9 @@ class i_user_parameters
 
 public:
 
-   virtual std::optional<std::wstring>
+   virtual std::optional<std::string>
    user_setting_get_name (
-      const std::wstring& tag
+      const std::string& tag
    ) = 0;
 
    virtual bool

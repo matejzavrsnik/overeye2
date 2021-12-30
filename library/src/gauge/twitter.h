@@ -12,7 +12,7 @@ class twitter : public webport
 public:
 
    twitter (
-      const std::wstring& style,
+      const std::string& style,
       std::shared_ptr<i_gauge_parameters> user_settings
    );
 
@@ -20,7 +20,7 @@ public:
    {
    public:
 
-      const static std::wstring&
+      const static std::string&
       handle ();
 
    };

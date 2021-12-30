@@ -19,13 +19,13 @@ class webport : public i_gauge
 public:
 
    webport (
-      const std::wstring& style,
+      const std::string& style,
       std::shared_ptr<i_gauge_parameters> settings
    );
 
    virtual ~webport();
 
-   sigslot::signal<const std::wstring&> send_content;
+   sigslot::signal<const std::string&> send_content;
    sigslot::signal<> request_refresh;
 
    void
@@ -38,9 +38,9 @@ protected:
 
    std::shared_ptr<i_gauge_parameters> m_settings;
 
-   virtual std::wstring
+   virtual std::string
    render (
-      const std::wstring& page_template,
+      const std::string& page_template,
       std::shared_ptr<i_gauge_parameters> page_parameters
    );
 
@@ -64,15 +64,15 @@ public:
 
    private:
 
-      const static std::wstring&
+      const static std::string&
       genesis (); //todo: too complicated for no reason
 
    public:
 
-      const static std::wstring&
+      const static std::string&
       style ();
 
-      const static std::wstring&
+      const static std::string&
       content ();
 
    };

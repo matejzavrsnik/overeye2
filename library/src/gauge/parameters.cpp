@@ -4,7 +4,7 @@ namespace gauge
 {
 
    std::vector<extended_setting>::iterator
-   parameters::find (const std::wstring& tag)
+   parameters::find (const std::string& tag)
    {
       auto existing_setting = std::find_if(
          m_settings.begin(), m_settings.end(), [&tag] (const extended_setting& p)
@@ -22,7 +22,7 @@ namespace gauge
    }
 
    extended_setting&
-   parameters::find_or_add (const std::wstring& tag)
+   parameters::find_or_add (const std::string& tag)
    {
       auto existing_setting = find(tag);
       if (existing_setting != m_settings.end())
@@ -31,16 +31,16 @@ namespace gauge
       }
 
       //todo: to allow ctor that only takes tag? It would make sense here
-      extended_setting setting{tag, L"", false, L""};
+      extended_setting setting{tag, "", false, ""};
       m_settings.push_back(setting);
       return *m_settings.rbegin();
    }
 
    void
    parameters::set_or_add_user_setting (
-      const std::wstring& tag,
-      const std::wstring& value,
-      const std::wstring& name
+      const std::string& tag,
+      const std::string& value,
+      const std::string& name
    )
    {
       extended_setting& setting = find_or_add(tag);
@@ -52,8 +52,8 @@ namespace gauge
 
    void
    parameters::set_or_add_internal_setting (
-      const std::wstring& tag,
-      const std::wstring& value
+      const std::string& tag,
+      const std::string& value
    )
    {
       extended_setting& setting = find_or_add(tag);
@@ -64,8 +64,8 @@ namespace gauge
 
 bool
 parameters::set(
-   const std::wstring& tag,
-   const std::wstring& value
+   const std::string& tag,
+   const std::string& value
 )
 {
    auto existing_setting = find(tag);
@@ -93,8 +93,8 @@ parameters::set(
       return true;
    }
 
-   std::optional<std::wstring>
-   parameters::get_value (const std::wstring& tag)
+   std::optional<std::string>
+   parameters::get_value (const std::string& tag)
    {
       auto it_setting = find(tag);
       if (it_setting != m_settings.end())
@@ -104,9 +104,9 @@ parameters::set(
       return std::nullopt;
    }
 
-   std::optional<std::wstring>
+   std::optional<std::string>
    parameters::user_setting_get_name (
-      const std::wstring& tag
+      const std::string& tag
    )
    {
       auto it_setting = find(tag);

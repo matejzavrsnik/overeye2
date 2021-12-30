@@ -10,8 +10,8 @@ namespace logic
 
 struct settings
 {
-   std::wstring dialog_stylesheet;
-   std::wstring gauge_stylesheet;
+   std::string dialog_stylesheet;
+   std::string gauge_stylesheet;
    std::vector<gauge::configuration> gauge_configurations;
 };
 

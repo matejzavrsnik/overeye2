@@ -45,28 +45,28 @@ private:
    std::vector<extended_setting> m_settings;
 
    std::vector<extended_setting>::iterator
-   find (const std::wstring& tag);
+   find (const std::string& tag);
 
    extended_setting&
-   find_or_add (const std::wstring& tag);
+   find_or_add (const std::string& tag);
 
    void
    set_or_add_user_setting (
-      const std::wstring& tag,
-      const std::wstring& value,
-      const std::wstring& name
+      const std::string& tag,
+      const std::string& value,
+      const std::string& name
    ) override;
 
    void
    set_or_add_internal_setting(
-      const std::wstring& tag,
-      const std::wstring& value
+      const std::string& tag,
+      const std::string& value
    ) override;
 
    bool
    set(
-      const std::wstring& tag,
-      const std::wstring& value
+      const std::string& tag,
+      const std::string& value
    ) override;
 
    // sets tag value if exists and is available as user basic_setting
@@ -75,12 +75,12 @@ private:
       const basic_setting& setting
    ) override;
 
-   std::optional<std::wstring>
-   get_value(const std::wstring &tag) override;
+   std::optional<std::string>
+   get_value(const std::string &tag) override;
 
-   std::optional<std::wstring>
+   std::optional<std::string>
    user_setting_get_name (
-      const std::wstring& tag
+      const std::string& tag
    ) override;
 
    std::vector<basic_setting>

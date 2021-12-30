@@ -15,7 +15,7 @@ namespace gauge
 std::unique_ptr<gauge::webport>
 instantiate_webport(
    gauge::type type,
-   std::wstring stylesheet,
+   std::string stylesheet,
    std::shared_ptr<i_gauge_parameters> settings
 )
 {
@@ -37,7 +37,7 @@ webport_gauge_factory(
    gauge::type type,
    const std::vector<gauge::basic_setting>& settings,
    const configuration& gc,
-   const std::wstring& stylesheet
+   const std::string& stylesheet
 )
 {
    auto gauge_representation = std::make_unique<representation>();
@@ -65,7 +65,7 @@ webport_gauge_factory(
 std::unique_ptr<representation>
 gauge_factory (
    const configuration& gc,
-   const std::wstring& gauge_stylesheet
+   const std::string& gauge_stylesheet
 )
 {
    switch(gc.type)

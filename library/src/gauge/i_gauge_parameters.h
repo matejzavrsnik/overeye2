@@ -19,26 +19,26 @@ public:
 
    virtual void
    set_or_add_user_setting (
-      const std::wstring& tag,
-      const std::wstring& value,
-      const std::wstring& name
+      const std::string& tag,
+      const std::string& value,
+      const std::string& name
    ) = 0;
 
    virtual void
    set_or_add_internal_setting (
-      const std::wstring& tag,
-      const std::wstring& value
+      const std::string& tag,
+      const std::string& value
    ) = 0;
 
    virtual bool
    set(
-      const std::wstring& tag,
-      const std::wstring& value
+      const std::string& tag,
+      const std::string& value
    ) = 0;
 
-   virtual std::optional<std::wstring>
+   virtual std::optional<std::string>
    get_value(
-      const std::wstring& tag
+      const std::string& tag
    ) = 0;
 
    virtual std::vector<gauge::basic_setting>

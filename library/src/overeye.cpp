@@ -36,7 +36,7 @@ run_main (
 
       std::unique_ptr<gui::screen> screen = std::make_unique<gui::screen>();
       screen->setWindowState(Qt::WindowFullScreen);
-      screen->setStyleSheet(QString::fromStdWString(set.dialog_stylesheet));
+      screen->setStyleSheet(QString::fromStdString(set.dialog_stylesheet));
 
       gauge::manager gauge_manager(std::move(screen));
 

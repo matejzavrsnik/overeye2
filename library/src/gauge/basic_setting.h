@@ -7,8 +7,8 @@ namespace gauge
 
 struct basic_setting
 {
-   std::wstring tag;
-   std::wstring value;
+   std::string tag;
+   std::string value;
 };
 
 }

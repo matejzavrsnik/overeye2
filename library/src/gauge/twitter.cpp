@@ -4,10 +4,10 @@
 namespace
 {
 
-const std::wstring&
+const std::string&
 twitter_embedded_html ()
 {
-   static const std::wstring html = LR"(
+   static const std::string html = R"(
    <style type="text/css">
       body { overflow:hidden; }
    </style>
@@ -33,20 +33,20 @@ namespace gauge
 {
 
 twitter::twitter (
-   const std::wstring& style,
+   const std::string& style,
    std::shared_ptr<i_gauge_parameters> user_settings
 ) :
    webport(style, user_settings)
 {
    // setup settings expected for this gauge
    m_settings->set_or_add_internal_setting(webport::tags::content(), twitter_embedded_html()); // taking over {content} tag from user
-   m_settings->set_or_add_user_setting(twitter::tags::handle(), L"", L"Handle");
+   m_settings->set_or_add_user_setting(twitter::tags::handle(), "", "Handle");
 }
 
-const std::wstring&
+const std::string&
 twitter::tags::handle ()
 {
-   static const std::wstring tag{L"{handle}"};
+   static const std::string tag{"{handle}"};
    return tag;
 }
 

@@ -13,26 +13,26 @@ private:
 
    basic_setting m_basic_setting;
    bool m_user_setting;
-   std::wstring m_name;
+   std::string m_name;
 
 public:
 
    //todo: I have configuration, information, and settings. Need better names
    extended_setting (
-      std::wstring tag,
-      std::wstring value,
+      std::string tag,
+      std::string value,
       bool user_setting,
-      std::wstring friendly_name
+      std::string friendly_name
    );
 
-   [[nodiscard]] const std::wstring&
+   [[nodiscard]] const std::string&
    get_tag () const;
 
-   [[nodiscard]] const std::wstring&
+   [[nodiscard]] const std::string&
    get_value () const;
 
    void
-   set_value (const std::wstring& v);
+   set_value (const std::string& v);
 
    [[nodiscard]] bool
    is_user_setting () const;
@@ -40,11 +40,11 @@ public:
    void
    set_user_setting (bool v);
 
-   [[nodiscard]] const std::wstring&
+   [[nodiscard]] const std::string&
    get_name () const;
 
    void
-   set_name (const std::wstring& name);
+   set_name (const std::string& name);
 
 };
 

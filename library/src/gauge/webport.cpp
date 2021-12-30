@@ -4,10 +4,10 @@
 
 namespace
 {
-const std::wstring&
+const std::string&
 twitter_embedded_html ()
 {
-   static const std::wstring html = LR"(
+   static const std::string html = R"(
    <!DOCTYPE html>
    <html>
      <head>
@@ -25,7 +25,7 @@ namespace gauge
 {
 
 webport::webport (
-   const std::wstring& style,
+   const std::string& style,
    std::shared_ptr<i_gauge_parameters> settings
 ) :
    m_settings(settings)
@@ -33,7 +33,7 @@ webport::webport (
    // setup settings expected for this gauge
    m_settings->set_or_add_internal_setting(tags::genesis(), twitter_embedded_html());
    m_settings->set_or_add_internal_setting(tags::style(), style);
-   m_settings->set_or_add_user_setting(tags::content(), L"", L"Content");
+   m_settings->set_or_add_user_setting(tags::content(), "", "Content");
 
    m_timer.tick.connect(&webport::tick, this);
 }
@@ -57,13 +57,13 @@ webport::display ()
    send_content(rendered_content);
 }
 
-std::wstring
+std::string
 webport::render (
-   const std::wstring& page_template,
+   const std::string& page_template,
    std::shared_ptr<i_gauge_parameters> page_parameters
 )
 {
-   std::wstring page = page_template;
+   std::string page = page_template;
    for (const auto& parameter : page_parameters->get_all())
    {
       mzlib::string_replace(page, parameter.tag, parameter.value);
@@ -85,25 +85,25 @@ webport::tick ()
    request_refresh();
 }
 
-const std::wstring&
+const std::string&
 webport::tags::genesis ()
 {
-   static const std::wstring tag{L"{page_template}"};
+   static const std::string tag{"{page_template}"};
    return tag;
 }
 
 
-const std::wstring&
+const std::string&
 webport::tags::style ()
 {
-   static const std::wstring tag{L"{style}"};
+   static const std::string tag{"{style}"};
    return tag;
 }
 
-const std::wstring&
+const std::string&
 webport::tags::content ()
 {
-   static const std::wstring tag{L"{content}"};
+   static const std::string tag{"{content}"};
    return tag;
 }
 

@@ -11,12 +11,6 @@ gauge::extended_setting::extended_setting (
    m_name{std::move(friendly_name)} {}
 
 const std::string&
-gauge::extended_setting::get_tag () const
-{
-   return m_basic_setting.tag;
-}
-
-const std::string&
 gauge::extended_setting::get_value () const
 {
    return m_basic_setting.value;

@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <map>
 
 namespace gauge
 {
@@ -42,9 +43,9 @@ public:
 
 private:
 
-   std::vector<extended_setting> m_settings;
+   std::map<std::string, extended_setting> m_settings;
 
-   std::vector<extended_setting>::iterator
+   std::map<std::string, extended_setting>::iterator
    find (const std::string& tag);
 
    extended_setting&
@@ -85,9 +86,6 @@ private:
 
    std::vector<basic_setting>
    user_setting_get_all() override;
-
-   std::vector<basic_setting>
-   get_all() override;
 
 };
 

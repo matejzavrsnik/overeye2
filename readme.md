@@ -125,13 +125,14 @@ I can afford to just have a list of things I want to achieve here.
 The order implies priority.
 
 Open:
+- 🔧 simplify how settings work; it's technically correct now, but it's way to complicated for the problem at hand**
 - 🚁 size and location to be configurable with that button on screen directly
+- 🚁 it would be nice if json save didn't reorder the entries; order makes a difference to human readers
 - 🚁 a widget that shows linux logs
 - 🚁 webports to be able to set width and height via keywords
 - 🚁 a specialised webport widget for youtube that starts playing automatically
 - 🚁 clock widget to enable custom HTML into which the clock will be set using keywords
 - 🐞 error messages on exit
-- 🔧 simplify how settings work; it's technically correct now, but it's way to complicated for the problem at hand
 - 🚁 when changing settings in the app, the changes should also be saved
 - 🚁 a plugin system for the widgets
 - 🔧 set up build system so that builds are in one builds folder rather than scattered out

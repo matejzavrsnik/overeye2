@@ -17,6 +17,8 @@ private:
 
 public:
 
+   extended_setting () = default;
+
    //todo: I have configuration, information, and settings. Need better names
    extended_setting (
       std::string tag,
@@ -24,9 +26,6 @@ public:
       bool user_setting,
       std::string friendly_name
    );
-
-   [[nodiscard]] const std::string&
-   get_tag () const;
 
    [[nodiscard]] const std::string&
    get_value () const;

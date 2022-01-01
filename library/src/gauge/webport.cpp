@@ -1,5 +1,6 @@
 #include "webport.h"
 #include "i_gauge_parameters.h"
+#include "string/get_substring.h"
 #include <string/replace.h>
 
 namespace
@@ -64,10 +65,21 @@ webport::render (
 )
 {
    std::string page = page_template;
-   for (const auto& parameter : page_parameters->get_all())
+
+   std::string variable_in_page;
+   int occurrence = 0;
+   while(variable_in_page = mzlib::get_substring_between(page, "{", "}", occurrence), variable_in_page != "")
    {
-      mzlib::string_replace(page, parameter.tag, parameter.value);
+      auto placeholder = "{" + variable_in_page + "}";
+      std::optional<std::string> content = page_parameters->get_value(placeholder);
+      if (content.has_value())
+      {
+         mzlib::string_replace(page, placeholder, content.value());
+      }
+      else
+         ++occurrence;
    }
+
    return page;
 }
 

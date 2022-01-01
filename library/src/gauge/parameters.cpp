@@ -3,37 +3,16 @@
 namespace gauge
 {
 
-   std::vector<extended_setting>::iterator
+   std::map<std::string, extended_setting>::iterator
    parameters::find (const std::string& tag)
    {
-      auto existing_setting = std::find_if(
-         m_settings.begin(), m_settings.end(), [&tag] (const extended_setting& p)
-         {
-            return p.get_tag() == tag;
-         }
-      );
-
-      if (existing_setting != m_settings.end())
-      {
-         return existing_setting;
-      }
-
-      return m_settings.end();
+      return m_settings.find(tag);
    }
 
    extended_setting&
    parameters::find_or_add (const std::string& tag)
    {
-      auto existing_setting = find(tag);
-      if (existing_setting != m_settings.end())
-      {
-         return *existing_setting;
-      }
-
-      //todo: to allow ctor that only takes tag? It would make sense here
-      extended_setting setting{tag, "", false, ""};
-      m_settings.push_back(setting);
-      return *m_settings.rbegin();
+      return m_settings[tag];
    }
 
    void
@@ -71,7 +50,7 @@ parameters::set(
    auto existing_setting = find(tag);
    if (existing_setting != m_settings.end())
    {
-      existing_setting->set_value(value);
+      existing_setting->second.set_value(value);
       return true;
    }
 
@@ -87,9 +66,9 @@ parameters::set(
       auto it_setting = find(setting.tag);
       if (it_setting == m_settings.end())
          return false;
-      if (!it_setting->is_user_setting())
+      if (!it_setting->second.is_user_setting())
          return false;
-      it_setting->set_value(setting.value);
+      it_setting->second.set_value(setting.value);
       return true;
    }
 
@@ -99,7 +78,7 @@ parameters::set(
       auto it_setting = find(tag);
       if (it_setting != m_settings.end())
       {
-         return it_setting->get_value();
+         return it_setting->second.get_value();
       }
       return std::nullopt;
    }
@@ -110,9 +89,9 @@ parameters::set(
    )
    {
       auto it_setting = find(tag);
-      if (it_setting != m_settings.end() && it_setting->is_user_setting())
+      if (it_setting != m_settings.end() && it_setting->second.is_user_setting())
       {
-         return it_setting->get_name();
+         return it_setting->second.get_name();
       }
       return std::nullopt;
    }
@@ -122,17 +101,8 @@ parameters::set(
    {
       std::vector<basic_setting> settings;
       for (auto setting : m_settings)
-         if (setting.is_user_setting())
-            settings.push_back({setting.get_tag(), setting.get_value()});
-      return settings;
-   }
-
-   std::vector<basic_setting>
-   parameters::get_all ()
-   {
-      std::vector<basic_setting> settings;
-      for (auto setting : m_settings)
-         settings.push_back({setting.get_tag(), setting.get_value()});
+         if (setting.second.is_user_setting())
+            settings.push_back({setting.first, setting.second.get_value()});
       return settings;
    }
 

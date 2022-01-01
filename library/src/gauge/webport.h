@@ -29,7 +29,7 @@ public:
    sigslot::signal<> request_refresh;
 
    void
-   apply_user_settings(std::vector<gauge::basic_setting> settings);
+   apply_user_settings(std::map<std::string, basic_setting> settings);
 
    void
    display () override;

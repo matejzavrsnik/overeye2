@@ -45,10 +45,10 @@ webport::~webport()
 }
 
 void
-webport::apply_user_settings(std::vector<gauge::basic_setting> settings)
+webport::apply_user_settings(std::map<std::string, basic_setting> settings)
 {
-   for(auto setting : settings)
-      m_settings->set(setting.tag, setting.value);
+   for(const auto& [tag, setting] : settings)
+      m_settings->set(tag, setting.value);
 }
 
 void

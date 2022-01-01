@@ -21,7 +21,6 @@ public:
 
    //todo: I have configuration, information, and settings. Need better names
    extended_setting (
-      std::string tag,
       std::string value,
       bool user_setting,
       std::string friendly_name

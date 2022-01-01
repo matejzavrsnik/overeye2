@@ -1,12 +1,11 @@
 #include "extended_setting.h"
 
 gauge::extended_setting::extended_setting (
-   std::string tag,
    std::string value,
    bool user_setting,
    std::string friendly_name
 ) :
-   m_basic_setting{std::move(tag),std::move(value)},
+   m_basic_setting{std::move(value)},
    m_user_setting{user_setting},
    m_name{std::move(friendly_name)} {}
 

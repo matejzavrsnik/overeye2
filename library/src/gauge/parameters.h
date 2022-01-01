@@ -73,7 +73,8 @@ private:
    // sets tag value if exists and is available as user basic_setting
    bool
    user_setting_set (
-      const basic_setting& setting
+      const std::string& tag,
+      const std::string& value
    ) override;
 
    std::optional<std::string>
@@ -84,7 +85,7 @@ private:
       const std::string& tag
    ) override;
 
-   std::vector<basic_setting>
+   std::map<std::string, basic_setting>
    user_setting_get_all() override;
 
 };

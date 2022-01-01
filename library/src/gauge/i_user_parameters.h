@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <map>
 
 namespace gauge
 {
@@ -26,10 +27,11 @@ public:
 
    virtual bool
    user_setting_set (
-      const gauge::basic_setting& setting
+      const std::string& tag,
+      const std::string& value
    ) = 0;
 
-   virtual std::vector<gauge::basic_setting>
+   virtual std::map<std::string, basic_setting>
    user_setting_get_all () = 0;
 
    virtual

@@ -35,7 +35,7 @@ instantiate_webport(
 std::unique_ptr<representation>
 webport_gauge_factory(
    gauge::type type,
-   const std::vector<gauge::basic_setting>& settings,
+   const std::map<std::string, basic_setting>& settings,
    const configuration& gc,
    const std::string& stylesheet
 )

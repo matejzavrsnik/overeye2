@@ -60,15 +60,16 @@ parameters::set(
    // sets tag value if exists and is available as user basic_setting
    bool
    parameters::user_setting_set (
-      const basic_setting& setting
+      const std::string& tag,
+      const std::string& value
    )
    {
-      auto it_setting = find(setting.tag);
+      auto it_setting = find(tag);
       if (it_setting == m_settings.end())
          return false;
       if (!it_setting->second.is_user_setting())
          return false;
-      it_setting->second.set_value(setting.value);
+      it_setting->second.set_value(value);
       return true;
    }
 
@@ -96,13 +97,13 @@ parameters::set(
       return std::nullopt;
    }
 
-   std::vector<basic_setting>
+   std::map<std::string, basic_setting>
    parameters::user_setting_get_all ()
    {
-      std::vector<basic_setting> settings;
+      std::map<std::string, basic_setting> settings;
       for (auto setting : m_settings)
          if (setting.second.is_user_setting())
-            settings.push_back({setting.first, setting.second.get_value()});
+            settings[setting.first] = basic_setting{setting.second.get_value()};
       return settings;
    }
 

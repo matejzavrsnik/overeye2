@@ -26,7 +26,7 @@ deserialise_settings(
 QJsonObject&
 add_settings (
    QJsonObject& gaugeConfig,
-   const std::vector<gauge::basic_setting>& settings
+   const std::map<std::string, gauge::basic_setting>& settings
 );
 
 QJsonArray

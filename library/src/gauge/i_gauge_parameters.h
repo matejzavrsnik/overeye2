@@ -1,6 +1,5 @@
 #pragma once
 
-#include "basic_setting.h"
 #include "extended_setting.h"
 #include "i_user_parameters.h"
 

@@ -97,13 +97,13 @@ parameters::set(
       return std::nullopt;
    }
 
-   std::map<std::string, basic_setting>
+   std::map<std::string, std::string>
    parameters::user_setting_get_all ()
    {
-      std::map<std::string, basic_setting> settings;
+      std::map<std::string, std::string> settings;
       for (auto setting : m_settings)
          if (setting.second.is_user_setting())
-            settings[setting.first] = basic_setting{setting.second.get_value()};
+            settings[setting.first] = setting.second.get_value();
       return settings;
    }
 

@@ -5,20 +5,20 @@ gauge::extended_setting::extended_setting (
    bool user_setting,
    std::string friendly_name
 ) :
-   m_basic_setting{std::move(value)},
+   m_value{std::move(value)},
    m_user_setting{user_setting},
    m_name{std::move(friendly_name)} {}
 
 const std::string&
 gauge::extended_setting::get_value () const
 {
-   return m_basic_setting.value;
+   return m_value;
 }
 
 void
 gauge::extended_setting::set_value (const std::string& v)
 {
-   m_basic_setting.value = v;
+   m_value = v;
 }
 
 bool

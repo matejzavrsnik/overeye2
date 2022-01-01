@@ -45,7 +45,7 @@ read_gauge_configuration (const QJsonObject& json_object)
          ++has_locations;
       }
       else
-         new_gauge.settings[key.toStdString()] = gauge::basic_setting{.value = mzlib::read_string(json_object, key)};
+         new_gauge.settings[key.toStdString()] = mzlib::read_string(json_object, key);
    }
 
    if (!has_type || has_locations != 4)
@@ -81,11 +81,11 @@ deserialise_settings(
 QJsonObject&
 add_settings (
    QJsonObject& gaugeConfig,
-   const std::map<std::string, gauge::basic_setting>& settings
+   const std::map<std::string, std::string>& settings
 )
 {
-   for(auto& [tag, setting] : settings) {
-      gaugeConfig[mzlib::convert<QString>(tag)] = mzlib::convert<QJsonValue>(setting.value);
+   for(auto& [tag, value] : settings) {
+      gaugeConfig[mzlib::convert<QString>(tag)] = mzlib::convert<QJsonValue>(value);
    }
    return gaugeConfig;
 }

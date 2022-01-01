@@ -1,6 +1,5 @@
 #pragma once
 
-#include "basic_setting.h"
 #include "extended_setting.h"
 #include "i_user_parameters.h"
 #include "i_gauge_parameters.h"
@@ -85,7 +84,7 @@ private:
       const std::string& tag
    ) override;
 
-   std::map<std::string, basic_setting>
+   std::map<std::string, std::string>
    user_setting_get_all() override;
 
 };

@@ -102,7 +102,7 @@ TEST(settings_load, will_correctly_handle_utf8_chars)
    std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
    std::filesystem::path config_file = path / "settings.json";
    std::string file_content = testing_tools::sample_of_valid_settings_content ();
-   std::wstring utf8_content_in_sample = L"<h1>Hello 🍌🐒<h1>";
+   std::string utf8_content_in_sample = "<h1>Hello 🍌🐒<h1>";
 
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
@@ -114,7 +114,7 @@ TEST(settings_load, will_correctly_handle_utf8_chars)
    auto sett = logic::load_settings(fs_mock);
 
    // assert
-   ASSERT_EQ(utf8_content_in_sample, sett.gauge_configurations[3].settings[0].value);
+   ASSERT_EQ(utf8_content_in_sample, sett.gauge_configurations[3].settings["{content}"]);
 }
 
 TEST(settings_load, will_use_default_settings_if_file_doesnt_exist)
@@ -131,7 +131,7 @@ TEST(settings_load, will_use_default_settings_if_file_doesnt_exist)
    ASSERT_EQ(settings_expected.dialog_stylesheet, settings_loaded.dialog_stylesheet);
    ASSERT_EQ(settings_expected.gauge_stylesheet, settings_loaded.gauge_stylesheet);
    ASSERT_EQ(settings_expected.gauge_configurations.size(), settings_loaded.gauge_configurations.size());
-   ASSERT_EQ(settings_expected.gauge_configurations[2].settings[0].value, settings_loaded.gauge_configurations[2].settings[0].value);
+   ASSERT_EQ(settings_expected.gauge_configurations[2].settings["type"], settings_loaded.gauge_configurations[2].settings["type"]);
 }
 
 TEST(settings_load, will_use_default_settings_if_file_empty)
@@ -154,5 +154,5 @@ TEST(settings_load, will_use_default_settings_if_file_empty)
    ASSERT_EQ(settings_expected.dialog_stylesheet, settings_loaded.dialog_stylesheet);
    ASSERT_EQ(settings_expected.gauge_stylesheet, settings_loaded.gauge_stylesheet);
    ASSERT_EQ(settings_expected.gauge_configurations.size(), settings_loaded.gauge_configurations.size());
-   ASSERT_EQ(settings_expected.gauge_configurations[2].settings[0].value, settings_loaded.gauge_configurations[2].settings[0].value);
+   ASSERT_EQ(settings_expected.gauge_configurations[2].settings["type"], settings_loaded.gauge_configurations[2].settings["type"]);
 }

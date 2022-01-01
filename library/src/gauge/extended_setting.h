@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_setting.h"
+#include <string>
 
 namespace gauge
 {
@@ -11,7 +11,7 @@ class extended_setting
 
 private:
 
-   basic_setting m_basic_setting;
+   std::string m_value;
    bool m_user_setting;
    std::string m_name;
 

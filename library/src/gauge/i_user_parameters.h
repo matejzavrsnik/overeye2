@@ -1,6 +1,5 @@
 #pragma once
 
-#include "basic_setting.h"
 #include "extended_setting.h"
 
 #include <string>
@@ -31,7 +30,7 @@ public:
       const std::string& value
    ) = 0;
 
-   virtual std::map<std::string, basic_setting>
+   virtual std::map<std::string, std::string>
    user_setting_get_all () = 0;
 
    virtual

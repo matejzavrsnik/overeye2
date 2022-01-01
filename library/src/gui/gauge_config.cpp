@@ -34,12 +34,12 @@ gui::gauge_config::populate_grid ()
    ui->config_table->verticalHeader()->hide();
    ui->config_table->horizontalHeader()->hide();
    int row = 0;
-   for (const auto& [tag, setting] : m_settings->user_setting_get_all())
+   for (const auto& [tag, value] : m_settings->user_setting_get_all())
    {
       ui->config_table->insertRow(row);
       auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdString(m_settings->user_setting_get_name(tag).value()));
       item_name->setFlags(item_name->flags() ^ Qt::ItemIsEditable);
-      auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdString(setting.value));
+      auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdString(value));
       item_value->setData(Qt::UserRole, QString::fromStdString(tag));
       ui->config_table->setItem(row, 0, item_name.release());
       ui->config_table->setItem(row, 1, item_value.release());

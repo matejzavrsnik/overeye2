@@ -45,10 +45,10 @@ webport::~webport()
 }
 
 void
-webport::apply_user_settings(std::map<std::string, basic_setting> settings)
+webport::apply_user_settings(std::map<std::string, std::string> settings)
 {
-   for(const auto& [tag, setting] : settings)
-      m_settings->set(tag, setting.value);
+   for(const auto& [tag, value] : settings)
+      m_settings->set(tag, value);
 }
 
 void

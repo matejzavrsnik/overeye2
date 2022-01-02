@@ -12,6 +12,8 @@ namespace gauge
  * @brief Interface to gauge parameters that user is allowed to control.
  * @details The audience for this i_gauge is the dialog that displays gauge configuration to the user.
  */
+
+/*
 class i_user_parameters
 {
 
@@ -35,5 +37,6 @@ public:
    ~i_user_parameters () {}
 
 };
+*/
 
 }

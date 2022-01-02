@@ -3,7 +3,7 @@
 #include <sigslot/signal.hpp>
 #include <QWidget>
 #include <QEvent>
-#include "../gauge/i_user_parameters.h"
+#include "../gauge/i_gauge_parameters.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class webport; }
@@ -24,7 +24,7 @@ Q_OBJECT
 public:
 
    explicit webport (
-      std::shared_ptr<gauge::i_user_parameters> settings,
+      std::shared_ptr<gauge::i_gauge_parameters> settings,
       QWidget* parent = nullptr
    );
 
@@ -50,7 +50,7 @@ private slots:
 private:
 
    Ui::webport* ui;
-   std::shared_ptr<gauge::i_user_parameters> m_settings;
+   std::shared_ptr<gauge::i_gauge_parameters> m_settings;
 
    bool
    event (QEvent* event) override;

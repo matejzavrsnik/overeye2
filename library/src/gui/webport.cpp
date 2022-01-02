@@ -2,12 +2,12 @@
 #include "ui_webport.h"
 #include "gauge_config.h"
 #include "custom_event_types.h"
-#include "../gauge/i_user_parameters.h"
+#include "../gauge/i_gauge_parameters.h"
 
 #include <tools/converters.h>
 
 gui::webport::webport (
-   std::shared_ptr<gauge::i_user_parameters> settings,
+   std::shared_ptr<gauge::i_gauge_parameters> settings,
    QWidget* parent
 ) :
    QWidget(parent),

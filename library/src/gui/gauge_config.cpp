@@ -1,10 +1,10 @@
 #include "gauge_config.h"
 #include "ui_gauge_config.h"
-#include "../gauge/i_user_parameters.h"
+#include "../gauge/i_gauge_parameters.h"
 #include <QMessageBox>
 
 gui::gauge_config::gauge_config (
-   std::shared_ptr<gauge::i_user_parameters> settings,
+   std::shared_ptr<gauge::i_gauge_parameters> settings,
    QWidget* parent
 ) :
    QDialog(parent),

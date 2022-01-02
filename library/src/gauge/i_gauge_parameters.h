@@ -1,8 +1,11 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <map>
 #include <optional>
+
+namespace gauge
+{
 
 /**
  * @brief Interface to everything related to gauge parameters.
@@ -27,16 +30,32 @@ public:
    ) = 0;
 
    virtual bool
-   set_value(
+   set_value (
       const std::string& tag,
       const std::string& value
    ) = 0;
 
    virtual std::optional<std::string>
-   get_value(
+   get_value (
       const std::string& tag
    ) = 0;
+
+   virtual std::optional<std::string>
+   user_setting_get_name (
+      const std::string& tag
+   ) = 0;
+
+   virtual bool
+   user_setting_set (
+      const std::string& tag,
+      const std::string& value
+   ) = 0;
+
+   virtual std::map<std::string, std::string>
+   user_setting_get_all () = 0;
 
    virtual
    ~i_gauge_parameters () {}
 };
+
+}

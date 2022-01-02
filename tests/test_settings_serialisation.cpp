@@ -19,8 +19,8 @@ get_sample_settings ()
       {"tag12", "value12"}};
    gauge::configuration gauge1_configuration {
       .type = gauge::type::twitter,
-      .location = gauge::location{1, 2, 3, 4},
-      .settings = gauge1_settings};
+      .settings = gauge1_settings,
+      .id = 0};
    settings.gauge_configurations.push_back(gauge1_configuration);
 
    std::map<std::string, std::string> gauge2_settings{
@@ -28,8 +28,8 @@ get_sample_settings ()
       {"tag1234", "value1234"}};
    gauge::configuration gauge2_configuration{
       .type = gauge::type::clock,
-      .location = gauge::location{5, 6, 7, 8},
-      .settings = gauge2_settings};
+      .settings = gauge2_settings,
+      .id = 1};
    settings.gauge_configurations.push_back(gauge2_configuration);
 
    return settings;
@@ -108,22 +108,4 @@ TEST(settings_serialisation, configurations_settings)
          settings_out.gauge_configurations[i].settings.begin(), settings_out.gauge_configurations[i].settings.end()
       ));
    }
-}
-
-TEST(settings_serialisation, configurations_locations)
-{
-   // arrange
-   logic::settings settings_in = get_sample_settings ();
-   // act
-   auto serialised = utils::serialise_settings(settings_in);
-   logic::settings settings_out = utils::deserialise_settings(serialised);
-   // assert
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.y, settings_out.gauge_configurations[0].location.y);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.x, settings_out.gauge_configurations[0].location.x);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.height, settings_out.gauge_configurations[0].location.height);
-   EXPECT_EQ(settings_in.gauge_configurations[0].location.width, settings_out.gauge_configurations[0].location.width);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.y, settings_out.gauge_configurations[1].location.y);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.x, settings_out.gauge_configurations[1].location.x);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.height, settings_out.gauge_configurations[1].location.height);
-   EXPECT_EQ(settings_in.gauge_configurations[1].location.width, settings_out.gauge_configurations[1].location.width);
 }

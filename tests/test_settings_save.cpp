@@ -16,7 +16,6 @@ TEST(settings_save, will_check_for_existence_of_config_folder)
    auto settings_model = utils::deserialise_settings(testing_tools::sample_of_valid_settings_content());
 
    std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
-   //std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
 
@@ -33,7 +32,6 @@ TEST(settings_save, will_check_for_existence_of_system_config_folder)
    auto settings_model = utils::deserialise_settings(testing_tools::sample_of_valid_settings_content());
 
    std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
-   //std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
 
@@ -50,7 +48,6 @@ TEST(settings_save, if_config_folder_doesnt_exist_it_will_create_one)
    auto settings_model = utils::deserialise_settings(testing_tools::sample_of_valid_settings_content());
 
    std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
-   //std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
    ON_CALL(fs_mock, exists(path)).WillByDefault(Return(false));
@@ -68,7 +65,6 @@ TEST(settings_save, if_config_folder_exists_it_will_not_attempt_to_create_one)
    auto settings_model = utils::deserialise_settings(testing_tools::sample_of_valid_settings_content());
 
    std::filesystem::path path = "/config/folder/" + testing_tools::get_random_short_string();
-   //std::filesystem::path config_file = path / "settings.json";
    NiceMock<filesystem_mock> fs_mock;
    ON_CALL(fs_mock, get_system_app_config_location()).WillByDefault(Return(path));
    ON_CALL(fs_mock, exists(path)).WillByDefault(Return(true));

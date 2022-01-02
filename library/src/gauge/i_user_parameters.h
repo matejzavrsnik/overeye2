@@ -1,7 +1,5 @@
 #pragma once
 
-#include "extended_setting.h"
-
 #include <string>
 #include <vector>
 #include <optional>

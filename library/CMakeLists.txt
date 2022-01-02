@@ -27,8 +27,6 @@ set (SOURCES
 
    #src/gauge/configuration.h
    #src/gauge/basic_setting.h
-   src/gauge/extended_setting.h
-   src/gauge/extended_setting.cpp
    #src/gauge/i_gauge.h
    #src/logic/representation.h
    #src/gauge/location.h

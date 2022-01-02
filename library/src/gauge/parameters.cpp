@@ -10,7 +10,7 @@ namespace gauge
       const std::string& nice_name
    )
    {
-      m_settings[tag].set_value(value);
+      m_settings[tag] = value;
       m_nice_names[tag] = nice_name;
    }
 
@@ -20,7 +20,8 @@ namespace gauge
       const std::string& value
    )
    {
-      m_settings[tag].set_value(value);
+      m_settings[tag] = value;
+      m_nice_names.erase(tag);
    }
 
    bool
@@ -32,7 +33,7 @@ namespace gauge
       auto existing_setting = m_settings.find(tag);
       if (existing_setting != m_settings.end())
       {
-         existing_setting->second.set_value(value);
+         existing_setting->second = value;
          return true;
       }
 
@@ -52,7 +53,7 @@ namespace gauge
       if (it_setting == m_settings.end())
          return false; // no such setting at all
 
-      it_setting->second.set_value(value);
+      it_setting->second = value;
       return true;
    }
 
@@ -62,7 +63,7 @@ namespace gauge
       auto it_setting = m_settings.find(tag);
       if (it_setting != m_settings.end())
       {
-         return it_setting->second.get_value();
+         return it_setting->second;
       }
       return std::nullopt;
    }
@@ -85,7 +86,7 @@ namespace gauge
    {
       std::map<std::string, std::string> settings;
       for (const auto& [tag, _] : m_nice_names)
-         settings[tag] = m_settings[tag].get_value();
+         settings[tag] = m_settings[tag];
       return settings;
    }
 

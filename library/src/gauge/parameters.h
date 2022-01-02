@@ -1,6 +1,5 @@
 #pragma once
 
-#include "extended_setting.h"
 #include "i_user_parameters.h"
 #include "i_gauge_parameters.h"
 
@@ -43,7 +42,7 @@ public:
 private:
 
    // A collection of all settings for the gauge in tag / value mapping
-   std::map<std::string /*tag*/, extended_setting> m_settings;
+   std::map<std::string /*tag*/, std::string /*value*/> m_settings;
 
    // Settings that are user facing in config dialog need nice names to
    // present to user. This is a map between settings tags and nice names.

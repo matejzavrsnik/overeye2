@@ -1,5 +1,5 @@
 #include "webport.h"
-#include "i_gauge_parameters.h"
+#include "parameters.h"
 #include "string/get_substring.h"
 #include <string/replace.h>
 
@@ -27,7 +27,7 @@ namespace gauge
 
 webport::webport (
    const std::string& style,
-   std::shared_ptr<i_gauge_parameters> settings
+   std::shared_ptr<parameters> settings
 ) :
    m_settings(settings)
 {
@@ -61,7 +61,7 @@ webport::display ()
 std::string
 webport::render (
    const std::string& page_template,
-   std::shared_ptr<i_gauge_parameters> page_parameters
+   std::shared_ptr<parameters> page_parameters
 )
 {
    std::string page = page_template;

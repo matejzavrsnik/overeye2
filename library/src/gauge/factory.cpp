@@ -6,7 +6,7 @@
 #include "clock.h"
 #include "../logic/representation.h"
 #include "../logic/settings.h"
-#include "i_gauge_parameters.h"
+#include "parameters.h"
 
 
 namespace gauge
@@ -16,7 +16,7 @@ std::unique_ptr<gauge::webport>
 instantiate_webport(
    gauge::type type,
    std::string stylesheet,
-   std::shared_ptr<i_gauge_parameters> settings
+   std::shared_ptr<parameters> settings
 )
 {
    switch(type)

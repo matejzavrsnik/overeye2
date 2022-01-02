@@ -1,5 +1,4 @@
 #include "twitter.h"
-#include "i_gauge_parameters.h"
 
 namespace
 {
@@ -34,7 +33,7 @@ namespace gauge
 
 twitter::twitter (
    const std::string& style,
-   std::shared_ptr<i_gauge_parameters> user_settings
+   std::shared_ptr<parameters> user_settings
 ) :
    webport(style, user_settings)
 {

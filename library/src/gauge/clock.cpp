@@ -1,5 +1,5 @@
 #include "clock.h"
-#include "i_gauge_parameters.h"
+#include "parameters.h"
 #include <string/replace.h>
 #include <QTimeZone>
 
@@ -24,7 +24,7 @@ namespace gauge
 
 clock::clock (
    const std::string& style,
-   std::shared_ptr<i_gauge_parameters> user_settings
+   std::shared_ptr<parameters> user_settings
 ) :
    webport(style, user_settings)
 {
@@ -41,7 +41,7 @@ clock::clock (
 std::string
 clock::render (
    const std::string& page_template,
-   std::shared_ptr<i_gauge_parameters> page_parameters
+   std::shared_ptr<parameters> page_parameters
 )
 {
    auto page = webport::render(page_template, page_parameters);

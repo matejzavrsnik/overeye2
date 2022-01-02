@@ -1,7 +1,5 @@
 #pragma once
 
-#include "i_gauge_parameters.h"
-
 #include <string>
 #include <vector>
 #include <optional>
@@ -13,12 +11,8 @@ namespace gauge
 /**
  * @brief A collection of gauges parameters.
  */
-class parameters : public i_gauge_parameters
+class parameters
 {
-
-public:
-
-   parameters () = default;
 
 private:
 
@@ -31,41 +25,46 @@ private:
    // setting.
    std::map<std::string /*tag*/, std::string /*nice name*/> m_nice_names;
 
+public:
+
+   parameters () = default;
+   virtual ~parameters () = default;
+
    void
    set_or_add_user_setting (
       const std::string& tag,
       const std::string& value,
       const std::string& name
-   ) override;
+   );
 
    void
    set_or_add_internal_setting(
       const std::string& tag,
       const std::string& value
-   ) override;
+   );
 
    bool
    set_value(
       const std::string& tag,
       const std::string& value
-   ) override;
+   );
 
    bool
    user_setting_set (
       const std::string& tag,
       const std::string& value
-   ) override;
+   );
 
    std::optional<std::string>
-   get_value(const std::string &tag) override;
+   get_value(const std::string &tag);
 
    std::optional<std::string>
    user_setting_get_name (
       const std::string& tag
-   ) override;
+   );
 
    std::map<std::string, std::string>
-   user_setting_get_all() override;
+   user_setting_get_all();
 
 };
 

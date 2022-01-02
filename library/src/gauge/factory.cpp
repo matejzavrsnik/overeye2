@@ -16,36 +16,37 @@ std::unique_ptr<gauge::webport>
 instantiate_webport(
    gauge::type type,
    std::string stylesheet,
-   std::shared_ptr<parameters> settings
+   std::shared_ptr<parameters> parameters
 )
 {
    switch(type)
    {
    case gauge::type::webport:
-      return std::make_unique<gauge::webport>(stylesheet, settings);
+      return std::make_unique<gauge::webport>(stylesheet, parameters);
    case gauge::type::clock:
-      return std::make_unique<gauge::clock>(stylesheet, settings);
+      return std::make_unique<gauge::clock>(stylesheet, parameters);
    case gauge::type::twitter:
-      return std::make_unique<gauge::twitter>(stylesheet, settings);
+      return std::make_unique<gauge::twitter>(stylesheet, parameters);
    }
 
    throw std::exception{}; // todo: make my own
 }
 
 std::unique_ptr<representation>
-webport_gauge_factory(
+webport_gauge_factory (
    gauge::type type,
-   const std::map<std::string, std::string>& settings,
-   const configuration& gc,
+   const configuration& gauge_configuration,
    const std::string& stylesheet
 )
 {
    auto gauge_representation = std::make_unique<representation>();
 
+   // Create parameters shared between logical and visual parts of the gauge
+   auto parameters = std::make_shared<gauge::parameters>(gauge_configuration.settings);
+
    // Instantiate and apply custom settings
-   auto logical = instantiate_webport(type, stylesheet, gauge_representation->parameters);
-   logical->apply_user_settings(settings);
-   auto visual = std::make_unique<gui::webport>(gauge_representation->parameters);
+   auto logical = instantiate_webport(type, stylesheet, parameters);
+   auto visual = std::make_unique<gui::webport>(parameters);
    visual->setObjectName(std::string("webport") + std::to_string(gauge_representation->unique.id()));
 
    // Connect signals and slots
@@ -57,7 +58,8 @@ webport_gauge_factory(
    // Assemble into representation object
    gauge_representation->logical = std::move(logical);
    gauge_representation->visual = std::move(visual);
-   gauge_representation->location = gc.location;
+   gauge_representation->location = gauge_configuration.location;
+   gauge_representation->parameters = parameters;
 
    return gauge_representation;
 }
@@ -73,7 +75,7 @@ gauge_factory (
    case gauge::type::webport:
    case gauge::type::clock:
    case gauge::type::twitter:
-      return webport_gauge_factory(gc.type, gc.settings, gc, gauge_stylesheet);
+      return webport_gauge_factory(gc.type, gc, gauge_stylesheet);
    }
 
    throw std::exception{}; // todo: make my own

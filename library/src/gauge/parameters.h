@@ -27,8 +27,9 @@ private:
 
 public:
 
-   parameters () = default;
+   parameters (const std::map<std::string, std::string>& settings);
    virtual ~parameters () = default;
+
 
    void
    set (

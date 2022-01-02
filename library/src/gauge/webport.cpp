@@ -27,14 +27,14 @@ namespace gauge
 
 webport::webport (
    const std::string& style,
-   std::shared_ptr<parameters> settings
+   std::shared_ptr<parameters> parameters
 ) :
-   m_settings(settings)
+   m_settings(parameters)
 {
-   // setup settings expected for this gauge
+   // setup parameters expected for this gauge
    m_settings->set(tags::genesis(), webport_embedded_html());
    m_settings->set(tags::style(), style);
-   m_settings->set(tags::content(), "");
+   //m_settings->set(tags::content(), "");
 
    m_settings->make_user_facing(tags::content(), "Content");
 
@@ -44,13 +44,6 @@ webport::webport (
 webport::~webport()
 {
    m_timer.tick.disconnect_all();
-}
-
-void
-webport::apply_user_settings(std::map<std::string, std::string> settings)
-{
-   for(const auto& [tag, value] : settings)
-      m_settings->set_value(tag, value);
 }
 
 void

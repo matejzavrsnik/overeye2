@@ -29,8 +29,6 @@ clock::clock (
    webport(style, user_settings)
 {
    m_settings->set(webport::tags::content(), clock_embedded_html());
-   m_settings->set(tags::format(), "ddd MMMM d yyyy hh:mm:ss");
-   m_settings->set(tags::timezone(), "current");
 
    m_settings->make_internal(webport::tags::content()); // taking over {content} tag from user
    m_settings->make_user_facing(tags::format(), "Format");

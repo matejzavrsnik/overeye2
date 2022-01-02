@@ -20,16 +20,13 @@ public:
 
    webport (
       const std::string& style,
-      std::shared_ptr<parameters> settings
+      std::shared_ptr<parameters> parameters
    );
 
    virtual ~webport();
 
    sigslot::signal<const std::string&> send_content;
    sigslot::signal<> request_refresh;
-
-   void
-   apply_user_settings(std::map<std::string, std::string> settings);
 
    void
    display () override;

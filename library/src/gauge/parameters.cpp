@@ -3,6 +3,12 @@
 
 namespace gauge
 {
+   parameters::parameters(
+      const std::map<std::string, std::string>& settings
+   ) :
+      m_settings(settings)
+   {
+   }
 
    void
    parameters::set (

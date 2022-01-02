@@ -15,9 +15,15 @@ manager::add (
    std::unique_ptr<representation> gauge
 )
 {
-   gauge->logical->display();
+   gauge->logical->prepare_display();
 
-   gauge->visual->window()->setGeometry(gauge->location.x, gauge->location.y, gauge->location.width, gauge->location.height);
+   gauge->visual->window()->setGeometry(
+      std::stoi(*gauge->parameters->get_value("x")),
+      std::stoi(*gauge->parameters->get_value("y")),
+      std::stoi(*gauge->parameters->get_value("width")),
+      std::stoi(*gauge->parameters->get_value("height"))
+   );
+
    gauge->visual->setParent(m_screen.get());
 
    m_gauges.push_back(std::move(gauge));

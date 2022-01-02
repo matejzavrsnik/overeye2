@@ -43,6 +43,14 @@ webport_gauge_factory (
    // Create parameters shared between logical and visual parts of the gauge
    auto parameters = std::make_shared<gauge::parameters>(gauge_configuration.settings);
    parameters->set(webport::tags::style(), stylesheet);
+   parameters->set("x", std::to_string(gauge_configuration.location.x));
+   parameters->set("y", std::to_string(gauge_configuration.location.y));
+   parameters->set("width", std::to_string(gauge_configuration.location.width));
+   parameters->set("height", std::to_string(gauge_configuration.location.height));
+   parameters->make_user_facing("x", "X");
+   parameters->make_user_facing("y", "Y");
+   parameters->make_user_facing("width", "Width");
+   parameters->make_user_facing("height", "Height");
 
    // Instantiate and apply custom settings
    auto logical = instantiate_webport(type, parameters);
@@ -50,15 +58,14 @@ webport_gauge_factory (
    visual->setObjectName(std::string("webport") + std::to_string(gauge_representation->unique.id()));
 
    // Connect signals and slots
-   visual->request_content.connect(&gauge::webport::display, logical.get());
-   visual->signal_settings_changed.connect(&gauge::webport::display, logical.get());
+   visual->request_content.connect(&gauge::webport::prepare_display, logical.get());
+   visual->signal_settings_changed.connect(&gauge::webport::prepare_display, logical.get());
    logical->send_content.connect(&gui::webport::receive_content, visual.get());
    logical->request_refresh.connect(&gui::webport::receive_request_refresh, visual.get());
 
    // Assemble into representation object
    gauge_representation->logical = std::move(logical);
    gauge_representation->visual = std::move(visual);
-   gauge_representation->location = gauge_configuration.location;
    gauge_representation->parameters = parameters;
 
    return gauge_representation;

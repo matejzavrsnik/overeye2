@@ -15,7 +15,7 @@ class i_gauge
 public:
 
    virtual void
-   display () = 0;
+   prepare_display () = 0;
 
 protected:
 

@@ -41,9 +41,9 @@ webport::~webport()
 }
 
 void
-webport::display ()
+webport::prepare_display ()
 {
-   auto rendered_content = render(tags::genesis(), m_parameters);
+   auto rendered_content= render(tags::genesis(), m_parameters);
    send_content(rendered_content);
 }
 

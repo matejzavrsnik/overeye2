@@ -26,7 +26,7 @@ public:
    sigslot::signal<> request_refresh;
 
    void
-   display () override;
+   prepare_display () override;
 
 protected:
 

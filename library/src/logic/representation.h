@@ -22,7 +22,6 @@ public:
    mzlib::unique unique;
    std::unique_ptr<gauge::i_gauge> logical;
    std::unique_ptr<QWidget> visual;
-   gauge::location location;
    std::shared_ptr<gauge::parameters> parameters;
 };
 

@@ -2,6 +2,7 @@
 #include "ui_gauge_config.h"
 #include "../gauge/parameters.h"
 #include <QMessageBox>
+#include <string>
 
 gui::gauge_config::gauge_config (
    std::shared_ptr<gauge::parameters> settings,
@@ -69,6 +70,13 @@ gui::gauge_config::handleApplyPress ()
       m_settings->set(tag, value);
       anything_changed = true; // todo: better if it was done from settings class centraly
    }
+
+   parentWidget()->setGeometry(
+      std::stoi(*m_settings->get_value("x")),
+      std::stoi(*m_settings->get_value("y")),
+      std::stoi(*m_settings->get_value("width")),
+      std::stoi(*m_settings->get_value("height"))
+   );
 
    if(anything_changed)
       signal_settings_changed();

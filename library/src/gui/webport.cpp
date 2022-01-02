@@ -58,7 +58,7 @@ gui::webport::setObjectName (const std::string& object_name)
 void
 gui::webport::handleConfigPress ()
 {
-   gauge_config config(m_settings, this->parentWidget());
+   gauge_config config(m_settings, this);
    sigslot::scoped_connection _ = config.signal_settings_changed.connect(&webport::signal_settings_changed, this);
    config.exec();
 }

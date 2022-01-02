@@ -12,10 +12,7 @@ class clock : public webport
 
 public:
 
-   clock (
-      const std::string& style,
-      std::shared_ptr<parameters> user_settings
-   );
+   clock (std::shared_ptr<parameters> parameters);
 
 private:
 

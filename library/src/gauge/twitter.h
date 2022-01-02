@@ -11,10 +11,7 @@ class twitter : public webport
 
 public:
 
-   twitter (
-      const std::string& style,
-      std::shared_ptr<parameters> user_settings
-   );
+   twitter (std::shared_ptr<parameters> parameters);
 
    class tags
    {

@@ -31,16 +31,13 @@ twitter_embedded_html ()
 namespace gauge
 {
 
-twitter::twitter (
-   const std::string& style,
-   std::shared_ptr<parameters> user_settings
-) :
-   webport(style, user_settings)
+twitter::twitter (std::shared_ptr<parameters> parameters) :
+   webport(parameters)
 {
-   m_settings->set(webport::tags::content(), twitter_embedded_html());
+   m_parameters->set(webport::tags::content(), twitter_embedded_html());
 
-   m_settings->make_internal(webport::tags::content()); // taking over {content} tag from user
-   m_settings->make_user_facing(twitter::tags::handle(), "Handle");
+   m_parameters->make_internal(webport::tags::content()); // taking over {content} tag from user
+   m_parameters->make_user_facing(twitter::tags::handle(), "Handle");
 }
 
 const std::string&

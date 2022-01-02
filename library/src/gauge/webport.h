@@ -18,10 +18,7 @@ class webport : public i_gauge
 
 public:
 
-   webport (
-      const std::string& style,
-      std::shared_ptr<parameters> parameters
-   );
+   webport (std::shared_ptr<parameters> parameters);
 
    virtual ~webport();
 
@@ -33,7 +30,7 @@ public:
 
 protected:
 
-   std::shared_ptr<parameters> m_settings;
+   std::shared_ptr<parameters> m_parameters;
 
    virtual std::string
    render (

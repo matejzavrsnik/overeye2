@@ -25,18 +25,12 @@ webport_embedded_html ()
 namespace gauge
 {
 
-webport::webport (
-   const std::string& style,
-   std::shared_ptr<parameters> parameters
-) :
-   m_settings(parameters)
+webport::webport (std::shared_ptr<parameters> parameters) :
+   m_parameters(parameters)
 {
-   // setup parameters expected for this gauge
-   m_settings->set(tags::genesis(), webport_embedded_html());
-   m_settings->set(tags::style(), style);
-   //m_settings->set(tags::content(), "");
+   m_parameters->set(tags::genesis(), webport_embedded_html());
 
-   m_settings->make_user_facing(tags::content(), "Content");
+   m_parameters->make_user_facing(tags::content(), "Content");
 
    m_timer.tick.connect(&webport::tick, this);
 }
@@ -49,7 +43,7 @@ webport::~webport()
 void
 webport::display ()
 {
-   auto rendered_content = render(tags::genesis(), m_settings);
+   auto rendered_content = render(tags::genesis(), m_parameters);
    send_content(rendered_content);
 }
 

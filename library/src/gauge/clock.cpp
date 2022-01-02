@@ -22,17 +22,14 @@ namespace gauge
 {
 
 
-clock::clock (
-   const std::string& style,
-   std::shared_ptr<parameters> user_settings
-) :
-   webport(style, user_settings)
+clock::clock (std::shared_ptr<parameters> parameters) :
+   webport(parameters)
 {
-   m_settings->set(webport::tags::content(), clock_embedded_html());
+   m_parameters->set(webport::tags::content(), clock_embedded_html());
 
-   m_settings->make_internal(webport::tags::content()); // taking over {content} tag from user
-   m_settings->make_user_facing(tags::format(), "Format");
-   m_settings->make_user_facing(tags::timezone(), "Location");
+   m_parameters->make_internal(webport::tags::content()); // taking over {content} tag from user
+   m_parameters->make_user_facing(tags::format(), "Format");
+   m_parameters->make_user_facing(tags::timezone(), "Location");
 
    using namespace std::chrono_literals;
    set_content_refresh_period(1000ms);
@@ -47,8 +44,8 @@ clock::render (
 {
    auto page = webport::render(page_template, page_parameters);
 
-   auto format = QString::fromStdString(m_settings->get_value(tags::format()).value_or(""));
-   auto location = QString::fromStdString(m_settings->get_value(tags::timezone()).value_or(""));
+   auto format = QString::fromStdString(m_parameters->get_value(tags::format()).value_or(""));
+   auto location = QString::fromStdString(m_parameters->get_value(tags::timezone()).value_or(""));
 
    //auto aaa = QTimeZone::availableTimeZoneIds();
    //std::vector<std::string> zones;

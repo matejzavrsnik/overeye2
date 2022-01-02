@@ -13,20 +13,19 @@ namespace gauge
 {
 
 std::unique_ptr<gauge::webport>
-instantiate_webport(
+instantiate_webport (
    gauge::type type,
-   std::string stylesheet,
    std::shared_ptr<parameters> parameters
 )
 {
    switch(type)
    {
    case gauge::type::webport:
-      return std::make_unique<gauge::webport>(stylesheet, parameters);
+      return std::make_unique<gauge::webport>(parameters);
    case gauge::type::clock:
-      return std::make_unique<gauge::clock>(stylesheet, parameters);
+      return std::make_unique<gauge::clock>(parameters);
    case gauge::type::twitter:
-      return std::make_unique<gauge::twitter>(stylesheet, parameters);
+      return std::make_unique<gauge::twitter>(parameters);
    }
 
    throw std::exception{}; // todo: make my own
@@ -43,9 +42,10 @@ webport_gauge_factory (
 
    // Create parameters shared between logical and visual parts of the gauge
    auto parameters = std::make_shared<gauge::parameters>(gauge_configuration.settings);
+   parameters->set(webport::tags::style(), stylesheet);
 
    // Instantiate and apply custom settings
-   auto logical = instantiate_webport(type, stylesheet, parameters);
+   auto logical = instantiate_webport(type, parameters);
    auto visual = std::make_unique<gui::webport>(parameters);
    visual->setObjectName(std::string("webport") + std::to_string(gauge_representation->unique.id()));
 

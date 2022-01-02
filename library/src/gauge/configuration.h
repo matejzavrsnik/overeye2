@@ -13,6 +13,7 @@ struct configuration
    gauge::type type = gauge::type::webport;
    gauge::location location;
    std::map<std::string, std::string> settings;
+   int id;
 };
 
 }

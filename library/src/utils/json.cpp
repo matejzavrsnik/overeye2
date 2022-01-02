@@ -12,44 +12,21 @@ gauge::configuration
 read_gauge_configuration (const QJsonObject& json_object)
 {
    bool has_type = false;
-   int has_locations = false; // required for all
 
    gauge::configuration new_gauge;
    for (const QString& key: json_object.keys())
    {
-      // fixed gauge settings for all gauges
       if (key == "type")
       {
          new_gauge.type = gauge::to_type(mzlib::read_string(json_object, key));
          has_type = true;
       }
-      //else if (key == "location")
-      else if (key == "x")
-      {
-         new_gauge.location.x = mzlib::read_int(json_object, key);
-         ++has_locations;
-      }
-      else if (key == "y")
-      {
-         new_gauge.location.y = mzlib::read_int(json_object, key);
-         ++has_locations;
-      }
-      else if (key == "width")
-      {
-         new_gauge.location.width = mzlib::read_int(json_object, key);
-         ++has_locations;
-      }
-      else if (key == "height")
-      {
-         new_gauge.location.height = mzlib::read_int(json_object, key);
-         ++has_locations;
-      }
       else
          new_gauge.settings[key.toStdString()] = mzlib::read_string(json_object, key);
    }
 
-   if (!has_type || has_locations != 4)
-      throw mzlib::exception::parse_error("gauge definition lacks type, location, or size");
+   if (!has_type)
+      throw mzlib::exception::parse_error("gauge definition doesn't specify type");
 
    return new_gauge;
 }
@@ -97,11 +74,6 @@ QJsonArray configurations_to_json_array(const std::vector<gauge::configuration>&
    {
       QJsonObject gaugeConfig;
       gaugeConfig["type"] = mzlib::convert<QJsonValue>(from_type(config.type));
-      //gaugeConfig["location"] = location_to_json_array(config.location);
-      gaugeConfig["x"] = mzlib::convert<QJsonValue>(config.location.x);
-      gaugeConfig["y"] = mzlib::convert<QJsonValue>(config.location.y);
-      gaugeConfig["width"] = mzlib::convert<QJsonValue>(config.location.width);
-      gaugeConfig["height"] = mzlib::convert<QJsonValue>(config.location.height);
       gaugeConfig = add_settings(gaugeConfig, config.settings);
       gaugeConfigsArray.append(gaugeConfig);
    }
@@ -114,10 +86,9 @@ serialise_settings (
    const logic::settings& set)
 {
    QJsonObject json;
-   // todo: there are json utils for reading, add for writing
+
    json["dialog_stylesheet"] = mzlib::convert<QJsonValue>(set.dialog_stylesheet);
    json["gauge_stylesheet"] = mzlib::convert<QJsonValue>(set.gauge_stylesheet);
-
    json["gauge_configurations"] = configurations_to_json_array(set.gauge_configurations);
 
    QJsonDocument json_document(json);

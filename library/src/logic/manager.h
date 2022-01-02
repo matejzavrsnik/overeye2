@@ -8,13 +8,10 @@
 #include "../gauge/clock.h"
 #include "representation.h"
 #include "../gui/screen.h"
-
-class QGridLayout;
+#include "../logic/settings.h"
 
 namespace gauge
 {
-
-class representation;
 
 class manager
 {
@@ -23,18 +20,22 @@ private:
 
    std::vector<std::unique_ptr<representation>> m_gauges;
    std::unique_ptr<gui::screen> m_screen;
-
-public:
-
-   explicit manager (std::unique_ptr<gui::screen> screen);
+   logic::settings m_settings;
 
    void
    add (
-   std::unique_ptr<representation> gauge
+      std::unique_ptr<representation> gauge
    );
+
+public:
+
+   explicit manager (const logic::settings& settings);
 
    void
    show ();
+
+   logic::settings
+   collect_settings();
 
 };
 

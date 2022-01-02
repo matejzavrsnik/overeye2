@@ -4,6 +4,7 @@
 #include "gauge/factory.h"
 #include "logic/load_save_settings.h"
 #include "logic/manager.h"
+#include "logic/settings.h"
 
 #include <lang/exceptions.h>
 
@@ -32,24 +33,14 @@ run_main (
 
    try
    {
-      auto set = logic::load_settings();
-
-      std::unique_ptr<gui::screen> screen = std::make_unique<gui::screen>();
-      screen->setWindowState(Qt::WindowFullScreen);
-      screen->setStyleSheet(QString::fromStdString(set.dialog_stylesheet));
-
-      gauge::manager gauge_manager(std::move(screen));
-
-      for (auto& gc: set.gauge_configurations)
-      {
-         auto g = gauge::gauge_factory(gc, set.gauge_stylesheet);
-         gauge_manager.add(std::move(g));
-      }
-
+      auto settings = logic::load_settings();
+      gauge::manager gauge_manager(settings);
       gauge_manager.show();
 
       auto exit_code = QApplication::exec();
-      logic::save_settings(set);
+
+      settings = gauge_manager.collect_settings();
+      logic::save_settings(settings);
 
       return exit_code;
    }

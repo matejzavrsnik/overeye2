@@ -43,10 +43,6 @@ webport_gauge_factory (
    // Create parameters shared between logical and visual parts of the gauge
    auto parameters = std::make_shared<gauge::parameters>(gauge_configuration.settings);
    parameters->set(webport::tags::style(), stylesheet);
-   parameters->set("x", std::to_string(gauge_configuration.location.x));
-   parameters->set("y", std::to_string(gauge_configuration.location.y));
-   parameters->set("width", std::to_string(gauge_configuration.location.width));
-   parameters->set("height", std::to_string(gauge_configuration.location.height));
    parameters->make_user_facing("x", "X");
    parameters->make_user_facing("y", "Y");
    parameters->make_user_facing("width", "Width");

@@ -64,7 +64,7 @@ private:
    ) override;
 
    bool
-   set(
+   set_value(
       const std::string& tag,
       const std::string& value
    ) override;

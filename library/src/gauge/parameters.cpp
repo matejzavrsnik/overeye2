@@ -1,4 +1,5 @@
 #include "parameters.h"
+#include "tools/get_if_exists.h"
 
 namespace gauge
 {
@@ -25,19 +26,17 @@ namespace gauge
    }
 
    bool
-   parameters::set(
+   parameters::set_value(
       const std::string& tag,
       const std::string& value
    )
    {
       auto existing_setting = m_settings.find(tag);
-      if (existing_setting != m_settings.end())
-      {
-         existing_setting->second = value;
-         return true;
-      }
+      if (existing_setting == m_settings.end())
+         return false; // no such setting
 
-      return false;
+      existing_setting->second = value;
+      return true;
    }
 
    bool
@@ -60,12 +59,13 @@ namespace gauge
    std::optional<std::string>
    parameters::get_value (const std::string& tag)
    {
-      auto it_setting = m_settings.find(tag);
-      if (it_setting != m_settings.end())
-      {
-         return it_setting->second;
-      }
-      return std::nullopt;
+      return mzlib::get_if_exists(tag, m_settings);
+      //auto it_setting = m_settings.find(tag);
+      //if (it_setting != m_settings.end())
+      //{
+      //   return it_setting->second;
+      //}
+      //return std::nullopt;
    }
 
    std::optional<std::string>
@@ -73,12 +73,13 @@ namespace gauge
       const std::string& tag
    )
    {
-      auto it_setting = m_nice_names.find(tag);
-      if (it_setting != m_nice_names.end())
-      {
-         return it_setting->second;
-      }
-      return std::nullopt;
+      return mzlib::get_if_exists(tag, m_nice_names);
+      //auto it_setting = m_nice_names.find(tag);
+      //if (it_setting != m_nice_names.end())
+      //{
+      //   return it_setting->second;
+      //}
+      //return std::nullopt;
    }
 
    std::map<std::string, std::string>

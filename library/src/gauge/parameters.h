@@ -31,16 +31,20 @@ public:
    virtual ~parameters () = default;
 
    void
-   set_or_add_user_setting (
+   set (
       const std::string& tag,
-      const std::string& value,
-      const std::string& name
+      const std::string& value
+   );
+
+   bool
+   make_user_facing (
+      const std::string& tag,
+      const std::string& nice_name
    );
 
    void
-   set_or_add_internal_setting(
-      const std::string& tag,
-      const std::string& value
+   make_internal (
+      const std::string& tag
    );
 
    bool
@@ -49,22 +53,18 @@ public:
       const std::string& value
    );
 
-   bool
-   user_setting_set (
-      const std::string& tag,
-      const std::string& value
+   std::optional<std::string>
+   get_value(
+      const std::string &tag
    );
 
    std::optional<std::string>
-   get_value(const std::string &tag);
-
-   std::optional<std::string>
-   user_setting_get_name (
+   get_nice_name (
       const std::string& tag
    );
 
    std::map<std::string, std::string>
-   user_setting_get_all();
+   get_all_user_facing();
 
 };
 

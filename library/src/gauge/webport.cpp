@@ -6,7 +6,7 @@
 namespace
 {
 const std::string&
-twitter_embedded_html ()
+webport_embedded_html ()
 {
    static const std::string html = R"(
    <!DOCTYPE html>
@@ -32,9 +32,11 @@ webport::webport (
    m_settings(settings)
 {
    // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(tags::genesis(), twitter_embedded_html());
-   m_settings->set_or_add_internal_setting(tags::style(), style);
-   m_settings->set_or_add_user_setting(tags::content(), "", "Content");
+   m_settings->set(tags::genesis(), webport_embedded_html());
+   m_settings->set(tags::style(), style);
+   m_settings->set(tags::content(), "");
+
+   m_settings->make_user_facing(tags::content(), "Content");
 
    m_timer.tick.connect(&webport::tick, this);
 }

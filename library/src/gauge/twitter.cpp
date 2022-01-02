@@ -38,8 +38,11 @@ twitter::twitter (
    webport(style, user_settings)
 {
    // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(webport::tags::content(), twitter_embedded_html()); // taking over {content} tag from user
-   m_settings->set_or_add_user_setting(twitter::tags::handle(), "", "Handle");
+   m_settings->set(webport::tags::content(), twitter_embedded_html());
+   m_settings->set(twitter::tags::handle(), "");
+
+   m_settings->make_internal(webport::tags::content()); // taking over {content} tag from user
+   m_settings->make_user_facing(twitter::tags::handle(), "Handle");
 }
 
 const std::string&

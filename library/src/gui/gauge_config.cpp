@@ -34,10 +34,10 @@ gui::gauge_config::populate_grid ()
    ui->config_table->verticalHeader()->hide();
    ui->config_table->horizontalHeader()->hide();
    int row = 0;
-   for (const auto& [tag, value] : m_settings->user_setting_get_all())
+   for (const auto& [tag, value] : m_settings->get_all_user_facing())
    {
       ui->config_table->insertRow(row);
-      auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdString(m_settings->user_setting_get_name(tag).value()));
+      auto item_name = std::make_unique<QTableWidgetItem>(QString::fromStdString(m_settings->get_nice_name(tag).value()));
       item_name->setFlags(item_name->flags() ^ Qt::ItemIsEditable);
       auto item_value = std::make_unique<QTableWidgetItem>(QString::fromStdString(value));
       item_value->setData(Qt::UserRole, QString::fromStdString(tag));
@@ -66,7 +66,7 @@ gui::gauge_config::handleApplyPress ()
       const auto& valueItem = ui->config_table->item(row, 1);
       const std::string& tag = valueItem->data(Qt::UserRole).toString().toStdString();
       const std::string& value = valueItem->data(Qt::DisplayRole).toString().toStdString();
-      m_settings->user_setting_set(tag, value);
+      m_settings->set(tag, value);
       anything_changed = true; // todo: better if it was done from settings class centraly
    }
 

@@ -7,7 +7,7 @@ namespace
 {
 
 const std::string&
-twitter_embedded_html ()
+clock_embedded_html ()
 {
    static const std::string html = R"(
    {timezone}
@@ -28,10 +28,13 @@ clock::clock (
 ) :
    webport(style, user_settings)
 {
-   // setup settings expected for this gauge
-   m_settings->set_or_add_internal_setting(webport::tags::content(), twitter_embedded_html()); // taking over {content} tag from user
-   m_settings->set_or_add_user_setting(tags::format(), "ddd MMMM d yyyy hh:mm:ss", "Format");
-   m_settings->set_or_add_user_setting(tags::timezone(), "current", "Location");
+   m_settings->set(webport::tags::content(), clock_embedded_html());
+   m_settings->set(tags::format(), "ddd MMMM d yyyy hh:mm:ss");
+   m_settings->set(tags::timezone(), "current");
+
+   m_settings->make_internal(webport::tags::content()); // taking over {content} tag from user
+   m_settings->make_user_facing(tags::format(), "Format");
+   m_settings->make_user_facing(tags::timezone(), "Location");
 
    using namespace std::chrono_literals;
    set_content_refresh_period(1000ms);

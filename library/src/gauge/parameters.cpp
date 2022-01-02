@@ -5,23 +5,33 @@ namespace gauge
 {
 
    void
-   parameters::set_or_add_user_setting (
-      const std::string& tag,
-      const std::string& value,
-      const std::string& nice_name
-   )
-   {
-      m_settings[tag] = value;
-      m_nice_names[tag] = nice_name;
-   }
-
-   void
-   parameters::set_or_add_internal_setting (
+   parameters::set (
       const std::string& tag,
       const std::string& value
    )
    {
       m_settings[tag] = value;
+   }
+
+   bool
+   parameters::make_user_facing (
+      const std::string& tag,
+      const std::string& nice_name
+   )
+   {
+      // maintain invariant
+      if (!mzlib::exists(tag, m_settings))
+         return false; // can't make it user facing when it's not a setting
+
+      m_nice_names[tag] = nice_name;
+      return true;
+   }
+
+   void
+   parameters::make_internal (
+      const std::string& tag
+   )
+   {
       m_nice_names.erase(tag);
    }
 
@@ -31,28 +41,10 @@ namespace gauge
       const std::string& value
    )
    {
-      auto existing_setting = m_settings.find(tag);
-      if (existing_setting == m_settings.end())
-         return false; // no such setting
+      if (!mzlib::exists(tag, m_settings))
+         return false;
 
-      existing_setting->second = value;
-      return true;
-   }
-
-   bool
-   parameters::user_setting_set (
-      const std::string& tag,
-      const std::string& value
-   )
-   {
-      if (m_nice_names.find(tag) != m_nice_names.end())
-         return false; // not a user setting
-
-      auto it_setting = m_settings.find(tag);
-      if (it_setting == m_settings.end())
-         return false; // no such setting at all
-
-      it_setting->second = value;
+      m_settings[tag] = value;
       return true;
    }
 
@@ -60,30 +52,18 @@ namespace gauge
    parameters::get_value (const std::string& tag)
    {
       return mzlib::get_if_exists(tag, m_settings);
-      //auto it_setting = m_settings.find(tag);
-      //if (it_setting != m_settings.end())
-      //{
-      //   return it_setting->second;
-      //}
-      //return std::nullopt;
    }
 
    std::optional<std::string>
-   parameters::user_setting_get_name (
+   parameters::get_nice_name (
       const std::string& tag
    )
    {
       return mzlib::get_if_exists(tag, m_nice_names);
-      //auto it_setting = m_nice_names.find(tag);
-      //if (it_setting != m_nice_names.end())
-      //{
-      //   return it_setting->second;
-      //}
-      //return std::nullopt;
    }
 
    std::map<std::string, std::string>
-   parameters::user_setting_get_all ()
+   parameters::get_all_user_facing ()
    {
       std::map<std::string, std::string> settings;
       for (const auto& [tag, _] : m_nice_names)

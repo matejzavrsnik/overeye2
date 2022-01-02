@@ -3,30 +3,15 @@
 namespace gauge
 {
 
-   std::map<std::string, extended_setting>::iterator
-   parameters::find (const std::string& tag)
-   {
-      return m_settings.find(tag);
-   }
-
-   extended_setting&
-   parameters::find_or_add (const std::string& tag)
-   {
-      return m_settings[tag];
-   }
-
    void
    parameters::set_or_add_user_setting (
       const std::string& tag,
       const std::string& value,
-      const std::string& name
+      const std::string& nice_name
    )
    {
-      extended_setting& setting = find_or_add(tag);
-
-      setting.set_value(value);
-      setting.set_user_setting(true);
-      setting.set_name(name);
+      m_settings[tag].set_value(value);
+      m_nice_names[tag] = nice_name;
    }
 
    void
@@ -35,40 +20,38 @@ namespace gauge
       const std::string& value
    )
    {
-      extended_setting& setting = find_or_add(tag);
-
-      setting.set_value(value);
-      setting.set_user_setting(false);
+      m_settings[tag].set_value(value);
    }
 
-bool
-parameters::set(
-   const std::string& tag,
-   const std::string& value
-)
-{
-   auto existing_setting = find(tag);
-   if (existing_setting != m_settings.end())
+   bool
+   parameters::set(
+      const std::string& tag,
+      const std::string& value
+   )
    {
-      existing_setting->second.set_value(value);
-      return true;
+      auto existing_setting = m_settings.find(tag);
+      if (existing_setting != m_settings.end())
+      {
+         existing_setting->second.set_value(value);
+         return true;
+      }
+
+      return false;
    }
 
-   return false;
-}
-
-   // sets tag value if exists and is available as user basic_setting
    bool
    parameters::user_setting_set (
       const std::string& tag,
       const std::string& value
    )
    {
-      auto it_setting = find(tag);
+      if (m_nice_names.find(tag) != m_nice_names.end())
+         return false; // not a user setting
+
+      auto it_setting = m_settings.find(tag);
       if (it_setting == m_settings.end())
-         return false;
-      if (!it_setting->second.is_user_setting())
-         return false;
+         return false; // no such setting at all
+
       it_setting->second.set_value(value);
       return true;
    }
@@ -76,7 +59,7 @@ parameters::set(
    std::optional<std::string>
    parameters::get_value (const std::string& tag)
    {
-      auto it_setting = find(tag);
+      auto it_setting = m_settings.find(tag);
       if (it_setting != m_settings.end())
       {
          return it_setting->second.get_value();
@@ -89,10 +72,10 @@ parameters::set(
       const std::string& tag
    )
    {
-      auto it_setting = find(tag);
-      if (it_setting != m_settings.end() && it_setting->second.is_user_setting())
+      auto it_setting = m_nice_names.find(tag);
+      if (it_setting != m_nice_names.end())
       {
-         return it_setting->second.get_name();
+         return it_setting->second;
       }
       return std::nullopt;
    }
@@ -101,9 +84,8 @@ parameters::set(
    parameters::user_setting_get_all ()
    {
       std::map<std::string, std::string> settings;
-      for (auto setting : m_settings)
-         if (setting.second.is_user_setting())
-            settings[setting.first] = setting.second.get_value();
+      for (const auto& [tag, _] : m_nice_names)
+         settings[tag] = m_settings[tag].get_value();
       return settings;
    }
 

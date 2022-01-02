@@ -42,13 +42,14 @@ public:
 
 private:
 
-   std::map<std::string, extended_setting> m_settings;
+   // A collection of all settings for the gauge in tag / value mapping
+   std::map<std::string /*tag*/, extended_setting> m_settings;
 
-   std::map<std::string, extended_setting>::iterator
-   find (const std::string& tag);
-
-   extended_setting&
-   find_or_add (const std::string& tag);
+   // Settings that are user facing in config dialog need nice names to
+   // present to user. This is a map between settings tags and nice names.
+   // At the same time, membership in this collection implies a user facing
+   // setting.
+   std::map<std::string /*tag*/, std::string /*nice name*/> m_nice_names;
 
    void
    set_or_add_user_setting (
@@ -69,7 +70,6 @@ private:
       const std::string& value
    ) override;
 
-   // sets tag value if exists and is available as user basic_setting
    bool
    user_setting_set (
       const std::string& tag,

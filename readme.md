@@ -125,6 +125,7 @@ I can afford to just have a list of things I want to achieve here.
 The order implies priority.
 
 Open:
+- 🚁 a widget that can display request www
 - 🚁 it would be nice if json save didn't reorder the entries; order makes a difference to human readers
 - 🚁 a widget that shows linux logs
 - 🚁 webports to be able to set width and height via keywords

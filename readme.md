@@ -1,4 +1,20 @@
- 
+# What is this?
+
+I got a beautiful new monitor and I wanted to display a "command centre" style of display where I could see different sorts of information in one screen, which would then be used as a screensaver for my beautiful big monitor. The project ended when I realised it looks ugly and I didn't really want to use that.
+
+Screenshots:
+
+Editing a control, where I set which Twitter account I want the Twitter control to show me:
+![Editing a control](./docs/demo_screenshot.png "Editing a control")
+
+A screem full of different kinds of controls: clock, picture from web, twitter accounts, youtube video, weather in London and on Mars, custom text with emojis:
+![Example 1](./docs/demo_screenshot2.png "Example 1")
+
+Another such screen. You can see how it's ugly even after I made a switch from forcing the controls into a grid to having controls anywhere you want:
+![Editing a control](./docs/demo_screenshot3.png "Editing a control")
+
+These screens are defined by json file that can be provided to main application, which then renders it on screen. If the file doesn't exist, the default content will be used which comes from the executable itself and in the code you can find it in file library/src/logic/load_save_settings.cpp, function default_settings_content (). You can use that as a template to get you started, but good luck making it pretty enough for a screensaver.
+
 # git help
 
 ## adding submodule
